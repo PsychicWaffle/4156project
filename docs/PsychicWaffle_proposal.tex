@@ -61,16 +61,19 @@
 
 \maketitle
 
-\section{Description}
+\section{Synopsis}
+
+\subsection{Motivation}
+Large buy/sell orders have the potential to significantly move markets if not executed properly. Big orders that are executed in a single trade can adversely push the market price against the trader. For example, if a trader shows he or she has a large sell order, the relevant asset's price will almost inevitably move lower; this will result in the trader selling at an average lower price. The goal of this project is to build a system that accounts for these market dynamics and executes client orders as optimally as possible for them. By filling orders on their behalf \emph{and} at the optimal price, our clients will save time and money. 
 
 \subsection{Functionality} % What will it do?
-Execute a client's sell order in increments, over the course of a day, at the optimal price. 
+Our system will receive a client order, figure out the most optimal method of execution (it will usually split the order up into increments), and actually fill the order. The heart of the system will be an algorithm that figures out the most optimal method of execution: given X shares left to sell at time Y, the system will determine the next sell order. This requires the system to calculate when to make the next sell, as well as how many shares to sell at the current price. Furthermore, the system will provide the user with immediate feedback detailing each execution attempt. More specifically, after each execution attempt the system will respond with whether order was filled or not, and if the order was filled how many shares were traded and at what average price. 
 
 \subsection{Users}
-Since the system was requested by a Pension Fund, this will be our primary user. However, any trading participant should be able to use our system. This would include Hedge Funds, Banks, Individual Traders, Brokers. 
+Since the system was requested by a Pension Fund, this will be our primary user for now. Furthermore, our system is designed to handle large sell orders for customers who are happy to get their orders done over the course of the day (as opposed to instantaneously). Nonetheless, anyone trading Acme on this exchange, who needs similar types of orders filled, should be able to use our system. This would include Hedge Funds, Banks, Individual Traders, Brokers and other financial professionals/firms. 
 
-\subsection{Uses}
-Execute big buy/sell orders in increments so the client receives the best possible price
+\subsection{Usage}
+As of now the client's main use of our system will be to execute large sell orders. Nonetheless, we intend to add features in the future.
 
 \subsection{Error Handling}
 
