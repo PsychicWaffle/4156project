@@ -109,18 +109,21 @@ These logs will include issues such as failed connections and unexpected return 
 
 We also plan to cleanse all text as it is entered into the program.
 
+\newpage
 \section{Technology}
 
 \subsection{Programming Language}
-Python
+The bulk of our code will be written in python - python has many easily accessible dev tools, and can for many applications substantially decrease development time. 
 \subsection{Development Framework}
-
+Our development framework will be flask (http://flask.pocoo.org/), a web development framework, which allows webservers to be created quite easily, and gives a lot of flexibility to the developers. \\
+\\
+In addition, we will use pip, the python package manager, to install the packages we need, and virtualenv in order to properly maintain our python environment. 
 \subsection{Build Automation Tool}
-
+Our preliminary build automation tool will be PyBuilder (https://pybuilder.github.io/).
 \subsection{Static Analysis Tool}
-
+Our preliminary static analysis tool will be Pylint (https://www.pylint.org/), a popular linter for python.
 \subsection{Unit testing tool}
-
+Our preliminary unit testing tool will be PyUnit, the unit testing tool that is built in to python.
 \subsection{Persistent Data Store} 
-
+Our persistant data store will be a PostgresQL database, in which we will store (at least initially) user data and password hashes.
 \end{document} 
