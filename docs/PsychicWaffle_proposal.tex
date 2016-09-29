@@ -10,6 +10,7 @@
 \usepackage{amsthm}
 \usepackage{verbatim}
 \usepackage{listings} % for code highlighting/formatting
+\usepackage[final]{pdfpages}
 
 \usepackage{color} %defining colors for syntax highlighting
 \definecolor{syntaxBlue}{RGB}{42,0.0,255}
@@ -53,9 +54,7 @@
     Jake Weissman\\
     \texttt{jdw2159@columbia.edu}
 }
-
-%\author{Andrew Grant, A.J. Feather, Jacob Graff, Jake Weismann  \\amg2215@columbia.edu, af2849@columbia.edu, jag2302@columbia.edu, jdw2159@columbia.edu}
-\date{9/28/2016}
+\date{\today}
 
 \begin{document}
 
@@ -95,10 +94,13 @@ The user should be able to send a sell order to the system, giving a sale price 
 
 \subsection{Sell Order Work Flow}
 
-The largest back end challenge we face at this time is attempting to match the user's specified price. To handle this, we plan on using a form of the VWAP algorithm. The following diagram shows that workflow.
+The largest back end challenge we face at this time is attempting to match the user's specified price. To handle this, we plan on using a form of the VWAP algorithm. The following diagram shows that workflow (on the next page).
 
+\begin{center}
+\includepdf[pages=-]{proposal_diagram.pdf}
+\end{center}
 
-
+\pagebreak
 \subsection{Error Handling}
 
 \paragraph{}
@@ -109,7 +111,6 @@ These logs will include issues such as failed connections and unexpected return 
 
 We also plan to cleanse all text as it is entered into the program.
 
-\newpage
 \section{Technology}
 
 \subsection{Programming Language}
