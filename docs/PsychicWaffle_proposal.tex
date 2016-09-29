@@ -74,6 +74,7 @@ Since the system was requested by a Pension Fund, this will be our primary user 
 \subsection{Usage}
 As of now the client's main use of our system will be to execute large sell orders. Nonetheless, we intend to add more sophisticated features in the future.
 
+\pagebreak
 \subsection{User Stories}
 
 \subsubsection{User Login}
@@ -96,9 +97,10 @@ The user should be able to send a sell order to the system, giving a sale price 
 
 The largest back end challenge we face at this time is attempting to match the user's specified price. To handle this, we plan on using a form of the VWAP algorithm. The following diagram shows that workflow (on the next page).
 
-\begin{center}
-\includepdf[pages=-]{proposal_diagram.pdf}
-\end{center}
+\begin{figure}
+   \centering
+   \includepdf[pages=-, offset=0 -150]{proposal_diagram.pdf}
+\end{figure}
 
 \pagebreak
 \subsection{Error Handling}
