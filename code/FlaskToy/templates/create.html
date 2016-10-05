@@ -1,0 +1,21 @@
+<html>
+  <style>
+    body { 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+  <head>
+    <title>Create User</title>
+  </head>
+  <body>
+    <p style='color:red'>{{error_message}}</p>
+    <form action="create" method = "POST"> 
+      <p>Username: <input type="text" name="username"></p>
+      <p>Password: <input type="password" name="password"></p>
+      <p>Confirm Password: <input type="password" name="password_conf"></p>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

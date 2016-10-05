@@ -1,0 +1,22 @@
+<html>
+  <style>
+    body { 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+  <head>
+    <title>Change Password</title>
+  </head>
+  <body>
+    <p style='color:red'>{{error_message}}</p>
+    <form action="change" method = "POST"> 
+      <p>Username: <input type="text" name="username"></p>
+      <p>Password: <input type="password" name="password"></p>
+      <p>New Password: <input type="password" name="new_password"></p>
+      <p>Confirm New Password: <input type="password" name="password_conf"></p>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
