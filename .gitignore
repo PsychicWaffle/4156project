@@ -2,3 +2,4 @@
 *.gz
 *.aux
 *.DS_Store
+venv
