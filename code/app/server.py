@@ -1,6 +1,7 @@
 import hashlib
 from sqlalchemy import *
 from flask import Flask, request, render_template, g, redirect, Response, session
+from transaction import *
 
 app = Flask(__name__)
 
@@ -24,7 +25,8 @@ def transaction():
         if request.form['quantity'] == '' or 'quantity' not in request.form:
             context = dict(error_message = "No quantity given")
             return render_template("home.html", username=session['username'], **context)
-        print request.form['quantity']
+        # execute a transaction
+        execute_transaction(float(request.form['quantity']))
     return render_template("home.html", username=session['username'])
 
 

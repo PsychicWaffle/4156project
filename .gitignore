@@ -3,3 +3,4 @@
 *.aux
 *.DS_Store
 venv
+*.pyc
