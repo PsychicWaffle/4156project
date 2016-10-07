@@ -14,3 +14,9 @@ virtualenv venv
 ```
 pip install -r requirements.txt
 ```
+
+### Setting up database:
+```sql
+CREATE DATABASE USERS;
+\connect USERS
+CREATE TABLE USERPASS(USERNAME TEXT NOT NULL, PASS TEXT NOT NULL);
