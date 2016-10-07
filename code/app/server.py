@@ -13,7 +13,20 @@ app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06
 def hello_world():
     if 'username' not in session:
         return redirect('/login')
-    return render_template("hello.html", username=session['username'])
+    return redirect('/home')
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def transaction():
+    if 'username' not in session:
+        return redirect('/login')
+    if request.method == 'POST':
+        if request.form['quantity'] == '' or 'quantity' not in request.form:
+            context = dict(error_message = "No quantity given")
+            return render_template("home.html", username=session['username'], **context)
+        print request.form['quantity']
+    return render_template("home.html", username=session['username'])
+
 
 @app.route('/change', methods=['GET', 'POST'])
 def change():
