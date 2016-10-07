@@ -4,7 +4,6 @@ from flask import Flask, request, render_template, g, redirect, Response, sessio
 
 app = Flask(__name__)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/userpass'
 DATABASE_URI = "postgresql://localhost/users"
 engine = create_engine(DATABASE_URI)
 
