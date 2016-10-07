@@ -18,12 +18,10 @@ def hello_world():
 @app.route('/change', methods=['GET', 'POST'])
 def change():
     if request.method == 'POST':
-        if request.form['username'] == '' or\
-                        'username' not in request.form:
+        if request.form['username'] == '' or 'username' not in request.form:
             context = dict(error_message = "No username given")
             return render_template("change.html", **context)
-        if request.form['password'] == '' or\
-                        'password' not in request.form:
+        if request.form['password'] == '' or 'password' not in request.form:
             context = dict(error_message = "No password given")
             return render_template("change.html", **context)
         if request.form['password_conf'] != request.form['new_password'] or\
@@ -44,21 +42,19 @@ def change():
             context = dict(error_message = "Incorrect username or password")
             return render_template("change.html", **context)
 
-
         g.conn.execute("UPDATE userpass SET pass = %s WHERE username = %s", newpasshash, username)
         return redirect('/')
 
     return render_template("change.html")
 
+
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
-        if request.form['username'] == '' or\
-                        'username' not in request.form:
+        if request.form['username'] == '' or 'username' not in request.form:
             context = dict(error_message = "No username given")
             return render_template("create.html", **context)
-        if request.form['password'] == '' or\
-                        'password' not in request.form:
+        if request.form['password'] == '' or 'password' not in request.form:
             context = dict(error_message = "No password given")
             return render_template("create.html", **context)
         if request.form['password_conf'] != request.form['password'] or\
