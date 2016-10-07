@@ -86,6 +86,12 @@ def create():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
+        if request.form['username'] == '' or 'username' not in request.form:
+            context = dict(error_message = "No username given")
+            return render_template("login.html", **context)
+        if request.form['password'] == '' or 'password' not in request.form:
+            context = dict(error_message = "No password given")
+            return render_template("login.html", **context)
         g.conn = engine.connect()
         cursor = g.conn.execute("SELECT pass FROM userpass WHERE username=%s",request.form['username'])
         passhash = cursor.first()[0]

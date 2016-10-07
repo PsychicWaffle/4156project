@@ -8,6 +8,7 @@
     <div class="container">
       <h1>Please login or <a href='/create'>Create User</a></h1>
       <br>
+      <p style='color:red'>{{error_message}}</p>
       <form action="" method="post">
         <input type="text" placeholder="Username" name="username" value="{{
           request.form.username }}">
