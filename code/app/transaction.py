@@ -22,6 +22,9 @@ import urllib2
 import time
 import json
 import random
+import py_compile
+import datetime
+from order import Order
 
 # Server API URLs
 QUERY = "http://localhost:8080/query?id={}"
@@ -30,7 +33,7 @@ ORDER = "http://localhost:8080/order?id={}&side=sell&qty={}&price={}"
 # Strategy config.  We will attempt to liquidate a position of INVENTORY shares,
 # by selling ORDER_SIZE @ top_bid - ORDER_DISCOUNT, once every N seconds.
 ORDER_DISCOUNT = 10
-ORDER_SIZE     = 200
+#ORDER_SIZE     = 200
 
 N = 5
 
@@ -42,6 +45,8 @@ def execute_transaction(INVENTORY):
 	# Start with all shares and no profit
 	qty = INVENTORY
 	pnl = 0
+        start_time = datetime.datetime.now().time()
+        my_order = Order(INVENTORY, start_time)
 
 	# Repeat the strategy until we run out of shares.
 	while qty > 0:
@@ -53,8 +58,10 @@ def execute_transaction(INVENTORY):
 			price = float(quote['top_bid']['price'])
 			print "Quoted at %s" % price
 
+                now = datetime.datetime.now().time()
+                current_order_size = my_order.get_next_order_size(now)
 		# Attempt to execute a sell order.
-		order_args = (ORDER_SIZE, price - ORDER_DISCOUNT)
+		order_args = (current_order_size, price - ORDER_DISCOUNT)
 		print "Executing 'sell' of {:,} @ {:,}".format(*order_args)
 		url   = ORDER.format(random.random(), *order_args)
 		order = json.loads(urllib2.urlopen(url).read())
@@ -62,10 +69,11 @@ def execute_transaction(INVENTORY):
 		# Update the PnL if the order was filled.
 		if order['avg_price'] > 0:
 			price    = order['avg_price']
-			notional = float(price * ORDER_SIZE)
+			notional = float(price * current_order_size)
 			pnl += notional
-			qty -= ORDER_SIZE
-			print "Sold {:,} for ${:,}/share, ${:,} notional".format(ORDER_SIZE, price, notional)
+			qty -= current_order_size
+                        my_order.reduce_curr_investory(current_order_size)
+			print "Sold {:,} for ${:,}/share, ${:,} notional".format(current_order_size, price, notional)
 			print "PnL ${:,}, Qty {:,}".format(pnl, qty)
 		else:
 			print "Unfilled order; $%s total, %s qty" % (pnl, qty)
