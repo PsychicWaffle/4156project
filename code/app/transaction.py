@@ -77,7 +77,7 @@ def execute_transaction(INVENTORY):
 			price    = order['avg_price']
 			notional = float(price * current_order_size)
 			pnl += notional
-                        my_order.process_executed_order()
+                        my_order.process_executed_order(current_order_size, price)
 			print "Sold {:,} for ${:,}/share, ${:,} notional".format(current_order_size, price, notional)
 			print "PnL ${:,}, Qty {:,}".format(pnl, my_order.get_inventory_left())
 		else:
@@ -87,3 +87,4 @@ def execute_transaction(INVENTORY):
 
 	# Position is liquididated!
 	print "Liquidated position for ${:,}".format(pnl)
+        print my_order.print_summary()
