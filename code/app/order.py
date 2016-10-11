@@ -1,4 +1,6 @@
 import py_compile
+import time
+
 SECONDS_IN_MINUTE = 60
 SECONDS_IN_HOUR = 3600
 HOURS_IN_DAY = 24
@@ -29,8 +31,8 @@ class Order:
     def get_next_order_time(self):
         return self.next_order_time
 
-    def process_executed_order(self, quantity, avg_price):
-        self.executed_trades.append((quantity, avg_price))
+    def process_executed_order(self, quantity, avg_price, time):
+        self.executed_trades.append((quantity, avg_price, time))
         self.curr_inventory -= quantity
         self.next_order_time += 10
 
@@ -46,4 +48,4 @@ class Order:
         for trade in self.executed_trades:
             print "qt: %d" % trade[0]
             print "avg price: %f" % trade[1]
-
+            print "trade time: %s" % time.strftime("%Y-%m-%d T%H:%M:%S", time.gmtime(trade[2]))
