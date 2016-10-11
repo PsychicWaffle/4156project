@@ -23,7 +23,6 @@ import time
 import json
 import random
 import py_compile
-import datetime
 from order import Order
 
 # Server API URLs
@@ -45,12 +44,14 @@ def execute_transaction(INVENTORY):
 	# Start with all shares and no profit
 	qty = INVENTORY
 	pnl = 0
-        start_time = datetime.datetime.now().time()
+        start_time = time.time()
+        print "start time %d" % start_time
         my_order = Order(INVENTORY, start_time)
 
 	# Repeat the strategy until we run out of shares.
-	while qty > 0:
+	while my_order.get_inventory_left() > 0:
 
+                my_order.print_current_order()
 		# Query the price once every N seconds.
 		for _ in xrange(N):
 			time.sleep(1)
@@ -58,8 +59,13 @@ def execute_transaction(INVENTORY):
 			price = float(quote['top_bid']['price'])
 			print "Quoted at %s" % price
 
-                now = datetime.datetime.now().time()
-                current_order_size = my_order.get_next_order_size(now)
+                now = time.time()
+    
+                current_order_size, current_order_time = my_order.get_next_order()
+                # print type(next_order)
+                if now < current_order_time:
+                    continue
+
 		# Attempt to execute a sell order.
 		order_args = (current_order_size, price - ORDER_DISCOUNT)
 		print "Executing 'sell' of {:,} @ {:,}".format(*order_args)
@@ -71,15 +77,13 @@ def execute_transaction(INVENTORY):
 			price    = order['avg_price']
 			notional = float(price * current_order_size)
 			pnl += notional
-			qty -= current_order_size
-                        my_order.reduce_curr_investory(current_order_size)
+                        my_order.process_executed_order()
 			print "Sold {:,} for ${:,}/share, ${:,} notional".format(current_order_size, price, notional)
-			print "PnL ${:,}, Qty {:,}".format(pnl, qty)
+			print "PnL ${:,}, Qty {:,}".format(pnl, my_order.get_inventory_left())
 		else:
-			print "Unfilled order; $%s total, %s qty" % (pnl, qty)
+			print "Unfilled order; $%s total, %s qty" % (pnl, my_order.get_inventory_left())
 
 		time.sleep(1)
 
 	# Position is liquididated!
 	print "Liquidated position for ${:,}".format(pnl)
-
