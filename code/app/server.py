@@ -62,16 +62,19 @@ def change():
         oldpasshash = hashlib.md5(request.form['password']).hexdigest()
         newpasshash = hashlib.md5(request.form['new_password']).hexdigest()
 
-        g.conn = engine.connect()
-
-        cursor = g.conn.execute("SELECT * FROM userpass WHERE username=%s", username)
-        hashfound = cursor.first()[1]
+        dbsession = Session()
+        user = dbsession.query(UserPass).filter_by(username=username).first()
+        hashfound = user.password
 
         if hashfound == None or hashfound != oldpasshash:
+            dbsession.close()
             context = dict(error_message = "Incorrect username or password")
             return render_template("change.html", **context)
 
-        g.conn.execute("UPDATE userpass SET password = %s WHERE username = %s", newpasshash, username)
+        user.password = newpasshash
+        dbsession.commit()
+        dbsession.close()
+
         return redirect('/')
 
     return render_template("change.html")
@@ -94,18 +97,19 @@ def create():
         username = request.form['username'].strip()
         passhash = hashlib.md5(request.form['password']).hexdigest()
 
-        g.conn = engine.connect()
+        dbsession = Session()
+        user = dbsession.query(UserPass).filter_by(username=username).first()
 
-        cursor = g.conn.execute("SELECT * FROM userpass WHERE username=%s", username)
-
-        if cursor.first() != None:
+        if user != None:
+            dbsession.close()
             context = dict(error_message = "User already exists")
             return render_template("create.html", **context)
 
         new_user = UserPass(username=username, password=passhash)
-        session = Session()
-        session.add(new_user)
-        session.commit()
+        dbsession.add(new_user)
+        dbsession.commit()
+        dbsession.close()
+
         return redirect('/')
 
     return render_template("create.html")
@@ -120,9 +124,12 @@ def login():
         if request.form['password'] == '' or 'password' not in request.form:
             context = dict(error_message = "No password given")
             return render_template("login.html", **context)
-        g.conn = engine.connect()
-        cursor = g.conn.execute("SELECT password FROM userpass WHERE username=%s",request.form['username'])
-        passhash = cursor.first()[0]
+        dbsession = Session()
+        user = dbsession.query(UserPass).filter_by(username=request.form['username']).first()
+        dbsession.close()
+        if user == None:
+            return render_template('login.html', error="Incorrect username")
+        passhash = user.password
         if passhash == None:
             return render_template('login.html', error="Incorrect username or password")
         password = request.form['password']
