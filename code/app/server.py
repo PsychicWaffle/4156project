@@ -1,14 +1,28 @@
 import hashlib
 from sqlalchemy import *
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import sessionmaker
 from flask import Flask, request, render_template, g, redirect, Response, session
 from transaction import *
+from sqlalchemy.ext.declarative import declarative_base
 
 app = Flask(__name__)
 
 DATABASE_URI = "postgresql://localhost/users"
 engine = create_engine(DATABASE_URI)
+Base = declarative_base()
+Session = sessionmaker(bind=engine)
 
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
+
+class UserPass(Base):
+    __tablename__ = 'userpass'
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+
+    def __repr__(self):
+        return "<UserPass(username='%s', password='%s')>" % (self.username, self.password)
 
 @app.route('/')
 def hello_world():
@@ -57,7 +71,7 @@ def change():
             context = dict(error_message = "Incorrect username or password")
             return render_template("change.html", **context)
 
-        g.conn.execute("UPDATE userpass SET pass = %s WHERE username = %s", newpasshash, username)
+        g.conn.execute("UPDATE userpass SET password = %s WHERE username = %s", newpasshash, username)
         return redirect('/')
 
     return render_template("change.html")
@@ -88,7 +102,10 @@ def create():
             context = dict(error_message = "User already exists")
             return render_template("create.html", **context)
 
-        g.conn.execute("INSERT INTO userpass VALUES (%s, %s)", username, passhash)
+        new_user = UserPass(username=username, password=passhash)
+        session = Session()
+        session.add(new_user)
+        session.commit()
         return redirect('/')
 
     return render_template("create.html")
@@ -104,7 +121,7 @@ def login():
             context = dict(error_message = "No password given")
             return render_template("login.html", **context)
         g.conn = engine.connect()
-        cursor = g.conn.execute("SELECT pass FROM userpass WHERE username=%s",request.form['username'])
+        cursor = g.conn.execute("SELECT password FROM userpass WHERE username=%s",request.form['username'])
         passhash = cursor.first()[0]
         if passhash == None:
             return render_template('login.html', error="Incorrect username or password")
@@ -119,4 +136,6 @@ def login():
 
 
 if __name__ == '__main__':
+    # create the schema if not exists
+    Base.metadata.create_all(engine)
     app.run()
