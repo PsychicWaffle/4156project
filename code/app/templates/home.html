@@ -1,4 +1,30 @@
 <html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+      get_latest = function() {
+          $.getJSON($SCRIPT_ROOT + '/track_order', {
+              id: "{{id}}"
+          }, function(data) {
+            $("#comp").text(data.completed);
+            if(data.trans_finished) {
+              console.log("Trans finished");
+              clearInterval(document.interval);
+            }
+          });
+          return false;
+      };
+
+    document.interval = setInterval(get_latest, 10000);
+
+    </script>
+
+  </head>
   <body>
     <h1>Hello, {{username}}!</h1><br>
     <h3>Execute a Transaction</h3>
@@ -7,6 +33,8 @@
       <p>Number of Shares: <input type="number" name="quantity" min="1" max="10000"></p>
       <input type="submit" value="Submit">
     </form><br>
+
+    <p id="comp" style="position:absolute;right:10px;top:10px;">No Transactions for {{id}}</p>
     <a href='/create'>Create New User</a><br>
     <a href='/change'>Change Password</a><br>
   </body>

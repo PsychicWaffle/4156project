@@ -1,28 +1,41 @@
 import hashlib
-from sqlalchemy import *
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import sessionmaker
-from flask import Flask, request, render_template, g, redirect, Response, session
+from flask import Flask, jsonify, request, render_template, g, redirect, Response, session
 from transaction import *
-from sqlalchemy.ext.declarative import declarative_base
+from multiprocessing import Process
+from database import *
+# from sqlalchemy import *
+# from sqlalchemy import Column, Integer, String
+# from sqlalchemy.orm import sessionmaker
+# from sqlalchemy.ext.declarative import declarative_base
 
 app = Flask(__name__)
 
-DATABASE_URI = "postgresql://localhost/users"
-engine = create_engine(DATABASE_URI)
-Base = declarative_base()
-Session = sessionmaker(bind=engine)
+# DATABASE_URI = "postgresql://localhost/users"
+# engine = create_engine(DATABASE_URI)
+# Base = declarative_base()
+# Session = sessionmaker(bind=engine)
 
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
 
-class UserPass(Base):
-    __tablename__ = 'userpass'
-    id = Column(Integer, primary_key=True)
-    username = Column(String, nullable=False)
-    password = Column(String, nullable=False)
+# class UserPass(Base):
+#     __tablename__ = 'userpass'
+#     # id = Column(Integer, primary_key=True)
+#     username = Column(String, nullable=False, primary_key=True)
+#     password = Column(String, nullable=False)
+# 
+#     def __repr__(self):
+#         return "<UserPass(username='%s', password='%s')>" % (self.username, self.password)
+# 
+# class Transactions(Base):
+#     __tablename__ = 'transactions'
+#     id = Column(Integer, primary_key=True)
+#     username = Column(String, ForeignKey('userpass.username'), primary_key=True)
+#     completed = Column(Integer)
+# 
+#     def __repr__(self):
+#         return "<Transactions(username='%s', id='%d')>" % (self.username, self.id)
 
-    def __repr__(self):
-        return "<UserPass(username='%s', password='%s')>" % (self.username, self.password)
+
 
 @app.route('/')
 def hello_world():
@@ -31,17 +44,64 @@ def hello_world():
     return redirect('/home')
 
 
+def create_transaction(quantity, username):
+    dbsession = Session()
+    max_id = dbsession.query(func.max(Transactions.id)).filter_by(username=username).first()[0]
+    if max_id == None:
+        new_id = 0
+    else:
+        new_id = max_id + 1
+
+    new_transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
+    dbsession.add(new_transaction)
+    dbsession.commit()
+    dbsession.close()
+
+    p = Process(target=execute_transaction, args=(quantity, username, new_id,))
+    p.start()
+
+    return new_id
+
+
 @app.route('/home', methods=['GET', 'POST'])
 def transaction():
     if 'username' not in session:
         return redirect('/login')
+
+    trans_id = -1
     if request.method == 'POST':
         if request.form['quantity'] == '' or 'quantity' not in request.form:
             context = dict(error_message = "No quantity given")
             return render_template("home.html", username=session['username'], **context)
         # execute a transaction
-        execute_transaction(float(request.form['quantity']))
-    return render_template("home.html", username=session['username'])
+        #p = Process(target=execute_transaction, args=(float(request.form['quantity']),))
+        #p.start()
+        trans_id = create_transaction(float(request.form['quantity']), session['username'])
+        # execute_transaction(float(request.form['quantity']))
+    return render_template("home.html", username=session['username'], id=trans_id)
+
+@app.route('/track_order', methods=['GET'])
+def track_order():
+    if 'username' not in session:
+        return redirect('/login')
+
+    order_id = request.args['id']
+    username = session['username']
+
+    if int(order_id) == -1:
+        return jsonify(completed=0, trans_completed=True)
+
+    dbsession = Session()
+    trans = dbsession.query(Transactions).filter_by(username=username, id=order_id).first()
+    num_completed = trans.completed
+    finished = trans.finished
+    dbsession.close()
+
+
+    print num_completed
+
+    return jsonify(completed=num_completed, trans_finished=finished)
+
 
 
 @app.route('/change', methods=['GET', 'POST'])
