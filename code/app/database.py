@@ -3,12 +3,10 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-
 DATABASE_URI = "postgresql://localhost/users"
 engine = create_engine(DATABASE_URI)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
-
 
 class UserPass(Base):
     __tablename__ = 'userpass'
@@ -41,3 +39,5 @@ class ExecutedTrade(Base):
     def __repr__(self):
         return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" % (self.id, self.timestamp)
 
+def createSchema():
+    Base.metadata.create_all(engine)

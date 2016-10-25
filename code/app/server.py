@@ -3,38 +3,10 @@ from flask import Flask, jsonify, request, render_template, g, redirect, Respons
 from transaction import *
 from multiprocessing import Process
 from database import *
-# from sqlalchemy import *
-# from sqlalchemy import Column, Integer, String
-# from sqlalchemy.orm import sessionmaker
-# from sqlalchemy.ext.declarative import declarative_base
+
 
 app = Flask(__name__)
-
-# DATABASE_URI = "postgresql://localhost/users"
-# engine = create_engine(DATABASE_URI)
-# Base = declarative_base()
-# Session = sessionmaker(bind=engine)
-
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
-
-# class UserPass(Base):
-#     __tablename__ = 'userpass'
-#     # id = Column(Integer, primary_key=True)
-#     username = Column(String, nullable=False, primary_key=True)
-#     password = Column(String, nullable=False)
-# 
-#     def __repr__(self):
-#         return "<UserPass(username='%s', password='%s')>" % (self.username, self.password)
-# 
-# class Transactions(Base):
-#     __tablename__ = 'transactions'
-#     id = Column(Integer, primary_key=True)
-#     username = Column(String, ForeignKey('userpass.username'), primary_key=True)
-#     completed = Column(Integer)
-# 
-#     def __repr__(self):
-#         return "<Transactions(username='%s', id='%d')>" % (self.username, self.id)
-
 
 
 @app.route('/')
@@ -80,6 +52,7 @@ def transaction():
         # execute_transaction(float(request.form['quantity']))
     return render_template("home.html", username=session['username'], id=trans_id)
 
+
 @app.route('/track_order', methods=['GET'])
 def track_order():
     if 'username' not in session:
@@ -97,11 +70,9 @@ def track_order():
     finished = trans.finished
     dbsession.close()
 
-
     print num_completed
 
     return jsonify(completed=num_completed, trans_finished=finished)
-
 
 
 @app.route('/change', methods=['GET', 'POST'])
@@ -203,6 +174,6 @@ def login():
 
 
 if __name__ == '__main__':
-    # create the schema if not exists
-    Base.metadata.create_all(engine)
+    # create datbase schema if not exists
+    # TODO
     app.run()
