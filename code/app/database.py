@@ -28,3 +28,16 @@ class Transactions(Base):
 
     def __repr__(self):
         return "<Transactions(username='%s', id='%d')>" % (self.username, self.id)
+
+class ExecutedTrade(Base):
+    __tablename__ = 'executedtrade'
+    id = Column(Integer, primary_key=True)
+    transaction_id = Column(Integer)
+    username = Column(String)
+    timestamp = Column(Integer)
+    quantity = Column(Integer)
+    avg_price = Column(Float)
+
+    def __repr__(self):
+        return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" % (self.id, self.timestamp)
+

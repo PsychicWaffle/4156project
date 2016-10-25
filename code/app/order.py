@@ -32,12 +32,15 @@ class Order:
         return self.next_order_time
 
     def process_executed_order(self, quantity, avg_price, time):
-        self.executed_trades.append((quantity, avg_price, time))
+        self.executed_trades.append({ 'quantity' : quantity, 'avg_price' :  avg_price, 'time' : time })
         self.curr_inventory -= quantity
         self.next_order_time += 10
 
     def get_inventory_left(self):
         return self.curr_inventory
+
+    def get_executed_trades(self):
+        return self.executed_trades
 
     def print_current_order(self):
         print "Initial inventory: %d" % self.initial_inventory
@@ -45,7 +48,10 @@ class Order:
 
     def print_summary(self):
         print "Initial inventory: %d" % self.initial_inventory
-        for trade in self.executed_trades:
-            print "qt: %d" % trade[0]
-            print "avg price: %f" % trade[1]
-            print "trade time: %s" % time.strftime("%Y-%m-%d T%H:%M:%S", time.gmtime(trade[2]))
+        counter = 0
+        for trade in self.get_executed_trades():
+            print counter
+            print "qt: %d" % trade['quantity']
+            print "avg price: %f" % trade['avg_price']
+            print "trade time: %s" % time.strftime("%Y-%m-%d T%H:%M:%S", time.gmtime(trade['time']))
+            counter = counter + 1

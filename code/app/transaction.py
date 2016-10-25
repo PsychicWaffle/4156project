@@ -81,6 +81,11 @@ def execute_transaction(INVENTORY, username, trans_id):
             my_order.process_executed_order(current_order_size, price, now)
             print "Sold {:,} for ${:,}/share, ${:,} notional".format(current_order_size, price, notional)
             print "PnL ${:,}, Qty {:,}".format(pnl, my_order.get_inventory_left())
+            curr_executed_transaction = ExecutedTrade(transaction_id=trans_id, username=username,timestamp=now,quantity=current_order_size, avg_price=price)
+            dbsession = Session() 
+            dbsession.add(curr_executed_transaction)
+            dbsession.commit()
+            dbsession.close()
         else:
             print "Unfilled order; $%s total, %s qty" % (pnl, my_order.get_inventory_left())
 
@@ -93,8 +98,9 @@ def execute_transaction(INVENTORY, username, trans_id):
 
     # Position is liquididated!
     print "Liquidated position for ${:,}".format(pnl)
-    print my_order.print_summary()
-    dbsession = Session()
+    my_order.print_summary()
+
+    dbsession = Session() 
     trans = dbsession.query(Transactions).filter_by(username=username, id=trans_id).first()
     trans.finished = True
     dbsession.commit()
