@@ -69,10 +69,15 @@ def track_order():
     num_completed = trans.completed
     finished = trans.finished
     dbsession.close()
-
     print num_completed
 
-    return jsonify(completed=num_completed, trans_finished=finished)
+    trade_list = []
+    for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=order_id, username=username):
+        trade_list.append( ('Time: ' + str(trade.timestamp), 'Qty: ' + str(trade.quantity), 'Avg Price: ' + str(trade.avg_price)) )
+
+    # return jsonify(completed=num_completed, trans_finished=finished)
+    return jsonify(trade_list=trade_list, trans_finished=finished)
+
 
 
 @app.route('/change', methods=['GET', 'POST'])

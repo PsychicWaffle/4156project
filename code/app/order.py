@@ -22,7 +22,8 @@ class Order:
         return (order_size, order_time)
 
     def get_next_order_size(self):
-        order_size = self.initial_inventory / 24
+        # order_size = self.initial_inventory / 24
+        order_size = self.initial_inventory / 10
         if order_size < min_order_size:
             order_size = min_order_size
 

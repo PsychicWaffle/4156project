@@ -11,7 +11,8 @@
           $.getJSON($SCRIPT_ROOT + '/track_order', {
               id: "{{id}}"
           }, function(data) {
-            $("#comp").text(data.completed);
+            // $("#comp").text(data.completed);
+            $("#comp").text(data.trade_list);
             if(data.trans_finished) {
               console.log("Trans finished");
               clearInterval(document.interval);
