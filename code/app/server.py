@@ -175,5 +175,5 @@ def login():
 
 if __name__ == '__main__':
     # create datbase schema if not exists
-    # TODO
+    createSchema()
     app.run()
