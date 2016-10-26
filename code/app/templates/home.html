@@ -8,20 +8,10 @@
 
     <script type="text/javascript">
       get_latest = function() {
-          $.getJSON($SCRIPT_ROOT + '/track_order', {
-              id: "{{id}}"
-          }, function(data) {
-            // $("#comp").text(data.completed);
-            $("#comp").text(data.trade_list);
-            if(data.trans_finished) {
-              console.log("Trans finished");
-              clearInterval(document.interval);
-            }
-          });
-          return false;
+          document.getElementById('comp').src = document.getElementById('comp').src;
       };
 
-    document.interval = setInterval(get_latest, 10000);
+    document.interval = setInterval(get_latest, 4000);
 
     </script>
 
@@ -35,7 +25,7 @@
       <input type="submit" value="Submit">
     </form><br>
 
-    <p id="comp" style="position:absolute;right:10px;top:10px;">No Transactions for {{id}}</p>
+    <iframe id="comp" style="position:absolute;right:0px;height:100%;" src="/track_order?id={{id}}"></iframe>
     <a href='/create'>Create New User</a><br>
     <a href='/change'>Change Password</a><br>
   </body>

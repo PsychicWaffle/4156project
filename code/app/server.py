@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request, render_template, g, redirect, Respons
 from transaction import *
 from multiprocessing import Process
 from database import *
+from datetime import *
 
 
 app = Flask(__name__)
@@ -73,11 +74,9 @@ def track_order():
 
     trade_list = []
     for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=order_id, username=username):
-        trade_list.append( ('Time: ' + str(trade.timestamp), 'Qty: ' + str(trade.quantity), 'Avg Price: ' + str(trade.avg_price)) )
+        trade_list.append('Time: ' + str(datetime.fromtimestamp(trade.timestamp).strftime('%Y-%m-%d %H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
 
-    # return jsonify(completed=num_completed, trans_finished=finished)
-    return jsonify(trade_list=trade_list, trans_finished=finished)
-
+    return render_template('active-list.html', transactions=trade_list)
 
 
 @app.route('/change', methods=['GET', 'POST'])
