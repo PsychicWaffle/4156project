@@ -66,15 +66,16 @@ def track_order():
         return jsonify(completed=0, trans_completed=True)
 
     dbsession = Session()
-    trans = dbsession.query(Transactions).filter_by(username=username, id=order_id).first()
-    num_completed = trans.completed
-    finished = trans.finished
-    dbsession.close()
-    print num_completed
-
     trade_list = []
-    for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=order_id, username=username):
-        trade_list.append('Time: ' + str(datetime.fromtimestamp(trade.timestamp).strftime('%Y-%m-%d %H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+        if trans.finished is False:
+            for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=trans.id, username=username):
+                trade_list.append('ID: ' + str(trans.id) + ' Time: ' + str(datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+    dbsession.close()
+
+    # trade_list = []
+    # for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=order_id, username=username):
+    #     trade_list.append('Time: ' + str(datetime.fromtimestamp(trade.timestamp).strftime('%Y-%m-%d %H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
 
     return render_template('active-list.html', transactions=trade_list)
 
