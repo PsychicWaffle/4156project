@@ -1,0 +1,73 @@
+\documentclass{article} 
+\usepackage{url, graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{textcomp}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{titling}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{listings} % for code highlighting/formatting
+\usepackage[final]{pdfpages}
+
+\usepackage{color} %defining colors for syntax highlighting
+\definecolor{syntaxBlue}{RGB}{42,0.0,255}
+\definecolor{syntaxGreen}{RGB}{63,127,95}
+\definecolor{syntaxPurple}{RGB}{127,0,85}
+\definecolor{syntaxCyan}{RGB}{0,155,155}
+\definecolor{syntaxGreyBg}{RGB}{220,220,220}
+
+
+\lstset{
+    basicstyle=\small\ttfamily, % Global Code Style
+    tabsize=2, % number of spaces indented when discovering a tab 
+    columns=fixed, % make all characters equal width
+    keepspaces=true, % does not ignore spaces to fit width, convert tabs to spaces
+    showstringspaces=false, % lets spaces in strings appear as real spaces
+    breaklines=true, % wrap lines if they don't fit
+    frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+    frameround=tttt, % make the frame round at all four corners
+    framesep=4pt, % quarter circle size of the round corners
+    numbers=left, % show line numbers at the left
+    numberstyle=\tiny\ttfamily, % style of the line numbers
+    commentstyle=\color{syntaxGreen},
+    keywordstyle=\color{syntaxPurple},
+    stringstyle=\color{syntaxBlue},
+    emph={int,char,float,struct,string},
+    emphstyle=\color{syntaxCyan},
+    backgroundcolor=\color{syntaxGreyBg},
+}
+
+\title{Psychic Waffle Project Proposal}
+\author{
+    A.J. Feather\\
+    \texttt{af2849@columbia.edu}
+    \and
+    Andrew Grant\\
+    \texttt{amg2215@columbia.edu}
+    \and
+    Jacob Graff\\
+    \texttt{jag2302@columbia.edu}
+    \and
+    Jake Weissman\\
+    \texttt{jdw2159@columbia.edu}
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{GitHub Link: \textit{Demo Release}}
+https://github.com/andyg7/4156Project/releases
+
+\section{Demo Findings}
+We presented our demo to Brian, our J.P. Morgan mentor on Wednesday with 3/4 team members present. We demonstrated that our app meets the requirements laid out and that we had delivered what we had promised we would. Specifically, our application allows users to log in and manage their account, execute a transaction for a desired amount of shares, and monitor the execution of the transaction dynamically as it gets executed over time. Our customer was impressed with our demo and was very satisfied with the progress we have made, indicating that essentially all of the baseline requirements have been met. Our customer was also pleased that we provide the ability to execute multiple transactions at a time, as well as multiple users to execute transactions simultaneously. This was not promised to them and was expected to be done in a later iteration, so they were glad to see that we were ahead of schedule.
+
+We discovered a small bug that occurred due to a race condition that our multiprocessing architecture interacts with the database. It was a minor bug and not a major setback. It did however produce a conversation about how to clean up our multiprocessing architecture and make some potential improvements.
+
+Finally, we discussed the next steps with the customer and what they would like to see in the next iteration given our progress. We discussed displaying the transaction progress in a more user friendly way. We also discussed giving users the ability to see summaries of transactions from prior days. Further, we were asked to start playing around with the trade execution algorithm and add some optimization in the next iteration. We have notes on some other smaller requests that we will also try to address in the next iteration.
+
+\end{document} 
