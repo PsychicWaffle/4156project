@@ -19,3 +19,13 @@ pip install -r requirements.txt
 ```
 Drop table userpass if old schema, then simply run python server.py - it creates new schema
 ```
+
+
+#Testing Instructions
+To run all tests in tests/ dir: 
+1) cd code/
+2) python -m unittest discover tests
+
+To run one specific test file from tests/ dir (e.g. test__order.py):
+1) cd code/
+2) python -m unittest tests.test_order
