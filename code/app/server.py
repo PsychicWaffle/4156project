@@ -27,7 +27,8 @@ def create_transaction(quantity, username):
     new_transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
     insertTransaction(new_transaction)
 
-    p = Process(target=execute_transaction, args=(quantity, username, new_id,))
+    transaction_executer = TransactionExecuter(quantity, username, new_id)
+    p = Process(target=transaction_executer.execute_transaction)
     p.start()
 
     return new_id

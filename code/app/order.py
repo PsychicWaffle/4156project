@@ -49,10 +49,6 @@ class Order:
 
     def print_summary(self):
         print "Initial inventory: %d" % self.initial_inventory
-        counter = 0
+        print "Printing Order Summary:"
         for trade in self.get_executed_trades():
-            print counter
-            print "qt: %d" % trade['quantity']
-            print "avg price: %f" % trade['avg_price']
-            print "trade time: %s" % time.strftime("%Y-%m-%d T%H:%M:%S", time.gmtime(trade['time']))
-            counter = counter + 1
+            print "{ qt: %d , avg_price: %f, trade_time: %s }" % (trade['quantity'], trade['avg_price'], time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime(trade['time'])))
