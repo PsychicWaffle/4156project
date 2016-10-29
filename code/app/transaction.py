@@ -24,7 +24,8 @@ import json
 import random
 import py_compile
 from order import Order
-from database import *
+from database_objects import *
+from database_methods import *
 
 # Server API URLs
 QUERY = "http://localhost:8080/query?id={}"

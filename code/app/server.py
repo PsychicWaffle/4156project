@@ -2,8 +2,8 @@ import hashlib
 from flask import Flask, jsonify, request, render_template, g, redirect, Response, session
 from transaction import *
 from multiprocessing import Process
-from database import *
-from datetime import *
+from database_objects import *
+from database_methods import *
 
 
 app = Flask(__name__)
@@ -18,17 +18,14 @@ def hello_world():
 
 
 def create_transaction(quantity, username):
-    dbsession = Session()
-    max_id = dbsession.query(func.max(Transactions.id)).filter_by(username=username).first()[0]
+    max_id = getMaxTransactionId(username)
     if max_id == None:
         new_id = 0
     else:
         new_id = max_id + 1
 
     new_transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
-    dbsession.add(new_transaction)
-    dbsession.commit()
-    dbsession.close()
+    insertTransaction(new_transaction)
 
     p = Process(target=execute_transaction, args=(quantity, username, new_id,))
     p.start()
@@ -65,17 +62,7 @@ def track_order():
     if int(order_id) == -1:
         return jsonify(completed=0, trans_completed=True)
 
-    dbsession = Session()
-    trade_list = []
-    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
-        if trans.finished is False:
-            for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=trans.id, username=username):
-                trade_list.append('ID: ' + str(trans.id) + ' Time: ' + str(datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
-    dbsession.close()
-
-    # trade_list = []
-    # for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=order_id, username=username):
-    #     trade_list.append('Time: ' + str(datetime.fromtimestamp(trade.timestamp).strftime('%Y-%m-%d %H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+    trade_list = getActiveTransactionList(username)
 
     return render_template('active-list.html', transactions=trade_list)
 
@@ -98,18 +85,14 @@ def change():
         oldpasshash = hashlib.md5(request.form['password']).hexdigest()
         newpasshash = hashlib.md5(request.form['new_password']).hexdigest()
 
-        dbsession = Session()
-        user = dbsession.query(UserPass).filter_by(username=username).first()
+        user = getUser(username)
         hashfound = user.password
 
         if hashfound == None or hashfound != oldpasshash:
-            dbsession.close()
             context = dict(error_message = "Incorrect username or password")
             return render_template("change.html", **context)
 
-        user.password = newpasshash
-        dbsession.commit()
-        dbsession.close()
+        updateUserPassword(username, newpasshash)
 
         return redirect('/')
 
@@ -133,18 +116,13 @@ def create():
         username = request.form['username'].strip()
         passhash = hashlib.md5(request.form['password']).hexdigest()
 
-        dbsession = Session()
-        user = dbsession.query(UserPass).filter_by(username=username).first()
+        user = getUser(username)
 
         if user != None:
-            dbsession.close()
             context = dict(error_message = "User already exists")
             return render_template("create.html", **context)
 
-        new_user = UserPass(username=username, password=passhash)
-        dbsession.add(new_user)
-        dbsession.commit()
-        dbsession.close()
+        createNewUser(username, passhash)
 
         return redirect('/')
 
@@ -157,12 +135,11 @@ def login():
         if request.form['username'] == '' or 'username' not in request.form:
             context = dict(error_message = "No username given")
             return render_template("login.html", **context)
+        username = request.form['username']
         if request.form['password'] == '' or 'password' not in request.form:
             context = dict(error_message = "No password given")
             return render_template("login.html", **context)
-        dbsession = Session()
-        user = dbsession.query(UserPass).filter_by(username=request.form['username']).first()
-        dbsession.close()
+        user = getUser(username)
         if user == None:
             return render_template('login.html', error="Incorrect username")
         passhash = user.password
