@@ -18,52 +18,34 @@ def hello_world():
 
 
 def create_transaction(quantity, username):
-    # max_id = getMaxTransactionId(username)
-    # if max_id == None:
-    #     new_id = 0
-    # else:
-    #     new_id = max_id + 1
-
+    # insert new transaction record and grab generated id
     new_id = insertNewTransaction(username, quantity)
-
+    # spin up new process to execute the transaction over time
     transaction_executer = TransactionExecuter(quantity, username, new_id)
     p = Process(target=transaction_executer.execute_transaction)
     p.start()
-
-    return new_id
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def transaction():
     if 'username' not in session:
         return redirect('/login')
-
-    trans_id = -1
     if request.method == 'POST':
         if request.form['quantity'] == '' or 'quantity' not in request.form:
             context = dict(error_message = "No quantity given")
             return render_template("home.html", username=session['username'], **context)
-        # execute a transaction
-        #p = Process(target=execute_transaction, args=(float(request.form['quantity']),))
-        #p.start()
-        trans_id = create_transaction(float(request.form['quantity']), session['username'])
-        # execute_transaction(float(request.form['quantity']))
-    return render_template("home.html", username=session['username'], id=trans_id)
+        # call function to execute the transaction
+        create_transaction(float(request.form['quantity']), session['username'])
+    return render_template("home.html", username=session['username'])
 
 
 @app.route('/track_order', methods=['GET'])
 def track_order():
     if 'username' not in session:
         return redirect('/login')
-
-    order_id = request.args['id']
     username = session['username']
-
-    if int(order_id) == -1:
-        return jsonify(completed=0, trans_completed=True)
-
+    # get list of all active trades for this user
     trade_list = getActiveTransactionList(username)
-
     return render_template('active-list.html', transactions=trade_list)
 
 
@@ -80,22 +62,19 @@ def change():
                         'new_password' not in request.form:
             context = dict(error_message = "Passwords must match")
             return render_template("change.html", **context)
-
         username = request.form['username'].strip()
         oldpasshash = hashlib.md5(request.form['password']).hexdigest()
         newpasshash = hashlib.md5(request.form['new_password']).hexdigest()
-
+        # get the user object from the database
         user = getUser(username)
         hashfound = user.password
-
+        # make sure old password is valid
         if hashfound == None or hashfound != oldpasshash:
             context = dict(error_message = "Incorrect username or password")
             return render_template("change.html", **context)
-
+        # change the users password to the new passhash
         updateUserPassword(username, newpasshash)
-
         return redirect('/')
-
     return render_template("change.html")
 
 
@@ -112,20 +91,16 @@ def create():
                         'password' not in request.form:
             context = dict(error_message = "Passwords must match")
             return render_template("create.html", **context)
-
         username = request.form['username'].strip()
         passhash = hashlib.md5(request.form['password']).hexdigest()
-
+        # get the user object from the database
         user = getUser(username)
-
         if user != None:
-            context = dict(error_message = "User already exists")
+            context = dict(error_message = "User name already exists")
             return render_template("create.html", **context)
-
+        # insert new user record into the database
         insertNewUser(username, passhash)
-
         return redirect('/')
-
     return render_template("create.html")
 
 
@@ -148,10 +123,8 @@ def login():
         password = request.form['password']
         if passhash != hashlib.md5(password).hexdigest():
             return render_template('login.html', error="Incorrect password")
-
         session['username'] = request.form['username']
         return redirect('/')
-
     return render_template('login.html')
 
 
