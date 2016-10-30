@@ -122,7 +122,7 @@ def create():
             context = dict(error_message = "User already exists")
             return render_template("create.html", **context)
 
-        createNewUser(username, passhash)
+        insertNewUser(username, passhash)
 
         return redirect('/')
 

@@ -13,18 +13,29 @@ Session = sessionmaker(bind=engine)
 def createSchema():
 	Base.metadata.create_all(engine)
 
+def insertDatabaseItem(item):
+	dbsession = Session()
+	dbsession.add(item)
+	dbsession.commit()
+	dbsession.close()
+
+def insertNewUser(username, passhash):
+	new_user = UserPass(username=username, password=passhash)
+	insertDatabaseItem(new_user)
+
+def insertNewTransaction(username, new_id):
+	transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
+	insertDatabaseItem(transaction)
+
+def insertNewExecutedTrade(transaction_id, username, timestamp, quantity, avg_price):
+	executed_trade = ExecutedTrade(transaction_id=transaction_id, username=username, timestamp=timestamp, quantity=quantity, avg_price=avg_price)
+	insertDatabaseItem(executed_trade)
+
 def getUser(username):
 	dbsession = Session()
 	user = dbsession.query(UserPass).filter_by(username=username).first()
 	dbsession.close()
 	return user
-
-def createNewUser(username, passhash):
-	new_user = UserPass(username=username, password=passhash)
-	dbsession = Session()
-	dbsession.add(new_user)
-	dbsession.commit()
-	dbsession.close()
 
 def updateUserPassword(username, newpasshash):
 	dbsession = Session()
@@ -38,20 +49,6 @@ def getMaxTransactionId(username):
 	max_id = dbsession.query(func.max(Transactions.id)).filter_by(username=username).first()[0]
 	dbsession.close()
 	return max_id
-
-def insertNewTransaction(username, new_id):
-	transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
-	dbsession = Session()
-	dbsession.add(transaction)
-	dbsession.commit()
-	dbsession.close()
-
-def insertExecutedTrade(transaction_id, username, timestamp, quantity, avg_price):
-	executed_trade = ExecutedTrade(transaction_id=transaction_id, username=username, timestamp=timestamp, quantity=quantity, avg_price=avg_price)
-	dbsession = Session() 
-	dbsession.add(executed_trade)
-	dbsession.commit()
-	dbsession.close()
 
 def getActiveTransactionList(username):
 	dbsession = Session()
