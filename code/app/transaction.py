@@ -75,15 +75,12 @@ class TransactionExecuter:
             self.my_order.process_executed_order(current_order_size, price, now)
             print "Sold {:,} for ${:,}/share, ${:,} notional".format(current_order_size, price, notional)
             print "PnL ${:,}, Qty {:,}".format(pnl, self.my_order.get_inventory_left())
+            # insert the executed trade into the database
             insertNewExecutedTrade(self.trans_id, now, current_order_size, price)
         else:
             print "Unfilled order; $%s total, %s qty" % (pnl, self.my_order.get_inventory_left())
-
-        dbsession = Session()
-        trans = dbsession.query(Transactions).filter_by(username=self.username, id=self.trans_id).first()
-        trans.completed = self.qty - self.my_order.get_inventory_left()
-        dbsession.commit()
-        dbsession.close()
+        # update the transaction in db for executed trade
+        updateTransactionTradeExecuted(self.trans_id, self.my_order.get_inventory_left())
         time.sleep(1)
 
     def __print_quotes(self):
@@ -99,9 +96,5 @@ class TransactionExecuter:
         # Position is liquididated!
         print "Liquidated position for ${:,}".format(pnl)
         self.my_order.print_summary()
-
-        dbsession = Session() 
-        trans = dbsession.query(Transactions).filter_by(username=self.username, id=self.trans_id).first()
-        trans.finished = True
-        dbsession.commit()
-        dbsession.close()
+        # mark the transaction as completed in the database
+        updateTransactionDone(self.trans_id)

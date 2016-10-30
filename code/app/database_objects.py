@@ -18,10 +18,9 @@ class Transactions(Base):
     __tablename__ = 'transactions'
     id = Column(Integer, primary_key=True)
     username = Column(String, ForeignKey('userpass.username'))
-    completed = Column(Integer, nullable=False)
+    qty_requested = Column(Integer, nullable=False)
+    qty_executed = Column(Integer, nullable=False)
     finished = Column(Boolean, nullable=False)
-    # quantity_requested = Column(Integer, nullable=False)
-    # quantity_executed = Column(Integer, nullable=False)
 
     def __repr__(self):
         return "<Transactions(username='%s', id='%d')>" % (self.username, self.id)
@@ -29,11 +28,10 @@ class Transactions(Base):
 class ExecutedTrade(Base):
     __tablename__ = 'executedtrade'
     id = Column(Integer, primary_key=True)
-    transaction_id = Column(Integer, ForeignKey('transactions.id'))
-    # username = Column(String, ForeignKey('userpass.username'))
-    timestamp = Column(Integer)
-    quantity = Column(Integer)
-    avg_price = Column(Float)
+    trans_id = Column(Integer, ForeignKey('transactions.id'))
+    timestamp = Column(Integer, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    avg_price = Column(Float, nullable=False)
 
     def __repr__(self):
         return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" % (self.id, self.timestamp)

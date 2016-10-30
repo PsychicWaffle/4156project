@@ -19,7 +19,7 @@ def hello_world():
 
 def create_transaction(quantity, username):
     # insert new transaction record and grab generated id
-    new_id = insertNewTransaction(username, quantity)
+    new_id = insertNewTransaction(quantity, username)
     # spin up new process to execute the transaction over time
     transaction_executer = TransactionExecuter(quantity, username, new_id)
     p = Process(target=transaction_executer.execute_transaction)
