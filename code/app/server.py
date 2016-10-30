@@ -18,13 +18,13 @@ def hello_world():
 
 
 def create_transaction(quantity, username):
-    max_id = getMaxTransactionId(username)
-    if max_id == None:
-        new_id = 0
-    else:
-        new_id = max_id + 1
+    # max_id = getMaxTransactionId(username)
+    # if max_id == None:
+    #     new_id = 0
+    # else:
+    #     new_id = max_id + 1
 
-    insertNewTransaction(username, new_id)
+    new_id = insertNewTransaction(username, quantity)
 
     transaction_executer = TransactionExecuter(quantity, username, new_id)
     p = Process(target=transaction_executer.execute_transaction)

@@ -19,17 +19,26 @@ def insertDatabaseItem(item):
 	dbsession.commit()
 	dbsession.close()
 
+def insertDatabaseItemWithId(item):
+	dbsession = Session()
+	dbsession.add(item)
+	dbsession.flush()
+	id_gen = item.id
+	dbsession.commit()
+	dbsession.close()
+	return id_gen
+
 def insertNewUser(username, passhash):
 	new_user = UserPass(username=username, password=passhash)
 	insertDatabaseItem(new_user)
 
-def insertNewTransaction(username, new_id):
-	transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
-	insertDatabaseItem(transaction)
+def insertNewTransaction(username, quantity):
+	transaction = Transactions(username=username, completed=0, finished=False)
+	return insertDatabaseItemWithId(transaction)
 
-def insertNewExecutedTrade(transaction_id, username, timestamp, quantity, avg_price):
-	executed_trade = ExecutedTrade(transaction_id=transaction_id, username=username, timestamp=timestamp, quantity=quantity, avg_price=avg_price)
-	insertDatabaseItem(executed_trade)
+def insertNewExecutedTrade(transaction_id, timestamp, quantity, avg_price):
+	executed_trade = ExecutedTrade(transaction_id=transaction_id, timestamp=timestamp, quantity=quantity, avg_price=avg_price)
+	return insertDatabaseItemWithId(executed_trade)
 
 def getUser(username):
 	dbsession = Session()
@@ -55,7 +64,7 @@ def getActiveTransactionList(username):
 	trade_list = []
 	for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
 		if trans.finished is False:
-			for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=trans.id, username=username):
+			for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(transaction_id=trans.id):
 				trade_list.append('ID: ' + str(trans.id) + ' Time: ' + str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
 	dbsession.close()
 	return trade_list
