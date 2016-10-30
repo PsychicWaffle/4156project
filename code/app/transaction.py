@@ -75,11 +75,7 @@ class TransactionExecuter:
             self.my_order.process_executed_order(current_order_size, price, now)
             print "Sold {:,} for ${:,}/share, ${:,} notional".format(current_order_size, price, notional)
             print "PnL ${:,}, Qty {:,}".format(pnl, self.my_order.get_inventory_left())
-            curr_executed_transaction = ExecutedTrade(transaction_id=self.trans_id, username=self.username,timestamp=now,quantity=current_order_size, avg_price=price)
-            dbsession = Session() 
-            dbsession.add(curr_executed_transaction)
-            dbsession.commit()
-            dbsession.close()
+            insertExecutedTrade(self.trans_id, self.username, now, current_order_size, price)
         else:
             print "Unfilled order; $%s total, %s qty" % (pnl, self.my_order.get_inventory_left())
 

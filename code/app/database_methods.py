@@ -20,8 +20,8 @@ def getUser(username):
 	return user
 
 def createNewUser(username, passhash):
-	dbsession = Session()
 	new_user = UserPass(username=username, password=passhash)
+	dbsession = Session()
 	dbsession.add(new_user)
 	dbsession.commit()
 	dbsession.close()
@@ -39,9 +39,17 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
-def insertTransaction(transaction):
+def insertNewTransaction(username, new_id):
+	transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
 	dbsession = Session()
 	dbsession.add(transaction)
+	dbsession.commit()
+	dbsession.close()
+
+def insertExecutedTrade(transaction_id, username, timestamp, quantity, avg_price):
+	executed_trade = ExecutedTrade(transaction_id=transaction_id, username=username, timestamp=timestamp, quantity=quantity, avg_price=avg_price)
+	dbsession = Session() 
+	dbsession.add(executed_trade)
 	dbsession.commit()
 	dbsession.close()
 

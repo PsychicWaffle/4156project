@@ -24,8 +24,7 @@ def create_transaction(quantity, username):
     else:
         new_id = max_id + 1
 
-    new_transaction = Transactions(username=username, id=new_id, completed=0, finished=False)
-    insertTransaction(new_transaction)
+    insertNewTransaction(username, new_id)
 
     transaction_executer = TransactionExecuter(quantity, username, new_id)
     p = Process(target=transaction_executer.execute_transaction)
