@@ -16,5 +16,8 @@ class LoginTest(unittest.TestCase):
         self.assertGreater(order_size, 0)
 
 if __name__ == '__main__':
-        unittest.main()
+       DATABASE_URI = "postgresql://localhost/master_4156_database_test"
+       database_methods.engine = create_engine(DATABASE_URI)
+       database_methods.Session = sessionmaker(bind=database_methods.engine)
+       unittest.main()
 

@@ -4,6 +4,10 @@ from transaction import *
 from multiprocessing import Process
 from database_objects import *
 from database_methods import *
+import database_methods 
+from sqlalchemy import *
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import sessionmaker
 
 
 app = Flask(__name__)
@@ -129,6 +133,10 @@ def login():
 
 
 if __name__ == '__main__':
-    # create datbase schema if not exists
+    DATABASE_URI = "postgresql://localhost/master_4156_database"
+    database_methods.engine = create_engine(DATABASE_URI)
+    database_methods.Session = sessionmaker(bind=database_methods.engine)
+    
+
     createSchema()
     app.run()

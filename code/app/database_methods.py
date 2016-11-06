@@ -4,11 +4,10 @@ from sqlalchemy.orm import sessionmaker
 from database_objects import *
 import datetime as dt
 
-DATABASE_URI = "postgresql://localhost/users"
-engine = create_engine(DATABASE_URI)
+engine = None
+Session = None
 # # for in memory database
 # engine = create_engine('sqlite://')
-Session = sessionmaker(bind=engine)
 
 def createSchema():
 	Base.metadata.create_all(engine)
