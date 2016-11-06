@@ -6,8 +6,6 @@ import datetime as dt
 
 engine = None
 Session = None
-# # for in memory database
-# engine = create_engine('sqlite://')
 
 def createSchema():
 	Base.metadata.create_all(engine)
