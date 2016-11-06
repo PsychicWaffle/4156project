@@ -1,6 +1,6 @@
 import sys
 # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
-sys.path.append('../app')
+sys.path.append('app')
 import unittest
 from sqlalchemy import *
 from sqlalchemy.orm import sessionmaker
@@ -10,7 +10,7 @@ import database_methods as dm
 class DatabaseTest(unittest.TestCase):
 
 	def setUp(self):
-		DATABASE_URI = "sqlite://"
+		DATABASE_URI = "postgresql://localhost/master_4156_database_test"
 		dm.engine = create_engine(DATABASE_URI)
 		dm.Session = sessionmaker(bind=dm.engine)
 		dm.createSchema()
@@ -19,14 +19,24 @@ class DatabaseTest(unittest.TestCase):
 	def tearDown(self):
 		pass
 
-	def test_insert_item_with_id(self):
-		transaction = Transactions(username='test', finished=False, qty_requested=100, qty_executed=0)
-		ret = dm.insertDatabaseItemWithId(transaction)
-		self.assertEqual(ret, 1)
-
-		transaction = Transactions(username='test', finished=False, qty_requested=200, qty_executed=0)
-		ret = dm.insertDatabaseItemWithId(transaction)
-		self.assertEqual(ret, 2)
+	def test_create_new_user(self):
+                test_username = "Andy"
+                test_passhash = "3838"
+                dm.insertNewUser(test_username, test_passhash)
+                returned_user = dm.getUser(test_username)
+                self.assertTrue(returned_user != None)
+                dm.removeUser(test_username)
+	
+        def test_insert_item_with_id(self):
+                test_username = "Sam"
+                test_passhash = "dfjlkd"
+                dm.insertNewUser(test_username, test_passhash)
+                transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=0)
+                ret = dm.insertDatabaseItemWithId(transaction)
+                returned_transactions = dm.getAllTransactionList(test_username)
+                self.assertTrue(len(returned_transactions) > 0)
+                dm.removeTransactionsByUsername(test_username)
+                dm.removeUser(test_username)
 
 if __name__ == '__main__':
 	unittest.main()

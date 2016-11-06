@@ -57,6 +57,13 @@ def getUser(username):
 	dbsession.close()
 	return user
 
+def removeUser(username):
+        dbsession = Session()
+	user = dbsession.query(UserPass).filter_by(username=username).first()
+        dbsession.delete(user)
+        dbsession.commit()
+	dbsession.close()
+
 def updateUserPassword(username, newpasshash):
 	dbsession = Session()
 	user = dbsession.query(UserPass).filter_by(username=username).first()
@@ -79,3 +86,19 @@ def getActiveTransactionList(username):
 				trade_list.append('ID: ' + str(trans.id) + ' Time: ' + str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
 	dbsession.close()
 	return trade_list
+
+def removeTransactionsByUsername(username):
+        dbsession = Session()
+	trans_list = []
+	for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+            dbsession.delete(trans)
+            dbsession.commit()
+	dbsession.close()
+
+def getAllTransactionList(username):
+        dbsession = Session()
+	trans_list = []
+	for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+            trans_list.append(trans)
+	dbsession.close()
+	return trans_list
