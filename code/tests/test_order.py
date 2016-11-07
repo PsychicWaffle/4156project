@@ -2,7 +2,7 @@ import unittest
 import app
 from app import order
 
-class LoginTest(unittest.TestCase):
+class OrderTest(unittest.TestCase):
     
     def setUp(self):
         pass
