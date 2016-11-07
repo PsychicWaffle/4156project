@@ -104,6 +104,8 @@ def create():
             return render_template("create.html", **context)
         # insert new user record into the database
         insertNewUser(username, passhash)
+        if 'username' in session:
+            return redirect('/logout')
         return redirect('/')
     return render_template("create.html")
 
@@ -111,6 +113,8 @@ def create():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
+        if 'username' in session:
+            return redirect('/logout')
         if request.form['username'] == '' or 'username' not in request.form:
             context = dict(error_message = "No username given")
             return render_template("login.html", **context)
@@ -130,6 +134,11 @@ def login():
         session['username'] = request.form['username']
         return redirect('/')
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect('/')
 
 
 if __name__ == '__main__':
