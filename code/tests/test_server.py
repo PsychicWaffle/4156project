@@ -4,15 +4,21 @@ import os
 import server
 import unittest
 import tempfile
+from sqlalchemy import *
+from sqlalchemy.orm import sessionmaker
 import database_methods
 import database_objects
-
 
 class ServerTest(unittest.TestCase):
 
     def setUp(self):
         server.app.config['TESTING'] = True
         self.app = server.app.test_client()
+        DATABASE_URI = "postgresql://localhost/master_4156_database_test"
+        database_methods.engine = create_engine(DATABASE_URI)
+        database_methods.Session = sessionmaker(bind=database_methods.engine)
+        database_methods.createSchema()
+        pass
 
     def test_root(self):
         ret = self.app.get('/')
@@ -76,8 +82,5 @@ class ServerTest(unittest.TestCase):
         pass
 
 if __name__ == '__main__':
-    DATABASE_URI = "postgresql://localhost/master_4156_database"
-    database_methods.engine = create_engine(DATABASE_URI)
-    database_methods.Session = sessionmaker(bind=database_methods.engine)
     unittest.main()
 
