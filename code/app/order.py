@@ -36,6 +36,7 @@ class Order:
         self.executed_trades.append({ 'quantity' : quantity, 'avg_price' :  avg_price, 'time' : time })
         self.curr_inventory -= quantity
         self.next_order_time += 10
+        return 1
 
     def get_inventory_left(self):
         return self.curr_inventory
