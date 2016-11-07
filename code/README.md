@@ -29,3 +29,8 @@ To run all tests in tests/ dir:
 To run one specific test file from tests/ dir (e.g. test__order.py):
 1) cd code/
 2) python -m unittest tests.test_order
+
+To calculate test coverage:
+1) cd code/
+2) coverage run --source=app/  -m unittest discover tests
+3) coverage report -m
