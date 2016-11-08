@@ -52,6 +52,10 @@ class TransactionExecuter:
         # Repeat the strategy until we run out of shares.
         while (self.my_order.get_inventory_left() > 0):
             price = self.__print_quotes()
+            if (price == -1):
+                time.sleep(3)
+                continue
+
             now = time.time()
             current_order_size, current_order_time = self.my_order.get_next_order()
             if now < current_order_time:
@@ -87,7 +91,12 @@ class TransactionExecuter:
         price = None
         for _ in xrange(TransactionExecuter.N):
             time.sleep(1)
-            quote = json.loads(urllib2.urlopen(TransactionExecuter.QUERY.format(random.random())).read())
+            try:
+                quote = json.loads(urllib2.urlopen(TransactionExecuter.QUERY.format(random.random())).read())
+            except ValueError:
+                print 'Failed to get quote from exchange'
+                return -1
+
             price = float(quote['top_bid']['price'])
             print "Quoted at %s" % price
         return price

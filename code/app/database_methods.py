@@ -115,6 +115,16 @@ def getTransactionById(id):
 	dbsession.close()
         return trans
 
+def getActiveTransactions(username):
+        dbsession = Session()
+	transactions = []
+	for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+		if trans.finished is False:
+                    transactions.append(trans)
+
+	dbsession.close()
+	return transactions
+
 def removeTransactionsByUsername(username):
         dbsession = Session()
 	for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
