@@ -1,4 +1,5 @@
 import sys
+import time
 # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
 sys.path.append('app')
 import unittest
@@ -31,7 +32,7 @@ class DatabaseTest(unittest.TestCase):
                 test_username = "Sam"
                 test_passhash = "dfjlkd"
                 dm.insertNewUser(test_username, test_passhash)
-                transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=0)
+                transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=0, timestamp=time.time())
                 ret = dm.insertDatabaseItemWithId(transaction)
                 returned_transactions = dm.getAllTransactionList(test_username)
                 self.assertTrue(len(returned_transactions) > 0)
