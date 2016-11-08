@@ -77,6 +77,7 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
+
 def getActiveTransactionList(username):
 	dbsession = Session()
 	trade_list = []
@@ -87,10 +88,30 @@ def getActiveTransactionList(username):
 	dbsession.close()
 	return trade_list
 
+def getTransactionById(id):
+	dbsession = Session()
+        trans = dbsession.query(Transactions).filter_by(id=id).first()
+	dbsession.close()
+        return trans
+
 def removeTransactionsByUsername(username):
         dbsession = Session()
-	trans_list = []
 	for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+            dbsession.delete(trans)
+            dbsession.commit()
+	dbsession.close()
+
+def removeExecutedTradesById(id):
+        dbsession = Session()
+        for item in dbsession.query(ExecutedTrade).filter_by(trans_id=id).order_by(ExecutedTrade.trans_id):
+            dbsession.delete(item)
+            dbsession.commit()
+	dbsession.close()
+
+def removeTransactionsById(id):
+        dbsession = Session()
+	trans_list = []
+	for trans in dbsession.query(Transactions).filter_by(id=id).order_by(Transactions.id):
             dbsession.delete(trans)
             dbsession.commit()
 	dbsession.close()
