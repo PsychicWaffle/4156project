@@ -78,12 +78,12 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
-def getGroupedTransactionList(username):
+def getGroupedTransactionList(username, completed=False):
     dbsession = Session()
     grouped_trans = []
     for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
         group = []
-        if trans.finished == False:
+        if trans.finished == completed:
             timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
             #print timestamp
             description = "%s: %d units requested by %s, %d executed" % (timestamp , trans.qty_requested, trans.username, trans.qty_executed)
@@ -96,24 +96,6 @@ def getGroupedTransactionList(username):
 
     dbsession.close()
 
-    return grouped_trans
-
-def getCompleteTransactionList(username):
-    dbsession = Session()
-    grouped_trans = []
-    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
-        group = []
-        if trans.finished == True:
-            timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
-            description = "%s: %d units requested by %s, %d executed" % (timestamp , trans.qty_requested, trans.username, trans.qty_executed)
-            group.append(description)
-            group.append(trans.id)
-            for trade in dbsession.query(ExecutedTrade).filter_by(trans_id=trans.id):
-                timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
-                group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
-        grouped_trans.append(group)
-
-    dbsession.close()
     return grouped_trans
 
 

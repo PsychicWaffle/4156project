@@ -52,7 +52,7 @@ def track_order():
     trade_list = getActiveTransactionList(username)
 
     grouped_list = getGroupedTransactionList(username)
-    complete_list = getCompleteTransactionList(username)
+    complete_list = getGroupedTransactionList(username, completed=True)
 
     return render_template('active-list.html', transactions=grouped_list, complete_transactions=complete_list)
 
