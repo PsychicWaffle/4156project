@@ -20,6 +20,7 @@ class Transactions(Base):
     username = Column(String, ForeignKey('userpass.username'))
     qty_requested = Column(Integer, nullable=False)
     qty_executed = Column(Integer, nullable=False)
+    timestamp = Column(Integer, nullable=False)
     finished = Column(Boolean, nullable=False)
 
     def __repr__(self):

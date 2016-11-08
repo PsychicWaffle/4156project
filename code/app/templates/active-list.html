@@ -1,8 +1,19 @@
 <html>
-	<body>
-		<ul>
-			{% for item in transactions %}
-				<li>{{item}}</li>
+  <body>
+    <h2>RUNNING TRANSACTIONS:</h2>
+    <ul>
+      {% for transaction in transactions %}
+      {% if transaction|length > 0 %}
+      <li>{{transaction[0]}}</li>
+        {% endif %}
+			{% endfor %}
+		</ul>
+    <h2>COMPLETE TRANSACTIONS:</h2>
+    <ul>
+      {% for transaction in complete_transactions %}
+      {% if transaction|length > 0 %}
+      <li>{{transaction[0]}}</li>
+        {% endif %}
 			{% endfor %}
 		</ul>
 	</body>

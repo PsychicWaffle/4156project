@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from database_objects import *
 import datetime as dt
+import time
 
 engine = None
 Session = None
@@ -30,7 +31,7 @@ def insertNewUser(username, passhash):
 	insertDatabaseItem(new_user)
 
 def insertNewTransaction(quantity, username):
-	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0)
+	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=time.time())
 	return insertDatabaseItemWithId(transaction)
 
 def updateTransactionTradeExecuted(trans_id, qty_remaining):
@@ -76,6 +77,45 @@ def getMaxTransactionId(username):
 	max_id = dbsession.query(func.max(Transactions.id)).filter_by(username=username).first()[0]
 	dbsession.close()
 	return max_id
+
+def getGroupedTransactionList(username):
+    dbsession = Session()
+    grouped_trans = []
+    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+        group = []
+        if trans.finished == False:
+            timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
+            #print timestamp
+            description = "%s: %d units requested by %s, %d executed" % (timestamp , trans.qty_requested, trans.username, trans.qty_executed)
+            group.append(description)
+            group.append(trans.id)
+            for trade in dbsession.query(ExecutedTrade).filter_by(trans_id=trans.id):
+                timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
+                group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+        grouped_trans.append(group)
+
+    dbsession.close()
+
+    return grouped_trans
+
+def getCompleteTransactionList(username):
+    dbsession = Session()
+    grouped_trans = []
+    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+        group = []
+        if trans.finished == True:
+            timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
+            description = "%s: %d units requested by %s, %d executed" % (timestamp , trans.qty_requested, trans.username, trans.qty_executed)
+            group.append(description)
+            group.append(trans.id)
+            for trade in dbsession.query(ExecutedTrade).filter_by(trans_id=trans.id):
+                timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
+                group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+        grouped_trans.append(group)
+
+    dbsession.close()
+    return grouped_trans
+
 
 def getActiveTransactionList(username):
 	dbsession = Session()

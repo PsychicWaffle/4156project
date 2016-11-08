@@ -50,7 +50,11 @@ def track_order():
     username = session['username']
     # get list of all active trades for this user
     trade_list = getActiveTransactionList(username)
-    return render_template('active-list.html', transactions=trade_list)
+
+    grouped_list = getGroupedTransactionList(username)
+    complete_list = getCompleteTransactionList(username)
+
+    return render_template('active-list.html', transactions=grouped_list, complete_transactions=complete_list)
 
 
 @app.route('/change', methods=['GET', 'POST'])
