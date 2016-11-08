@@ -1,6 +1,7 @@
 import hashlib
 from flask import Flask, jsonify, request, render_template, g, redirect, Response, session
 from transaction import *
+import multiprocessing
 from multiprocessing import Process
 from database_objects import *
 from database_methods import *
@@ -8,11 +9,18 @@ import database_methods
 from sqlalchemy import *
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
+from Queue import Queue
+from threading import Thread
 
 
 app = Flask(__name__)
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
 
+def process_workload(q):
+    while True:
+        args = q.get()
+        create_transaction(args[0], args[1])
+        q.task_done()
 
 @app.route('/')
 def hello_world():
@@ -26,9 +34,7 @@ def create_transaction(quantity, username):
     new_id = insertNewTransaction(quantity, username)
     # spin up new process to execute the transaction over time
     transaction_executer = TransactionExecuter(quantity, username, new_id)
-    p = Process(target=transaction_executer.execute_transaction)
-    p.start()
-
+    transaction_executer.execute_transaction()
 
 @app.route('/home', methods=['GET', 'POST'])
 def transaction():
@@ -39,7 +45,8 @@ def transaction():
             context = dict(error_message = "No quantity given")
             return render_template("home.html", username=session['username'], **context)
         # call function to execute the transaction
-        create_transaction(float(request.form['quantity']), session['username'])
+        my_queue.put([ float(request.form['quantity']), session['username']])
+        #create_transaction(float(request.form['quantity']), session['username'])
     return render_template("home.html", username=session['username'])
 
 
@@ -149,7 +156,13 @@ if __name__ == '__main__':
     DATABASE_URI = "postgresql://localhost/master_4156_database"
     database_methods.engine = create_engine(DATABASE_URI)
     database_methods.Session = sessionmaker(bind=database_methods.engine)
-    
-
     createSchema()
+
+    my_queue = Queue(maxsize=0)
+    num_threads = multiprocessing.cpu_count()
+    for i in range(num_threads):
+        worker = Thread(target=process_workload, args=(my_queue,))
+        worker.setDaemon(True)
+        worker.start()
+
     app.run()
