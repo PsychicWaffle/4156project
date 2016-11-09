@@ -70,14 +70,22 @@ def track_order():
         return redirect('/login')
     username = session['username']
     # get list of all active trades for this user
-    trade_list = getActiveTransactionList(username)
-
     now = time.time()
     grouped_list = getGroupedTransactionList(username)
     recent_complete_list = getGroupedTransactionList(username, completed=True, max_age=MAX_AGE, now=now)
 
     return render_template('active-list.html', transactions=grouped_list, complete_transactions=recent_complete_list)
 
+
+@app.route('/history', methods=['GET'])
+def show_history():
+    if 'username' not in session:
+        return redirect('/login')
+    username = session['username']
+
+    grouped_list = getGroupedTransactionList(username)
+    recent_complete_list = getGroupedTransactionList(username, completed=True)
+    return render_template('completed-list.html', complete_transactions=recent_complete_list)
 
 @app.route('/change', methods=['GET', 'POST'])
 def change():

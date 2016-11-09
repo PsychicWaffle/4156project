@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <h2>HISTORY OF ALL TRANSACTIONS</h2>
+    <ul>
+      {% for transaction in complete_transactions %}
+      {% if transaction|length > 0 %}
+      <li>{{transaction[0]}}</li>
+        {% endif %}
+			{% endfor %}
+		</ul>
+	</body>
+</html>
