@@ -72,19 +72,26 @@ def track_order():
     # get list of all active trades for this user
     now = time.time()
     grouped_list = getGroupedTransactionList(username)
-    recent_complete_list = getGroupedTransactionList(username, completed=True, max_age=MAX_AGE, now=now)
+    recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=now - MAX_AGE, end_date=now)
 
     return render_template('active-list.html', transactions=grouped_list, complete_transactions=recent_complete_list)
 
 
-@app.route('/history', methods=['GET'])
+@app.route('/history', methods=['GET', 'POST'])
 def show_history():
     if 'username' not in session:
         return redirect('/login')
     username = session['username']
-
-    grouped_list = getGroupedTransactionList(username)
-    recent_complete_list = getGroupedTransactionList(username, completed=True)
+    if request.method == 'POST':
+        if request.form['start_date'] == '' or request.form['end_date'] == '':
+            context = dict(error_message = "No quantity given")
+            recent_complete_list = getGroupedTransactionList(username, completed=True)
+            return render_template("completed-list.html", complete_transactions=recent_complete_list)
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=start_date, end_date=end_date)
+    else:
+        recent_complete_list = getGroupedTransactionList(username, completed=True)
     return render_template('completed-list.html', complete_transactions=recent_complete_list)
 
 @app.route('/change', methods=['GET', 'POST'])

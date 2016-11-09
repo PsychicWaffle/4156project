@@ -78,14 +78,14 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
-def getGroupedTransactionList(username, completed=False, max_age=None, now=None):
+def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None):
     dbsession = Session()
     grouped_trans = []
     for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
         group = []
         cont = False
-        if (max_age != None):
-            if (now - trans.timestamp < max_age): 
+        if (start_date != None):
+            if (trans.timestamp < end_date and trans.timestamp > start_date):
                 cont = True
         else: 
             cont = True
