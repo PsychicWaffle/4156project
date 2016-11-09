@@ -32,6 +32,10 @@ class ServerTest(unittest.TestCase):
         ret = self.app.get('/track_order')
         self.assertTrue(ret != None)
 
+    def test_history(self):
+        ret = self.app.get('/history')
+        self.assertTrue(ret != None)
+
     def test_change(self):
         ret = self.app.get('/change')
         self.assertTrue(ret != None)
