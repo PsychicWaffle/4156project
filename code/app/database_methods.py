@@ -78,12 +78,18 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
-def getGroupedTransactionList(username, completed=False):
+def getGroupedTransactionList(username, completed=False, max_age=None, now=None):
     dbsession = Session()
     grouped_trans = []
     for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
         group = []
-        if trans.finished == completed:
+        cont = False
+        if (max_age != None):
+            if (now - trans.timestamp < max_age): 
+                cont = True
+        else: 
+            cont = True
+        if cont == True and trans.finished == completed:
             timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
             #print timestamp
             description = "%s: %d units requested by %s, %d executed" % (timestamp , trans.qty_requested, trans.username, trans.qty_executed)

@@ -11,10 +11,13 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from Queue import Queue
 from threading import Thread
+import time
 
 
 app = Flask(__name__)
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
+
+MAX_AGE = 12 * 60 * 60
 
 def process_workload(q):
     while True:
@@ -30,7 +33,6 @@ def check_incomplete_transaction():
         remaining_qty = active_transaction.qty_requested - active_transaction.qty_executed
         trans_id = active_transaction.id
         my_queue.put([trans_id, remaining_qty, session['username']])
-
 
 @app.before_first_request
 def run_start_up_funcs():
@@ -70,10 +72,11 @@ def track_order():
     # get list of all active trades for this user
     trade_list = getActiveTransactionList(username)
 
+    now = time.time()
     grouped_list = getGroupedTransactionList(username)
-    complete_list = getGroupedTransactionList(username, completed=True)
+    recent_complete_list = getGroupedTransactionList(username, completed=True, max_age=MAX_AGE, now=now)
 
-    return render_template('active-list.html', transactions=grouped_list, complete_transactions=complete_list)
+    return render_template('active-list.html', transactions=grouped_list, complete_transactions=recent_complete_list)
 
 
 @app.route('/change', methods=['GET', 'POST'])
