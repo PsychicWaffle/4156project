@@ -18,6 +18,7 @@ app = Flask(__name__)
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
 
 MAX_AGE = 12 * 60 * 60
+MAX_ORDER_SIZE=1000000
 
 def process_workload(q):
     while True:
@@ -59,10 +60,29 @@ def transaction():
             context = dict(error_message = "No quantity given")
             return render_template("home.html", username=session['username'], **context)
         # call function to execute the transaction
+        if (valid_user_parameters(request.form['quantity']) == False):
+            context = dict(error_message = "Invalid parameters")
+            return render_template("home.html", username=session['username'], **context)
         new_id = insertNewTransaction(float(request.form['quantity']), session['username'])
         my_queue.put([new_id, float(request.form['quantity']), session['username']])
     return render_template("home.html", username=session['username'])
 
+def valid_user_parameters(quantity):
+    try:
+        float(quantity)
+        quantity = int(quantity)
+    except ValueError:
+        return False
+
+    if (type(quantity) != int):
+        return False
+    if (quantity == None):
+        return False
+    if (quantity <= 0):
+        return False
+    if (quantity > MAX_ORDER_SIZE):
+        return False
+    return True
 
 @app.route('/track_order', methods=['GET'])
 def track_order():
