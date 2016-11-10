@@ -21,26 +21,38 @@ class ServerTest(unittest.TestCase):
         pass
 
     def test_root(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
         ret = self.app.get('/')
         self.assertTrue(ret != None)
 
     def test_home(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
         ret = self.app.get('/home')
         self.assertTrue(ret != None)
 
     def test_track_order(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
         ret = self.app.get('/track_order')
         self.assertTrue(ret != None)
 
     def test_history(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
         ret = self.app.get('/history')
         self.assertTrue(ret != None)
 
     def test_change(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
         ret = self.app.get('/change')
         self.assertTrue(ret != None)
 
     def test_create(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
         ret = self.app.get('/create')
         self.assertTrue(ret != None)
 
@@ -48,6 +60,29 @@ class ServerTest(unittest.TestCase):
         ret = self.app.get('/home')
         self.assertTrue(ret.headers['Location'] == 'http://localhost/login')
 
+    def test_negative_order_size_input(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
+        ret = self.app.post('/home', data=dict(
+               quantity="-1"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid parameters' in ret.data)
+
+    def test_zero_order_size_input(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
+        ret = self.app.post('/home', data=dict(
+               quantity="0"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid parameters' in ret.data)
+
+    def test_char_order_size_input(self):
+        self.create_user('test', 'test')
+        self.login('test', 'test')
+        ret = self.app.post('/home', data=dict(
+               quantity="hey"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid parameters' in ret.data)
 
     def create_user(self, username, password):
         return self.app.post('/create', data=dict(
