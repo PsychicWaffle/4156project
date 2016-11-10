@@ -122,10 +122,10 @@ class ServerTest(unittest.TestCase):
         assert("Incorrect username or password" in ret.data)
 
     def test_bad_password(self):
-        ret = self.create_user('test', 'test')
+        ret = self.create_user('bad_test', 'test')
         assert('Please login' in ret.data or 'User name already exists' in ret.data)
 
-        ret = self.login('test', 'bad_password')
+        ret = self.login('bad_test', 'bad_password')
         assert("Incorrect username or password" in ret.data)
 
     def tearDown(self):
