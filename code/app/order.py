@@ -15,6 +15,8 @@ class Order:
         self.curr_inventory = self.initial_inventory
         self.next_order_time = start_time
         self.executed_trades = []
+        if (self.check_valid_order() == False):
+            raise ValueError('Invalid order created')
 
     def get_next_order(self):
         order_size = self.get_next_order_size()
@@ -47,6 +49,13 @@ class Order:
     def print_current_order(self):
         print "Initial inventory: %d" % self.initial_inventory
         print "Current inventory: %d" % self.curr_inventory
+
+    def check_valid_order(self):
+        if (self.initial_inventory <= 0):
+            return False
+        if (self.start_time <= 0):
+            return False
+        return True
 
     def print_summary(self):
         print "Initial inventory: %d" % self.initial_inventory

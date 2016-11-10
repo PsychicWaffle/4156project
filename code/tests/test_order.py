@@ -40,6 +40,38 @@ class OrderTest(unittest.TestCase):
         ret = temp_order.get_executed_trades()
         self.assertTrue(len(ret) == 0)
 
+    def test_negative_order_size(self):
+        try:
+            temp_order = order.Order(-1, 1000)
+            caught_ex = False
+        except ValueError:
+            caught_ex = True
+        self.assertTrue(caught_ex == True)
+
+    def test_zero_order_size(self):
+        try:
+            temp_order = order.Order(0, 1000)
+            caught_ex = False
+        except ValueError:
+            caught_ex = True
+        self.assertTrue(caught_ex == True)
+
+    def test_negative_start_time(self):
+        try:
+            temp_order = order.Order(1, -1)
+            caught_ex = False
+        except ValueError:
+            caught_ex = True
+        self.assertTrue(caught_ex == True)
+
+    def test_zero_start_time(self):
+        try:
+            temp_order = order.Order(1, 0)
+            caught_ex = False
+        except ValueError:
+            caught_ex = True
+        self.assertTrue(caught_ex == True)
+
 if __name__ == '__main__':
        DATABASE_URI = "sqlite://"
        database_methods.engine = create_engine(DATABASE_URI)
