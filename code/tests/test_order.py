@@ -41,7 +41,7 @@ class OrderTest(unittest.TestCase):
         self.assertTrue(len(ret) == 0)
 
 if __name__ == '__main__':
-       DATABASE_URI = "postgresql://localhost/master_4156_database_test"
+       DATABASE_URI = "sqlite://"
        database_methods.engine = create_engine(DATABASE_URI)
        database_methods.Session = sessionmaker(bind=database_methods.engine)
        unittest.main()

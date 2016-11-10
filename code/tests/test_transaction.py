@@ -13,7 +13,7 @@ from transaction import *
 class TransactionTest(unittest.TestCase):
 
     def setUp(self):
-        DATABASE_URI = "postgresql://localhost/master_4156_database_test"
+        DATABASE_URI = "sqlite://"
         database_methods.engine = create_engine(DATABASE_URI)
         database_methods.Session = sessionmaker(bind=database_methods.engine)
         database_methods.createSchema()

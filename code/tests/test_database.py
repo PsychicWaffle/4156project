@@ -11,7 +11,7 @@ import database_methods as dm
 class DatabaseTest(unittest.TestCase):
 
 	def setUp(self):
-		DATABASE_URI = "postgresql://localhost/master_4156_database_test"
+		DATABASE_URI = "sqlite://"
 		dm.engine = create_engine(DATABASE_URI)
 		dm.Session = sessionmaker(bind=dm.engine)
 		dm.createSchema()
