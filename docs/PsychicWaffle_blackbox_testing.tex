@@ -66,9 +66,9 @@
 \item Demo
 \begin{itemize}
 \item Gtihub repo: https://github.com/andyg7/4156Project
-\item Completed with mentor Brian
+\item Completed with mentor Brian on 10/9
 \item Code used for demo: master branch, up to and including commit 5f91c25e997a029c1a8ac0aaa061a9996c1c0e86
-\item Thoughts on Demo: https://github.com/andyg7/4156Project/wiki
+\item Thoughts on Demo: https://github.com/andyg7/4156Project/wiki (scroll down to Demo Thoughts near bottom of page)
 \item Issues from Demo: https://github.com/andyg7/4156Project/issues (all the issues on github are currently related to the demo)
 \end{itemize}
 
@@ -80,7 +80,38 @@
 \item To calculate coverage: coverage run --source=app/  -m unittest discover tests
 \item To view coverage: coverage report -m
 \item Unit tests: https://github.com/andyg7/4156Project/tree/master/code/tests
-\item Coverage = 78\%
+\item Equivalence partition and edge case info: https://github.com/andyg7/4156Project/wiki (scroll down to Testing section near bottom of page)
+\item Coverage = 70\%
+\begin{lstlisting}
+coverage run --source=app/  -m unittest discover tests
+.............................
+----------------------------------------------------------------------
+Ran 29 tests in 7.021s
+
+OK
+(venv) Andrews-MacBook-Pro:code andrewgrant$ coverage report -m
+Name                                Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------
+app/__init__.py                         0      0   100%
+app/database_methods.py               135     50    63%   69-73, 76-79, 85-101, 109-116, 125-132, 142-146, 149-154
+app/database_objects.py                30      3    90%   15, 27, 38
+app/order.py                           49      2    96%   50-51
+app/server.py                         172     74    57%   24-27, 32-36, 51-52, 60-61, 66-67, 78, 80, 83-85, 90, 103, 106-112, 120-142, 150-151, 153-154, 157-158, 164-165, 169, 178, 180-181, 184-185, 191, 206-218
+app/transaction.py                     77     10    87%   58-59, 64, 79-81, 94, 105-107
+-----------------------------------------------------------------
+TOTAL                                 463    139    70%
+(venv) Andrews-MacBook-Pro:code andrewgrant$ 
+\end{lstlisting}
+\item Testing results:
+\begin{lstlisting}
+python -m unittest discover tests
+.............................
+----------------------------------------------------------------------
+Ran 29 tests in 6.519s
+
+OK
+\end{lstlisting}
+
 \end{itemize}
 \item CRC, class diagrams: https://github.com/andyg7/4156Project/tree/master/docs
 \end{itemize}
