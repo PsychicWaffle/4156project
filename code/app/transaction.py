@@ -38,6 +38,8 @@ class TransactionExecuter:
         self.qty = INVENTORY
         self.username = username
         self.trans_id = trans_id
+        if (self.check_valid_transaction() == False):
+            raise ValueError('Invalid transaction parameters')
 
     def execute_transaction(self):
         '''
@@ -114,3 +116,8 @@ class TransactionExecuter:
         self.my_order.print_summary()
         # mark the transaction as completed in the database
         updateTransactionDone(self.trans_id)
+
+    def check_valid_transaction(self):
+        if (self.qty == False):
+            return False
+        return True
