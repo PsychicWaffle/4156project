@@ -82,6 +82,17 @@ class ServerTest(unittest.TestCase):
         ret = self.app.get('/home', follow_redirects=True)
         assert('Please login' in ret.data)
 
+    def test_bad_login(self):
+        ret = self.login('bad_user', 'bad_password')
+        assert("Incorrect username or password" in ret.data)
+
+    def test_bad_password(self):
+        ret = self.create_user('test', 'test')
+        assert('Please login' in ret.data or 'User name already exists' in ret.data)
+
+        ret = self.login('test', 'bad_password')
+        assert("Incorrect username or password" in ret.data)
+
     def tearDown(self):
         pass
 
