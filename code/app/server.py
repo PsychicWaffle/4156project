@@ -165,13 +165,13 @@ def login():
             return render_template("login.html", **context)
         user = getUser(username)
         if user == None:
-            return render_template('login.html', error="Incorrect username")
+            return render_template('login.html', error="Incorrect username or password")
         passhash = user.password
         if passhash == None:
             return render_template('login.html', error="Incorrect username or password")
         password = request.form['password']
         if passhash != hashlib.md5(password).hexdigest():
-            return render_template('login.html', error="Incorrect password")
+            return render_template('login.html', error="Incorrect username or password")
         session['username'] = request.form['username']
         return redirect('/')
     return render_template('login.html')
