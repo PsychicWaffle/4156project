@@ -19,6 +19,8 @@ app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06
 
 MAX_AGE = 12 * 60 * 60
 MAX_ORDER_SIZE=1000000
+USERNAME_MIN_LEN=4
+PASSWORD_MIN_LEN=4
 
 def process_workload(q):
     while True:
@@ -142,6 +144,15 @@ def change():
         return redirect('/')
     return render_template("change.html")
 
+def valid_username(username):
+    if (len(username) < USERNAME_MIN_LEN):
+        return False
+    return True
+
+def valid_password(password):
+    if (len(password) < PASSWORD_MIN_LEN):
+        return False
+    return True
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
@@ -158,6 +169,14 @@ def create():
             return render_template("create.html", **context)
         username = request.form['username'].strip()
         passhash = hashlib.md5(request.form['password']).hexdigest()
+        if (not valid_username(username)):
+            context = dict(error_message = "Invalid username")
+            return render_template("create.html", **context)
+        
+        if (not valid_password(request.form['password'])):
+            context = dict(error_message = "Invalid password")
+            return render_template("create.html", **context)
+
         # get the user object from the database
         user = getUser(username)
         if user != None:
@@ -169,7 +188,6 @@ def create():
             return redirect('/logout')
         return redirect('/')
     return render_template("create.html")
-
 
 @app.route('/login', methods=['GET','POST'])
 def login():

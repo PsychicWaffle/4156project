@@ -128,6 +128,14 @@ class ServerTest(unittest.TestCase):
         ret = self.login('bad_test', 'bad_password')
         assert("Incorrect username or password" in ret.data)
 
+    def test_invalid_new_username(self):
+        ret = self.create_user('a', 'password')
+        self.assertTrue('Invalid username' in ret.data)
+
+    def test_invalid_new_password(self):
+        ret = self.create_user('andrew', 'p')
+        self.assertTrue('Invalid password' in ret.data)
+
     def tearDown(self):
         pass
 
