@@ -1,9 +1,10 @@
 <html>
 	<body>
 		<h2>HISTORY OF ALL TRANSACTIONS</h2>
+    		<p style='color:red'>{{error_message}}</p>
 		<form action="history" method = "POST"> 
-			<p>Start Date Range: <input type="number" name="start_date" min="0" ></p>
-			<p>End Date Range: <input type="number" name="end_date" min="0" ></p>
+			<p>Start Date Range: <input type="number" name="start_date" ></p>
+			<p>End Date Range: <input type="number" name="end_date" ></p>
 			<input type="submit" value="Submit">
 		</form><br>		
 		<ul>

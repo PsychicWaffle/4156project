@@ -9,7 +9,10 @@ from sqlalchemy.orm import sessionmaker
 import database_methods
 import database_objects
 
+
 class ServerTest(unittest.TestCase):
+    TEST_USERNAME='test'
+    TEST_PASSWORD='test'
 
     def setUp(self):
         server.app.config['TESTING'] = True
@@ -21,38 +24,77 @@ class ServerTest(unittest.TestCase):
         pass
 
     def test_root(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.get('/')
         self.assertTrue(ret != None)
 
     def test_home(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.get('/home')
         self.assertTrue(ret != None)
 
     def test_track_order(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.get('/track_order')
         self.assertTrue(ret != None)
 
-    def test_history(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
-        ret = self.app.get('/history')
-        self.assertTrue(ret != None)
+    def test_history_bad_start_range(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/history', data=dict(
+               start_date="-1",
+               end_date="10"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid date range' in ret.data)
+
+    def test_history_bad_end_range(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/history', data=dict(
+               start_date="1",
+               end_date="-1"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid date range' in ret.data)
+
+    def test_history_bad_date_range(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/history', data=dict(
+               start_date="5",
+               end_date="4"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid date range' in ret.data)
+
+    def test_history_char_start_date(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/history', data=dict(
+               start_date="a",
+               end_date="4"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid date range' in ret.data)
+
+    def test_history_char_end_date(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/history', data=dict(
+               start_date="4",
+               end_date="b"
+               ), follow_redirects=True)
+        self.assertTrue('Invalid date range' in ret.data)
 
     def test_change(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.get('/change')
         self.assertTrue(ret != None)
 
     def test_create(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.get('/create')
         self.assertTrue(ret != None)
 
@@ -60,25 +102,28 @@ class ServerTest(unittest.TestCase):
         ret = self.app.get('/home')
         self.assertTrue(ret.headers['Location'] == 'http://localhost/login')
 
+    def test_history_start_date(self):
+        self.assertTrue(1 == 1)
+
     def test_negative_order_size_input(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.post('/home', data=dict(
                quantity="-1"
                ), follow_redirects=True)
         self.assertTrue('Invalid parameters' in ret.data)
 
     def test_zero_order_size_input(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.post('/home', data=dict(
                quantity="0"
                ), follow_redirects=True)
         self.assertTrue('Invalid parameters' in ret.data)
 
     def test_char_order_size_input(self):
-        self.create_user('test', 'test')
-        self.login('test', 'test')
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.post('/home', data=dict(
                quantity="hey"
                ), follow_redirects=True)
@@ -102,11 +147,11 @@ class ServerTest(unittest.TestCase):
 
     def test_login_logout(self):
         # Create a test user, make sure we are redirected
-        ret = self.create_user('test', 'test')
+        ret = self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
         assert('Please login' in ret.data or 'User name already exists' in ret.data)
 
         # Test that we can login
-        ret = self.login('test', 'test')
+        ret = self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         assert('Hello, test!' in ret.data)
 
         # Test that we can logout
@@ -122,7 +167,7 @@ class ServerTest(unittest.TestCase):
         assert("Incorrect username or password" in ret.data)
 
     def test_bad_password(self):
-        ret = self.create_user('bad_test', 'test')
+        ret = self.create_user('bad_test', self.TEST_PASSWORD)
         assert('Please login' in ret.data or 'User name already exists' in ret.data)
 
         ret = self.login('bad_test', 'bad_password')

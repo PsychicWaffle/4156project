@@ -98,6 +98,19 @@ def track_order():
 
     return render_template('active-list.html', transactions=grouped_list, complete_transactions=recent_complete_list)
 
+def valid_date_range(start_date, end_date):
+    try:
+        float(start_date)
+        float(end_date)
+        start_date = int(start_date)
+        end_date = int(end_date)
+    except ValueError:
+        return False
+    if (start_date <= 0 or end_date <= 0):
+        return False
+    if (start_date > end_date):
+        return False
+    return True
 
 @app.route('/history', methods=['GET', 'POST'])
 def show_history():
@@ -108,9 +121,14 @@ def show_history():
         if request.form['start_date'] == '' or request.form['end_date'] == '':
             context = dict(error_message = "No quantity given")
             recent_complete_list = getGroupedTransactionList(username, completed=True)
-            return render_template("completed-list.html", complete_transactions=recent_complete_list)
+            return render_template("completed-list.html", complete_transactions=recent_complete_list, **context)
         start_date = request.form['start_date']
         end_date = request.form['end_date']
+        if (not valid_date_range(start_date, end_date)):
+            context = dict(error_message = "Invalid date range")
+            recent_complete_list = getGroupedTransactionList(username, completed=True)
+            return render_template('completed-list.html', complete_transactions=recent_complete_list, **context)
+
         recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=start_date, end_date=end_date)
     else:
         recent_complete_list = getGroupedTransactionList(username, completed=True)
