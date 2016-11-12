@@ -12,6 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from Queue import Queue
 from threading import Thread
 import time
+import datetime
 
 
 app = Flask(__name__)
@@ -122,8 +123,15 @@ def show_history():
             context = dict(error_message = "No quantity given")
             recent_complete_list = getGroupedTransactionList(username, completed=True)
             return render_template("completed-list.html", complete_transactions=recent_complete_list, **context)
-        start_date = request.form['start_date']
-        end_date = request.form['end_date']
+        temp_start_date = request.form['start_date']
+        temp_end_date = request.form['end_date']
+        try:
+            start_date = time.mktime(datetime.datetime.strptime(temp_start_date, "%d/%m/%Y").timetuple())
+            end_date = time.mktime(datetime.datetime.strptime(temp_end_date, "%d/%m/%Y").timetuple())
+        except:
+            context = dict(error_message="Start or End date later that current date")
+            recent_complete_list = getGroupedTransactionList(username, completed=True)
+            return render_template('completed-list.html', complete_transactions=recent_complete_list, **context)
         if (not valid_date_range(start_date, end_date)):
             context = dict(error_message = "Invalid date range")
             recent_complete_list = getGroupedTransactionList(username, completed=True)
