@@ -78,7 +78,7 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
-def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None):
+def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None, date_format=None):
     dbsession = Session()
     grouped_trans = []
     for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
@@ -90,14 +90,21 @@ def getGroupedTransactionList(username, completed=False, start_date=None, end_da
         else: 
             cont = True
         if cont == True and trans.finished == completed:
-            timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
+            if (date_format == None):
+                timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
+            else: 
+                timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime(date_format))
             #print timestamp
             description = "%s: %d units requested by %s, %d executed" % (timestamp , trans.qty_requested, trans.username, trans.qty_executed)
             group.append(description)
             group.append(trans.id)
             for trade in dbsession.query(ExecutedTrade).filter_by(trans_id=trans.id):
-                timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
-                group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+                if (date_format == None):
+                    timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
+                    group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+                else:
+                    timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime(date_format))
+                    group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
         grouped_trans.append(group)
 
     dbsession.close()

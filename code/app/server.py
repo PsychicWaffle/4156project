@@ -121,26 +121,26 @@ def show_history():
     if request.method == 'POST':
         if request.form['start_date'] == '' or request.form['end_date'] == '':
             context = dict(error_message = "No quantity given")
-            recent_complete_list = getGroupedTransactionList(username, completed=True)
-            return render_template("completed-list.html", complete_transactions=recent_complete_list, **context)
+            recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
+            return render_template("completed-list.html", complete_transactions=recent_complete_list[::-1], **context)
         temp_start_date = request.form['start_date']
         temp_end_date = request.form['end_date']
         try:
             start_date = time.mktime(datetime.datetime.strptime(temp_start_date, "%d/%m/%Y").timetuple())
             end_date = time.mktime(datetime.datetime.strptime(temp_end_date, "%d/%m/%Y").timetuple())
         except:
-            context = dict(error_message="Start or End date later that current date")
-            recent_complete_list = getGroupedTransactionList(username, completed=True)
-            return render_template('completed-list.html', complete_transactions=recent_complete_list, **context)
+            context = dict(error_message="Invalid date range: format incorrect")
+            recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
+            return render_template('completed-list.html', complete_transactions=recent_complete_list[::-1], **context)
         if (not valid_date_range(start_date, end_date)):
             context = dict(error_message = "Invalid date range")
-            recent_complete_list = getGroupedTransactionList(username, completed=True)
-            return render_template('completed-list.html', complete_transactions=recent_complete_list, **context)
+            recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
+            return render_template('completed-list.html', complete_transactions=recent_complete_list[::-1], **context)
 
-        recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=start_date, end_date=end_date)
+        recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=start_date, end_date=end_date, date_format="%m/%d/%Y")
     else:
-        recent_complete_list = getGroupedTransactionList(username, completed=True)
-    return render_template('completed-list.html', complete_transactions=recent_complete_list)
+        recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
+    return render_template('completed-list.html', complete_transactions=recent_complete_list[::-1])
 
 @app.route('/change', methods=['GET', 'POST'])
 def change():
