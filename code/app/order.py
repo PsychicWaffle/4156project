@@ -29,6 +29,9 @@ class Order:
         if order_size < min_order_size:
             order_size = min_order_size
 
+        if (order_size >= self.curr_inventory):
+            return self.curr_inventory
+
         return int(order_size)
     
     def get_next_order_time(self):
