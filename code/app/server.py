@@ -123,11 +123,13 @@ def show_history():
             context = dict(error_message = "No quantity given")
             recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
             return render_template("completed-list.html", complete_transactions=recent_complete_list[::-1], **context)
-        temp_start_date = request.form['start_date']
-        temp_end_date = request.form['end_date']
+        temp_start_date = str(request.form['start_date'])
+        temp_end_date = str(request.form['end_date'])
         try:
-            start_date = time.mktime(datetime.datetime.strptime(temp_start_date, "%d/%m/%Y").timetuple())
-            end_date = time.mktime(datetime.datetime.strptime(temp_end_date, "%d/%m/%Y").timetuple())
+            t = datetime.datetime.strptime(temp_start_date, "%m/%d/%Y")
+            start_date = time.mktime(t.timetuple())
+            t = datetime.datetime.strptime(temp_end_date, "%m/%d/%Y")
+            end_date = time.mktime(t.timetuple())
         except:
             context = dict(error_message="Invalid date range: format incorrect")
             recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
