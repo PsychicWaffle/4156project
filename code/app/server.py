@@ -98,7 +98,8 @@ def track_order():
     grouped_list = getGroupedTransactionList(username, min_qty_executed=1)
     recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=now - MAX_AGE, end_date=now)
 
-    return render_template('active-list.html', queued_transactions=queued_list, transactions=grouped_list, complete_transactions=recent_complete_list)
+    return render_template('active-list.html', queued_transactions=queued_list[::-1], transactions=grouped_list[::-1], complete_transactions=recent_complete_list[::-1])
+
 
 def valid_date_range(start_date, end_date):
     try:

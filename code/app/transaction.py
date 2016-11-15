@@ -109,7 +109,7 @@ class TransactionExecuter:
     def __print_quotes(self):
         price = None
         for _ in xrange(TransactionExecuter.N):
-            time.sleep(1)
+            time.sleep(0.1)
             try:
                 quote = json.loads(urllib2.urlopen(TransactionExecuter.QUERY.format(random.random())).read())
             except ValueError:
