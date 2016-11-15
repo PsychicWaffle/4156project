@@ -1,8 +1,8 @@
 <html>
 	<body>
 		<h2>HISTORY OF ALL TRANSACTIONS</h2>
-            <p>Date Format: mm/dd/yyyy</p>
-    		<p style='color:red'>{{error_message}}</p>
+		<p>Date Format: mm/dd/yyyy</p>
+		<p style='color:red'>{{error_message}}</p>
 		<form action="history" method = "POST"> 
 			<p>Start Date Range: <input type="text" name="start_date" ></p>
 			<p>End Date Range: <input type="text" name="end_date" ></p>
@@ -11,7 +11,7 @@
 		<ul>
 			{% for transaction in complete_transactions %}
 			{% if transaction|length > 0 %}
-			<li>{{transaction[0]}}</li>
+			<li>{{ transaction['description'] }}</li>
 			{% endif %}
 			{% endfor %}
 		</ul>

@@ -94,10 +94,11 @@ def track_order():
     username = session['username']
     # get list of all active trades for this user
     now = time.time()
-    grouped_list = getGroupedTransactionList(username)
+    queued_list = getGroupedTransactionList(username, max_qty_executed = 0)
+    grouped_list = getGroupedTransactionList(username, min_qty_executed=1)
     recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=now - MAX_AGE, end_date=now)
 
-    return render_template('active-list.html', transactions=grouped_list, complete_transactions=recent_complete_list)
+    return render_template('active-list.html', queued_transactions=queued_list, transactions=grouped_list, complete_transactions=recent_complete_list)
 
 def valid_date_range(start_date, end_date):
     try:

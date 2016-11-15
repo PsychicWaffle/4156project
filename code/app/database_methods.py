@@ -78,34 +78,51 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
-def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None, date_format=None):
+def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None, date_format=None, min_qty_executed=None, max_qty_executed=None):
+
+
     dbsession = Session()
     grouped_trans = []
     for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
-        group = []
-        cont = False
         if (start_date != None):
-            if (trans.timestamp < end_date and trans.timestamp > start_date):
-                cont = True
-        else: 
-            cont = True
-        if cont == True and trans.finished == completed:
+            if (not (trans.timestamp < end_date and trans.timestamp > start_date)):
+                continue
+
+        if (min_qty_executed != None):
+            if (not trans.qty_executed >= min_qty_executed):
+                continue
+
+        if (max_qty_executed != None):
+            if (not trans.qty_executed <= max_qty_executed):
+                continue
+
+        if trans.finished == completed:
+            group = {'description': None, 'trans_id': None, 'sub_orders': None }
             if (date_format == None):
                 timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
             else: 
                 timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime(date_format))
             #print timestamp
-            description = "%s: %d units requested by %s, %d executed" % (timestamp , trans.qty_requested, trans.username, trans.qty_executed)
-            group.append(description)
-            group.append(trans.id)
+            group['trans_id'] = trans.id
+            group['sub_orders'] = []
+            curr_avg_total = 0
             for trade in dbsession.query(ExecutedTrade).filter_by(trans_id=trans.id):
                 if (date_format == None):
                     timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
-                    group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+                    group['sub_orders'].append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+                    curr_avg_total = curr_avg_total + (trade.quantity * trade.avg_price) 
                 else:
                     timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime(date_format))
-                    group.append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
-        grouped_trans.append(group)
+                    group['sub_orders'].append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+                    curr_avg_total = curr_avg_total + (trade.quantity * trade.avg_price) 
+
+            if (trans.qty_executed != 0):
+                total_avg = round(curr_avg_total / trans.qty_executed, 2)
+                description = "%s: units requested: %d, executed: %d, avg price: %s" % (timestamp, trans.qty_requested, trans.qty_executed, total_avg)
+            else:
+                description = "%s: units requested: %d, executed: %d" % (timestamp, trans.qty_requested, trans.qty_executed)
+            group['description'] = description
+            grouped_trans.append(group)
 
     dbsession.close()
 

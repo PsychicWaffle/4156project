@@ -1,19 +1,27 @@
 <html>
-  <body>
-    <h2>RUNNING TRANSACTIONS:</h2>
-    <ul>
-      {% for transaction in transactions %}
-      {% if transaction|length > 0 %}
-      <li>{{transaction[0]}}</li>
-        {% endif %}
+	<body>
+		<h2>QUEUED TRANSACTIONS:</h2>
+		<ul>
+			{% for transaction in queued_transactions %}
+			{% if transaction|length > 0 %}
+			<li>{{transaction['description']}}</li>
+			{% endif %}
 			{% endfor %}
 		</ul>
-    <h2>COMPLETE TRANSACTIONS:</h2>
-    <ul>
-      {% for transaction in complete_transactions %}
-      {% if transaction|length > 0 %}
-      <li>{{transaction[0]}}</li>
-        {% endif %}
+		<h2>RUNNING TRANSACTIONS:</h2>
+		<ul>
+			{% for transaction in transactions %}
+			{% if transaction|length > 0 %}
+			<li>{{transaction['description']}}</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		<h2>COMPLETE TRANSACTIONS:</h2>
+		<ul>
+			{% for transaction in complete_transactions %}
+			{% if transaction|length > 0 %}
+			<li>{{transaction['description']}}</li>
+			{% endif %}
 			{% endfor %}
 		</ul>
 	</body>
