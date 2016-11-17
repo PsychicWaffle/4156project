@@ -8,14 +8,19 @@
 
   <head>
     <title>Create User</title>
+    <link rel= "stylesheet" type= "text/css" 
+      href= "{{url_for('static',filename='styles/home.css') }}">
   </head>
   <body>
     <p style='color:red'>{{error_message}}</p>
-    <form action="create" method = "POST"> 
-      <p>Username: <input type="text" name="username"></p>
-      <p>Password: <input type="password" name="password"></p>
-      <p>Confirm Password: <input type="password" name="password_conf"></p>
-      <input type="submit" value="Submit">
-    </form>
+    <div class="form_holder">
+      <form class="orderform" action="create" method = "POST"> 
+        <p class="left_p">Username: <input type="text" name="username"></p>
+        <p class="left_p">Password: <input type="password" name="password"></p>
+        <p class="left_p">Confirm Password: <input type="password" name="password_conf"></p>
+        <p class="left_p"><input class="submit_button" type="submit"
+        value="Submit"></p>
+      </form>
+    </div>
   </body>
 </html>

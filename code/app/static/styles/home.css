@@ -42,22 +42,23 @@ input {
 .topbar {
 	width:100%;
 	display:block;
-	text-align:center;
+	/*text-align:center;*/
 
 }
 
 
 .title {
-	position:absolute;
-	z-index:100;
+	float:left;
 	font-style:italic;
 	padding:0;
 	margin:0;
+	margin-right:15px;
 }
 
 .topbar a {
-	/*margin-right:10px;*/
+	margin-right:10px;
 	color: blue;
+	cursor:pointer;
 }
 .topbar a:link, a:visited, a:active {
 	text-decoration:none;

@@ -1,13 +1,30 @@
 <html>
+  <head>
+    <link rel= "stylesheet" type= "text/css" 
+    href= "{{url_for('static',filename='styles/home.css') }}">
+  </head>
 	<body>
+    <div class="topbar">
+      <h3 class="title">Psychic Waffle</h3>
+      <div style="max-width:530px;margin:auto;">
+      <a href='/home'>Home</a>
+      <a href='/history'>View History</a>
+      <a href='/create'>Create New User</a>
+      <a href='/change'>Change Password</a>
+      <a href='/logout'>Logout</a>
+    </div>
+    </div>
 		<h2>HISTORY OF ALL TRANSACTIONS</h2>
 		<p>Date Format: mm/dd/yyyy</p>
-		<p style='color:red'>{{error_message}}</p>
-		<form action="history" method = "POST"> 
+    <p style='color:red'>{{error_message}}</p>
+    <div class="form_holder">
+		<form class="orderform" action="history" method = "POST"> 
 			<p>Start Date Range: <input type="text" name="start_date" ></p>
 			<p>End Date Range: <input type="text" name="end_date" ></p>
-			<input type="submit" value="Submit">
-		</form><br>		
+      <p class="left_p"><input class="submit_button" type="submit"
+      value="Submit"></p>
+    </form><br>		
+  </div>
 		<ul>
 			{% for transaction in complete_transactions %}
 			{% if transaction|length > 0 %}
