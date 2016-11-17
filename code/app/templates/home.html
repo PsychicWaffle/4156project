@@ -2,6 +2,9 @@
   <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+    <link rel= "stylesheet" type= "text/css" 
+      href= "{{url_for('static',filename='styles/home.css') }}">
+
     <script type=text/javascript>
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
@@ -17,20 +20,39 @@
 
   </head>
   <body>
-    <h1>Hello, {{username}}!</h1><br>
-    <h3>Execute a Transaction</h3>
-    <p style='color:red'>{{error_message}}</p>
-    <form action="home" method = "POST"> 
-      <p>Number of Shares: <input type="number" name="quantity"></p>
-      <p>Min Price: <input type="number" name="min_price"></p>
-      <p>Order Type: <input type="number" name="order_type"></p>
-      <input type="submit" value="Submit">
-    </form><br>
+    <h3 class="title">Psychic Waffle</h3>
+    <div class="topbar">
+      <a href='/history'>View History</a>
+      <a href='/create'>Create New User</a>
+      <a href='/change'>Change Password</a>
+      <a href='/logout'>Logout</a>
+    </div>
+    <div class="section" id="order">
+      <h1>Hello, {{username}}!</h1><br>
+      <h3>Execute a Transaction</h3>
+      <p style='color:red'>{{error_message}}</p>
+      <div class="form_holder">
+        <form class="orderform" action="home" method="POST"> 
+          <p class="left_p">
+            <span style="float:left;">Number of Shares: </span>
+            <input type="number" name="quantity" align="right" />
+          </p>
+          <p class="left_p"> 
+          <span style="float:left;">Min price: </span>
+            <input type="number" name="min_price" align="right" />
+          </p>
+          <p class="left_p">
+          <span style="float:left;">Order Type: </span>
+            <input type="number" name="order_type" align="right" />
+          </p>
+          <p class="left_p"><input type="submit" value="Execute"
+          class="submit_button"></p>
+        </form>
+      </div>
+    </div>
 
-    <iframe id="comp" style="position:absolute;right:0px;top:0px;width:500px;height:100%;" src="/track_order?id={{id}}"></iframe>
-    <a href='/create'>Create New User</a><br>
-    <a href='/change'>Change Password</a><br>
-    <a href='/history'>View History</a><br>
-    <a href='/logout'>Logout</a><br>
+    <div class="section" id="transactions">
+      <iframe id="comp"  src="/track_order?id={{id}}"></iframe>
+    </div>
   </body>
 </html>
