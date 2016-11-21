@@ -19,13 +19,15 @@
 #  DEALINGS IN THE SOFTWARE.
 
 import urllib2
-import time
 import json
 import random
 import py_compile
 from order import Order
 from database_objects import *
 from database_methods import *
+import datetime
+import market_methods
+import time
 
 class TransactionExecuter:
     # Server API URLs
@@ -48,7 +50,7 @@ class TransactionExecuter:
         '''
         # Start with all shares and no profit
         pnl = 0
-        start_time = time.time()
+        start_time = market_methods.get_market_time()
         self.my_order = Order(self.qty, start_time)
 
         # Repeat the strategy until we run out of shares.
@@ -58,7 +60,7 @@ class TransactionExecuter:
                 time.sleep(3)
                 continue
 
-            now = time.time()
+            now = market_methods.get_market_time()
             current_order_size, current_order_time = self.my_order.get_next_order()
             if now < current_order_time:
                 continue
@@ -110,14 +112,11 @@ class TransactionExecuter:
         price = None
         for _ in xrange(TransactionExecuter.N):
             time.sleep(0.1)
-            try:
-                quote = json.loads(urllib2.urlopen(TransactionExecuter.QUERY.format(random.random())).read())
-            except ValueError:
-                print 'Failed to get quote from exchange'
+            price = market_methods.get_market_price()
+            if (price == -1):
                 return -1
-
-            price = float(quote['top_bid']['price'])
             print "Quoted at %s" % price
+
         return price
 
     def __clean_up_transaction(self, pnl):
