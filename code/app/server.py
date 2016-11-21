@@ -11,7 +11,6 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from Queue import Queue
 from threading import Thread
-import time
 import datetime
 
 
@@ -93,7 +92,7 @@ def track_order():
         return redirect('/login')
     username = session['username']
     # get list of all active trades for this user
-    now = time.time()
+    now = market_methods.get_market_time()
     queued_list = getGroupedTransactionList(username, max_qty_executed = 0)
     grouped_list = getGroupedTransactionList(username, min_qty_executed=1)
     recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=now - MAX_AGE, end_date=now)

@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from database_objects import *
 import datetime as dt
-import time
+import market_methods
 
 engine = None
 Session = None
@@ -31,7 +31,8 @@ def insertNewUser(username, passhash):
 	insertDatabaseItem(new_user)
 
 def insertNewTransaction(quantity, username):
-	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=time.time())
+        now = market_methods.get_market_time()
+	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=now)
 	return insertDatabaseItemWithId(transaction)
 
 def updateTransactionTradeExecuted(trans_id, qty_remaining):
