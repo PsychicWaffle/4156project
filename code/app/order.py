@@ -54,9 +54,9 @@ class Order:
         print "Current inventory: %d" % self.curr_inventory
 
     def check_valid_order(self):
-        if (self.initial_inventory <= 0):
+        if (self.initial_inventory < 0):
             return False
-        if (self.start_time <= 0):
+        if (self.start_time < 0):
             return False
         return True
 
@@ -64,4 +64,4 @@ class Order:
         print "Initial inventory: %d" % self.initial_inventory
         print "Printing Order Summary:"
         for trade in self.get_executed_trades():
-            print "{ qt: %d , avg_price: %f, trade_time: %s }" % (trade['quantity'], trade['avg_price'], time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime(trade['time'])))
+            print "{ qt: %d , avg_price: %f, trade_time: %s }" % (trade['quantity'], trade['avg_price'], time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(trade['time'])))

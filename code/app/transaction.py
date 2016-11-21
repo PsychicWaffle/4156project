@@ -36,8 +36,8 @@ class TransactionExecuter:
     ORDER_DISCOUNT = 10
     N = 5
 
-    def __init__(self, INVENTORY, username, trans_id):
-        self.qty = INVENTORY
+    def __init__(self, inventory, username, trans_id):
+        self.qty = inventory
         self.username = username
         self.trans_id = trans_id
         if (self.check_valid_transaction() == False):
@@ -127,6 +127,4 @@ class TransactionExecuter:
         updateTransactionDone(self.trans_id)
 
     def check_valid_transaction(self):
-        if (self.qty == False):
-            return False
         return True

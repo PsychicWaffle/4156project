@@ -48,9 +48,9 @@ class OrderTest(unittest.TestCase):
             caught_ex = True
         self.assertTrue(caught_ex == True)
 
-    def test_zero_order_size(self):
+    def test_big_order_size(self):
         try:
-            temp_order = order.Order(0, 1000)
+            temp_order = order.Order(-100, 1000)
             caught_ex = False
         except ValueError:
             caught_ex = True
@@ -64,9 +64,9 @@ class OrderTest(unittest.TestCase):
             caught_ex = True
         self.assertTrue(caught_ex == True)
 
-    def test_zero_start_time(self):
+    def test_big_negative_start_time(self):
         try:
-            temp_order = order.Order(1, 0)
+            temp_order = order.Order(1, -100)
             caught_ex = False
         except ValueError:
             caught_ex = True

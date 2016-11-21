@@ -61,10 +61,10 @@ class TransactionTest(unittest.TestCase):
         sys.stdout = old_stdout
         self.assertTrue(caught_ex == True)
 
-    def test_zero_order_size(self):
+    def test_big_negative_order_size(self):
         test_username = "Andy"
         test_passhash = "3838"
-        test_trade_quantity = 0
+        test_trade_quantity = -1000
         database_methods.insertNewUser(test_username, test_passhash)
         returned_user = database_methods.getUser(test_username)
         self.assertTrue(returned_user != None)
