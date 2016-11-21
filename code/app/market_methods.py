@@ -27,4 +27,3 @@ def get_market_price():
         return -1
     price = float(quote['top_bid']['price'])
     return price
-
