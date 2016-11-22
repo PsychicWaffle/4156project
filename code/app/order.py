@@ -14,12 +14,18 @@ class Order:
     lower_end_price = 70
     higher_end_price = 160
     
-    def __init__(self, initial_inventory, start_time):
+    def __init__(self, initial_inventory, start_time, min_price=None, max_time=None):
         self.initial_inventory = initial_inventory
         self.start_time = start_time
         self.curr_inventory = self.initial_inventory
         self.next_order_time = start_time
         self.executed_trades = []
+        self.min_price = min_price
+        self.max_time = max_time
+        if (max_time != None):
+            self.expiration_time = start_time + max_time
+        else:
+            self.expiration_time = self.__market_closing_time()
         if (self.__check_valid_order() == False):
             raise ValueError('Invalid order created')
 
@@ -67,11 +73,26 @@ class Order:
         closing_time = self.__market_closing_time()
         return closing_time - curr_time
 
+    def __time_left_to_complete_order(self):
+        curr_time = self.__get_curret_market_time()
+        return self.expiration_time - curr_time
+            
     def __market_closing_time(self):
         closing_time_str = "2016-11-21 08:30:00.090257"
         t = datetime.datetime.strptime(closing_time_str, "%Y-%m-%d %H:%M:%S.%f");
         closing_time_seconds = time.mktime(t.timetuple())
         return closing_time_seconds
+
+    def __market_price_below_min():
+        if (self.min_price == None):
+            return False
+        else:
+            curr_price = curr_time = self.__get_curret_market_price()
+            if (curr_price < self.min_price):
+                return True
+            else:
+                return False
+
 
     def __check_valid_order(self):
         if (self.initial_inventory < 0):
