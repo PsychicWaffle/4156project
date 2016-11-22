@@ -1,5 +1,7 @@
 import py_compile
+import market_methods
 import time
+import datetime
 
 SECONDS_IN_MINUTE = 60
 SECONDS_IN_HOUR = 3600
@@ -9,6 +11,9 @@ min_order_size = 1
 
 class Order:
 
+    lower_end_price = 70
+    higher_end_price = 160
+    
     def __init__(self, initial_inventory, start_time):
         self.initial_inventory = initial_inventory
         self.start_time = start_time
@@ -49,9 +54,24 @@ class Order:
     def get_executed_trades(self):
         return self.executed_trades
 
-    def print_current_order(self):
-        print "Initial inventory: %d" % self.initial_inventory
-        print "Current inventory: %d" % self.curr_inventory
+    def __get_current_market_price(self):
+        price = market_methods.get_market_price()
+        return price
+
+    def __get_curret_market_time(self):
+        time = market_methods.get_market_time()
+        return time
+
+    def __time_left_in_day(self):
+        curr_time = self.__get_curret_market_time() 
+        closing_time = self.__market_closing_time()
+        return closing_time - curr_time
+
+    def __market_closing_time(self):
+        closing_time_str = "2016-11-21 08:30:00.090257"
+        t = datetime.datetime.strptime(closing_time_str, "%Y-%m-%d %H:%M:%S.%f");
+        closing_time_seconds = time.mktime(t.timetuple())
+        return closing_time_seconds
 
     def check_valid_order(self):
         if (self.initial_inventory < 0):
@@ -59,6 +79,10 @@ class Order:
         if (self.start_time < 0):
             return False
         return True
+
+    def print_current_order(self):
+        print "Initial inventory: %d" % self.initial_inventory
+        print "Current inventory: %d" % self.curr_inventory
 
     def print_summary(self):
         print "Initial inventory: %d" % self.initial_inventory
