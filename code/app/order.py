@@ -20,7 +20,7 @@ class Order:
         self.curr_inventory = self.initial_inventory
         self.next_order_time = start_time
         self.executed_trades = []
-        if (self.check_valid_order() == False):
+        if (self.__check_valid_order() == False):
             raise ValueError('Invalid order created')
 
     def get_next_order(self):
@@ -73,7 +73,7 @@ class Order:
         closing_time_seconds = time.mktime(t.timetuple())
         return closing_time_seconds
 
-    def check_valid_order(self):
+    def __check_valid_order(self):
         if (self.initial_inventory < 0):
             return False
         if (self.start_time < 0):
