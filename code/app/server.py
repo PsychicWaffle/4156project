@@ -13,21 +13,30 @@ from Queue import Queue
 from threading import Thread
 import datetime
 import sys
+import validity_checker
 
 
 app = Flask(__name__)
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
 
 MAX_AGE = 12 * 60 * 60
-MAX_ORDER_SIZE=1000000
-USERNAME_MIN_LEN=4
-PASSWORD_MIN_LEN=4
 
 def process_workload(q):
     while True:
         args = q.get()
-        create_transaction(args[0], args[1], args[2])
+        execute_transaction(args[0], args[1], args[2])
         q.task_done()
+
+def execute_transaction(new_id, quantity, username):
+    # insert new transaction record and grab generated id
+    # spin up new process to execute the transaction over time
+    transaction_executer = TransactionExecuter(quantity, username, new_id)
+    transaction_executer.execute_transaction()
+
+# Check for incomplete transctions each time the server is restarted
+@app.before_first_request
+def run_start_up_funcs():
+   check_incomplete_transaction()
 
 def check_incomplete_transaction():
     if 'username' not in session:
@@ -38,21 +47,11 @@ def check_incomplete_transaction():
         trans_id = active_transaction.id
         my_queue.put([trans_id, remaining_qty, session['username']])
 
-@app.before_first_request
-def run_start_up_funcs():
-   check_incomplete_transaction()
-
 @app.route('/')
 def hello_world():
     if 'username' not in session:
         return redirect('/login')
     return redirect('/home')
-
-def create_transaction(new_id, quantity, username):
-    # insert new transaction record and grab generated id
-    # spin up new process to execute the transaction over time
-    transaction_executer = TransactionExecuter(quantity, username, new_id)
-    transaction_executer.execute_transaction()
 
 @app.route('/home', methods=['GET', 'POST'])
 def transaction():
@@ -63,29 +62,12 @@ def transaction():
             context = dict(error_message = "No quantity given")
             return render_template("home.html", username=session['username'], **context)
         # call function to execute the transaction
-        if (valid_user_parameters(request.form['quantity']) == False):
+        if (validity_checker.valid_order_parameters(request.form['quantity']) == False):
             context = dict(error_message = "Invalid parameters")
             return render_template("home.html", username=session['username'], **context)
         new_id = insertNewTransaction(float(request.form['quantity']), session['username'])
         my_queue.put([new_id, float(request.form['quantity']), session['username']])
     return render_template("home.html", username=session['username'])
-
-def valid_user_parameters(quantity):
-    try:
-        float(quantity)
-        quantity = int(quantity)
-    except ValueError:
-        return False
-
-    if (type(quantity) != int):
-        return False
-    if (quantity == None):
-        return False
-    if (quantity <= 0):
-        return False
-    if (quantity > MAX_ORDER_SIZE):
-        return False
-    return True
 
 @app.route('/track_order', methods=['GET'])
 def track_order():
@@ -99,21 +81,6 @@ def track_order():
     recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=now - MAX_AGE, end_date=now)
 
     return render_template('active-list.html', queued_transactions=queued_list[::-1], transactions=grouped_list[::-1], complete_transactions=recent_complete_list[::-1])
-
-
-def valid_date_range(start_date, end_date):
-    try:
-        float(start_date)
-        float(end_date)
-        start_date = int(start_date)
-        end_date = int(end_date)
-    except ValueError:
-        return False
-    if (start_date <= 0 or end_date <= 0):
-        return False
-    if (start_date > end_date):
-        return False
-    return True
 
 @app.route('/history', methods=['GET', 'POST'])
 def show_history():
@@ -136,7 +103,7 @@ def show_history():
             context = dict(error_message="Invalid date range: format incorrect")
             recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
             return render_template('completed-list.html', complete_transactions=recent_complete_list[::-1], **context)
-        if (not valid_date_range(start_date, end_date)):
+        if (not validity_checker.valid_history_date_range(start_date, end_date)):
             context = dict(error_message = "Invalid date range")
             recent_complete_list = getGroupedTransactionList(username, completed=True, date_format='%m/%d/%Y')
             return render_template('completed-list.html', complete_transactions=recent_complete_list[::-1], **context)
@@ -174,16 +141,6 @@ def change():
         return redirect('/')
     return render_template("change.html")
 
-def valid_username(username):
-    if (len(username) < USERNAME_MIN_LEN):
-        return False
-    return True
-
-def valid_password(password):
-    if (len(password) < PASSWORD_MIN_LEN):
-        return False
-    return True
-
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
@@ -199,11 +156,11 @@ def create():
             return render_template("create.html", **context)
         username = request.form['username'].strip()
         passhash = hashlib.md5(request.form['password']).hexdigest()
-        if (not valid_username(username)):
+        if (not validity_checker.valid_username(username)):
             context = dict(error_message = "Invalid username")
             return render_template("create.html", **context)
         
-        if (not valid_password(request.form['password'])):
+        if (not validity_checker.valid_password(request.form['password'])):
             context = dict(error_message = "Invalid password")
             return render_template("create.html", **context)
 
@@ -292,5 +249,4 @@ if __name__ == '__main__':
         worker = Thread(target=process_workload, args=(my_queue,))
         worker.setDaemon(True)
         worker.start()
-
     app.run()

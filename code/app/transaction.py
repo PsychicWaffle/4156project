@@ -59,20 +59,19 @@ class TransactionExecuter:
             if (price == -1):
                 time.sleep(3)
                 continue
-
             now = market_methods.get_market_time()
             current_order_size, current_order_time = self.my_order.get_next_order()
             if now < current_order_time:
                 continue
-            self.attempt_to_execute_sub_order(current_order_size, current_order_time, price, pnl, now)
+            self.__attempt_to_execute_sub_order(current_order_size, current_order_time, price, pnl, now)
 
         self.__clean_up_transaction(pnl)
 
-    def attempt_to_execute_sub_order(self, current_order_size, current_order_time, price, pnl, now):
+    def __attempt_to_execute_sub_order(self, current_order_size, current_order_time, price, pnl, now):
         # Attempt to execute a sell order.
         order_args = (current_order_size, price - TransactionExecuter.ORDER_DISCOUNT)
         print "Executing 'sell' of {:,} @ {:,}".format(*order_args)
-        url   = TransactionExecuter.ORDER.format(random.random(), *order_args)
+        url = TransactionExecuter.ORDER.format(random.random(), *order_args)
         executed_sub_order = False
         attempts_to_execute_sub_order = 0
         while (executed_sub_order == False):
@@ -91,22 +90,32 @@ class TransactionExecuter:
                     print "Lowering order size, now executing 'sell' of {:,} @ {:,}".format(*order_args)
                     attempts_to_execute_sub_order = 0
                 continue
+        self.__process_filled_suborder(order, pnl, now);
 
+    def __process_filled_suborder(self, order, pnl, now):
         # Update the PnL if the order was filled.
         if order['avg_price'] > 0:
-            price    = order['avg_price']
-            notional = float(price * current_order_size)
+            price = order['avg_price']
+            qty = order['qty']
+            notional = float(price * qty)
             pnl += notional
-            self.my_order.process_executed_order(current_order_size, price, now)
-            print "Sold {:,} for ${:,}/share, ${:,} notional".format(current_order_size, price, notional)
+            self.my_order.process_executed_order(qty, price, now)
+            print "Sold {:,} for ${:,}/share, ${:,} notional".format(qty, price, notional)
             print "PnL ${:,}, Qty {:,}".format(pnl, self.my_order.get_inventory_left())
             # insert the executed trade into the database
-            insertNewExecutedTrade(self.trans_id, now, current_order_size, price)
+            insertNewExecutedTrade(self.trans_id, now, qty, price)
         else:
             print "Unfilled order; $%s total, %s qty" % (pnl, self.my_order.get_inventory_left())
         # update the transaction in db for executed trade
         updateTransactionTradeExecuted(self.trans_id, self.my_order.get_inventory_left())
         time.sleep(1)
+
+    def __clean_up_transaction(self, pnl):
+        # Position is liquididated!
+        print "Liquidated position for ${:,}".format(pnl)
+        self.my_order.print_summary()
+        # mark the transaction as completed in the database
+        updateTransactionDone(self.trans_id)
 
     def __print_quotes(self):
         price = None
@@ -118,13 +127,6 @@ class TransactionExecuter:
             print "Quoted at %s" % price
 
         return price
-
-    def __clean_up_transaction(self, pnl):
-        # Position is liquididated!
-        print "Liquidated position for ${:,}".format(pnl)
-        self.my_order.print_summary()
-        # mark the transaction as completed in the database
-        updateTransactionDone(self.trans_id)
 
     def check_valid_transaction(self):
         return True

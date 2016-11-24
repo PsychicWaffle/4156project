@@ -93,7 +93,6 @@ class Order:
             else:
                 return False
 
-
     def __check_valid_order(self):
         if (self.initial_inventory < 0):
             return False

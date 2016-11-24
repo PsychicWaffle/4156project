@@ -16,7 +16,6 @@ def get_market_quote():
         return -1
     return quote
 
-
 def get_market_time():
     try:
         quote = json.loads(urllib2.urlopen(QUERY.format(random.random())).read())
