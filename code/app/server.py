@@ -15,36 +15,12 @@ import datetime
 import sys
 import validity_checker
 import market_methods
-
+import multi_processing_handler
 
 app = Flask(__name__)
 app.secret_key = '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
 
 MAX_AGE = 12 * 60 * 60
-
-def add_workload_to_queue(workload):
-        database_methods.updateTransactionQueuedStatus(workload[0], True)
-        my_queue.put(workload)
-
-def process_workload(q):
-    while True:
-        workload = q.get()
-        # workload = id, username, order object
-        database_methods.updateTransactionQueuedStatus(workload[0], False)
-        execute_transaction(workload[0], workload[1], workload[2])
-        q.task_done()
-
-def execute_transaction(new_id, username, order_obj):
-        
-    # insert new transaction record and grab generated id
-    # spin up new process to execute the transaction over time
-    transaction_executer = TransactionExecuter(username, new_id)
-    transaction_executer.execute_transaction(order_obj)
-    curr_tran = database_methods.getTransactionById(new_id)
-    if (curr_tran.finished == False):
-        remaining_qty = curr_tran.qty_requested - curr_tran.qty_executed
-        workload = [new_id, username, order_obj]
-        add_workload_to_queue(workload)        
 
 # Check for incomplete transctions each time the server is restarted
 @app.before_first_request
@@ -61,7 +37,7 @@ def check_incomplete_transaction():
         start_time = active_transaction.timestamp
         order = Order(remaining_qty, start_time)
         workload = [trans_id, session['username'], order]
-        add_workload_to_queue(workload)
+        multi_processing_handler.add_workload_to_queue(my_queue, workload)
 
 @app.route('/')
 def hello_world():
@@ -85,7 +61,7 @@ def transaction():
         start_time = market_methods.get_market_time()
         order = Order(float((request.form['quantity'])), start_time)
         workload = [new_id, session['username'], order]
-        add_workload_to_queue(workload)
+        multi_processing_handler.add_workload_to_queue(my_queue, workload)
     return render_template("home.html", username=session['username'])
 
 @app.route('/track_order', methods=['GET'])
@@ -265,7 +241,7 @@ if __name__ == '__main__':
     my_queue = Queue(maxsize=0)
     num_threads = multiprocessing.cpu_count()
     for i in range(num_threads):
-        worker = Thread(target=process_workload, args=(my_queue,))
+        worker = Thread(target=multi_processing_handler.process_workload, args=(my_queue,))
         worker.setDaemon(True)
         worker.start()
     app.run()

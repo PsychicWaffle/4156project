@@ -34,7 +34,7 @@ class TransactionExecuter:
     QUERY = "http://localhost:8080/query?id={}"
     ORDER = "http://localhost:8080/order?id={}&side=sell&qty={}&price={}"
     ORDER_DISCOUNT = 10
-    BACK_ON_QUEUE_TIME_FRAME=120
+    BACK_ON_QUEUE_TIME_FRAME=60
     N = 5
 
     def __init__(self, username, trans_id):
