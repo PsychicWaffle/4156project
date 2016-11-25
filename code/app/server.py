@@ -52,31 +52,35 @@ def transaction():
     if request.method == 'POST':
         if request.form['quantity'] == '' or 'quantity' not in request.form:
             context = dict(error_message = "No quantity given")
-            return render_template("home.html", username=session['username'], **context)
+            return render_template("home.html",
+                    username=session['username'], **context)
         # call function to execute the transaction
         if (validity_checker.valid_order_parameters(request.form['quantity']) == False):
             context = dict(error_message = "Invalid parameters")
-            return render_template("home.html", username=session['username'], **context)
+            return render_template("home.html",
+                    username=session['username'], **context)
         new_id = insertNewTransaction(float(request.form['quantity']), session['username'])
         start_time = market_methods.get_market_time()
         order = Order(float((request.form['quantity'])), start_time)
         workload = [new_id, session['username'], order]
         multi_processing_handler.add_workload_to_queue(my_queue, workload)
     return render_template("home.html", username=session['username'])
-
+            
 @app.route('/track_order', methods=['GET'])
 def track_order():
     if 'username' not in session:
         return redirect('/login')
     username = session['username']
     # get list of all active trades for this user
-    now = market_methods.get_market_time()
+    curr_time = market_methods.get_market_time()
+    curr_time_str = market_methods.get_market_time_formatted("%H:%M:%S")
+    curr_price = market_methods.get_market_price()
     queued_list = getGroupedTransactionList(username, queued=True)
     grouped_list = getGroupedTransactionList(username, min_qty_executed=1)
-    recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=now - MAX_AGE, end_date=now)
+    recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=curr_time - MAX_AGE, end_date=curr_time)
 
-    return render_template('active-list.html', queued_transactions=queued_list[::-1], transactions=grouped_list[::-1], complete_transactions=recent_complete_list[::-1])
-
+    return render_template('active-list.html', queued_transactions=queued_list[::-1], transactions=grouped_list[::-1], complete_transactions=recent_complete_list[::-1], price=curr_price, time=curr_time_str)
+            
 @app.route('/history', methods=['GET', 'POST'])
 def show_history():
     if 'username' not in session:

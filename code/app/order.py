@@ -52,7 +52,7 @@ class Order:
         self.executed_trades.append({ 'quantity' : quantity, 'avg_price' :  avg_price, 'time' : time })
         self.curr_inventory -= quantity
         time_left_to_complete = self.__time_left_to_complete_order
-        self.next_order_time += 120
+        self.next_order_time += 10
         return 1
 
     def get_inventory_left(self):

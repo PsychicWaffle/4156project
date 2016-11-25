@@ -27,6 +27,11 @@ def get_market_time():
     seconds = time.mktime(t.timetuple())
     return seconds
 
+def get_market_time_formatted(format_str):
+        time_seconds = get_market_time()
+        time_str = datetime.datetime.fromtimestamp(time_seconds).strftime(format_str)
+        return time_str
+
 def get_market_price():
     try:
         quote = json.loads(urllib2.urlopen(QUERY.format(random.random())).read())
