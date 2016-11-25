@@ -17,12 +17,12 @@ class OrderTest(unittest.TestCase):
 
     def test_order_size(self):
         temp_order = order.Order(10, 1000)
-        order_size = temp_order.get_next_order_size()
+        (order_size, _) = temp_order.get_next_order()
         self.assertGreater(order_size, 0)
 
     def test_order_time(self):
         temp_order = order.Order(10, 1000)
-        order_time = temp_order.get_next_order_time()
+        (_, order_time) = temp_order.get_next_order()
         self.assertTrue(order_time != None)
 
     def test_process_exectuted_order(self):

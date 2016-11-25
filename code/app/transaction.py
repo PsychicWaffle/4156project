@@ -34,16 +34,17 @@ class TransactionExecuter:
     QUERY = "http://localhost:8080/query?id={}"
     ORDER = "http://localhost:8080/order?id={}&side=sell&qty={}&price={}"
     ORDER_DISCOUNT = 10
+    BACK_ON_QUEUE_TIME_FRAME=120
     N = 5
 
-    def __init__(self, inventory, username, trans_id):
-        self.qty = inventory
+    def __init__(self, username, trans_id):
         self.username = username
         self.trans_id = trans_id
+        self.my_order = None
         if (self.check_valid_transaction() == False):
             raise ValueError('Invalid transaction parameters')
 
-    def execute_transaction(self):
+    def execute_transaction(self, my_order):
         '''
         Execute a transaction for a givent amount of inventory
         Method used from given sample in client.py
@@ -51,7 +52,7 @@ class TransactionExecuter:
         # Start with all shares and no profit
         pnl = 0
         start_time = market_methods.get_market_time()
-        self.my_order = Order(self.qty, start_time)
+        self.my_order = my_order
 
         # Repeat the strategy until we run out of shares.
         while (self.my_order.get_inventory_left() > 0):
@@ -62,10 +63,17 @@ class TransactionExecuter:
             now = market_methods.get_market_time()
             current_order_size, current_order_time = self.my_order.get_next_order()
             if now < current_order_time:
-                continue
-            self.__attempt_to_execute_sub_order(current_order_size, current_order_time, price, pnl, now)
+                if (current_order_time - now > TransactionExecuter.BACK_ON_QUEUE_TIME_FRAME):
+                    print "Too long until next time so putting self back on queue!"
+                    remaining_qty_to_fill = self.my_order.get_inventory_left
+                    return remaining_qty_to_fill
+                else:
+                    continue
+            else:
+                self.__attempt_to_execute_sub_order(current_order_size, current_order_time, price, pnl, now)
 
         self.__clean_up_transaction(pnl)
+        return 0
 
     def __attempt_to_execute_sub_order(self, current_order_size, current_order_time, price, pnl, now):
         # Attempt to execute a sell order.

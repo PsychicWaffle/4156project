@@ -29,11 +29,12 @@ class TransactionTest(unittest.TestCase):
         returned_user = database_methods.getUser(test_username)
         self.assertTrue(returned_user != None)
         ret_id = database_methods.insertNewTransaction(test_trade_quantity, test_username)
-        test_t_x = TransactionExecuter(test_trade_quantity, test_username, ret_id)
+        test_t_x = TransactionExecuter(test_username, ret_id)
         old_stdout = sys.stdout
         sys.stdout = open(os.devnull, 'w')
         test_t_x_finished = False
-        test_t_x.execute_transaction()
+        order = Order(test_trade_quantity, 0)
+        test_t_x.execute_transaction(order)
         while (test_t_x_finished == False):
             curr_tran = database_methods.getTransactionById(ret_id)
             if (curr_tran.finished == True):
@@ -52,8 +53,9 @@ class TransactionTest(unittest.TestCase):
         old_stdout = sys.stdout
         sys.stdout = open(os.devnull, 'w')
         try:
-            test_t_x = TransactionExecuter(test_trade_quantity, test_username, ret_id)
-            test_t_x.execute_transaction()
+            test_t_x = TransactionExecuter(test_username, ret_id)
+            order = Order(test_trade_quantity, 0)
+            test_t_x.execute_transaction(order)
             caught_ex = False
         except ValueError:
             caught_ex = True
@@ -72,7 +74,8 @@ class TransactionTest(unittest.TestCase):
         old_stdout = sys.stdout
         sys.stdout = open(os.devnull, 'w')
         try:
-            test_t_x = TransactionExecuter(test_trade_quantity, test_username, ret_id)
+            test_t_x = TransactionExecuter(test_username, ret_id)
+            order = Order(test_trade_quantity, 0)
             test_t_x.execute_transaction()
             caught_ex = False
         except ValueError:

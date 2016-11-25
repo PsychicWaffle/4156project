@@ -30,11 +30,11 @@ class Order:
             raise ValueError('Invalid order created')
 
     def get_next_order(self):
-        order_size = self.get_next_order_size()
-        order_time = self.get_next_order_time()
+        order_size = self.__get_next_order_size()
+        order_time = self.__get_next_order_time()
         return (order_size, order_time)
 
-    def get_next_order_size(self):
+    def __get_next_order_size(self):
         # order_size = self.initial_inventory / 24
         order_size = self.initial_inventory / 10
         if order_size < min_order_size:
@@ -45,13 +45,14 @@ class Order:
 
         return int(order_size)
     
-    def get_next_order_time(self):
+    def __get_next_order_time(self):
         return self.next_order_time
 
     def process_executed_order(self, quantity, avg_price, time):
         self.executed_trades.append({ 'quantity' : quantity, 'avg_price' :  avg_price, 'time' : time })
         self.curr_inventory -= quantity
-        self.next_order_time += 10
+        time_left_to_complete = self.__time_left_to_complete_order
+        self.next_order_time += 120
         return 1
 
     def get_inventory_left(self):

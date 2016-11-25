@@ -32,7 +32,7 @@ def insertNewUser(username, passhash):
 
 def insertNewTransaction(quantity, username):
         now = market_methods.get_market_time()
-	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=now)
+	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=now, queued=True)
 	return insertDatabaseItemWithId(transaction)
 
 def updateTransactionTradeExecuted(trans_id, qty_remaining):
@@ -46,6 +46,13 @@ def updateTransactionDone(trans_id):
 	dbsession = Session() 
 	trans = dbsession.query(Transactions).filter_by(id=trans_id).first()
 	trans.finished = True
+	dbsession.commit()
+	dbsession.close()
+
+def updateTransactionQueuedStatus(trans_id, status):
+	dbsession = Session() 
+	trans = dbsession.query(Transactions).filter_by(id=trans_id).first()
+	trans.queued = status
 	dbsession.commit()
 	dbsession.close()
 
@@ -79,7 +86,8 @@ def getMaxTransactionId(username):
 	dbsession.close()
 	return max_id
 
-def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None, date_format=None, min_qty_executed=None, max_qty_executed=None):
+def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None, date_format=None, min_qty_executed=None,
+        max_qty_executed=None, queued=False):
 
 
     dbsession = Session()
@@ -95,6 +103,9 @@ def getGroupedTransactionList(username, completed=False, start_date=None, end_da
 
         if (max_qty_executed != None):
             if (not trans.qty_executed <= max_qty_executed):
+                continue
+
+        if (not trans.queued == queued):
                 continue
 
         if trans.finished == completed:
