@@ -1,0 +1,1231 @@
+************* Module app.database_methods
+W: 12, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 15, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 16, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 17, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 18, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 21, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 22, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 23, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 24, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 25, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 26, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 27, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 30, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 31, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 34, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+C: 35, 0: Line too long (144/100) (line-too-long)
+W: 35, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 36, 0: Trailing whitespace (trailing-whitespace)
+W: 37, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 40, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 41, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 42, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 43, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 44, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 47, 0: Trailing whitespace (trailing-whitespace)
+W: 47, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 48, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 49, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 50, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 51, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 54, 0: Trailing whitespace (trailing-whitespace)
+W: 54, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 55, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 56, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 57, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 58, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 61, 0: Line too long (111/100) (line-too-long)
+W: 61, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 62, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 65, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 66, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 67, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 68, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 71, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 72, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 73, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 74, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 75, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 78, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 79, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 80, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 81, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 82, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 85, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 86, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 87, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 88, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 90, 0: Line too long (129/100) (line-too-long)
+C: 91, 0: Wrong continued indentation (add 22 spaces).
+        max_qty_executed=None, queued=False):
+        ^                     | (bad-continuation)
+C: 96, 0: Line too long (102/100) (line-too-long)
+C: 97, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 98, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:101, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:102, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:105, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:106, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:109, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:110, 0: Bad indentation. Found 16 spaces, expected 12 (bad-indentation)
+C:113, 0: No space allowed before bracket
+            group = {'description': None, 'trans_id': None, 'sub_orders': None }
+                                                                               ^ (bad-whitespace)
+C:114, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:116, 0: Trailing whitespace (trailing-whitespace)
+C:123, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:125, 0: Line too long (167/100) (line-too-long)
+C:126, 0: Trailing whitespace (trailing-whitespace)
+C:128, 0: Line too long (101/100) (line-too-long)
+C:129, 0: Line too long (167/100) (line-too-long)
+C:130, 0: Trailing whitespace (trailing-whitespace)
+C:132, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:134, 0: Line too long (150/100) (line-too-long)
+C:136, 0: Line too long (124/100) (line-too-long)
+W:146, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:147, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:148, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:149, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:150, 0: Line too long (110/100) (line-too-long)
+W:150, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:151, 0: Line too long (201/100) (line-too-long)
+W:151, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:152, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:153, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:156, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:157, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:158, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:159, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:162, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:163, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:164, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:165, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:166, 0: Bad indentation. Found 20 spaces, expected 12 (bad-indentation)
+W:168, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:169, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:172, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:173, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:174, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:175, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:176, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:179, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+C:180, 0: Line too long (107/100) (line-too-long)
+W:180, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:181, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:182, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:183, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:186, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:187, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:188, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:189, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:190, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:191, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:194, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:195, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:196, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:197, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:198, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:199, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Wildcard import sqlalchemy (wildcard-import)
+E:  1, 0: Unable to import 'sqlalchemy' (import-error)
+E:  2, 0: Unable to import 'sqlalchemy' (import-error)
+E:  3, 0: Unable to import 'sqlalchemy.orm' (import-error)
+W:  4, 0: Wildcard import database_objects (wildcard-import)
+W:  4, 0: Relative import 'database_objects', should be 'app.database_objects' (relative-import)
+W:  6, 0: Relative import 'market_methods', should be 'app.market_methods' (relative-import)
+C:  8, 0: Invalid constant name "engine" (invalid-name)
+C:  9, 0: Invalid constant name "Session" (invalid-name)
+C: 11, 0: Invalid function name "createSchema" (invalid-name)
+C: 11, 0: Missing function docstring (missing-docstring)
+C: 14, 0: Invalid function name "insertDatabaseItem" (invalid-name)
+C: 14, 0: Missing function docstring (missing-docstring)
+E: 15,13: Session is not callable (not-callable)
+C: 20, 0: Invalid function name "insertDatabaseItemWithId" (invalid-name)
+C: 20, 0: Missing function docstring (missing-docstring)
+E: 21,13: Session is not callable (not-callable)
+C: 29, 0: Invalid function name "insertNewUser" (invalid-name)
+C: 29, 0: Missing function docstring (missing-docstring)
+C: 33, 0: Invalid function name "insertNewTransaction" (invalid-name)
+C: 33, 0: Missing function docstring (missing-docstring)
+C: 39, 0: Invalid function name "updateTransactionTradeExecuted" (invalid-name)
+C: 39, 0: Missing function docstring (missing-docstring)
+E: 40,13: Session is not callable (not-callable)
+C: 46, 0: Invalid function name "updateTransactionDone" (invalid-name)
+C: 46, 0: Missing function docstring (missing-docstring)
+E: 47,13: Session is not callable (not-callable)
+C: 53, 0: Invalid function name "updateTransactionQueuedStatus" (invalid-name)
+C: 53, 0: Missing function docstring (missing-docstring)
+E: 54,13: Session is not callable (not-callable)
+C: 60, 0: Invalid function name "insertNewExecutedTrade" (invalid-name)
+C: 60, 0: Missing function docstring (missing-docstring)
+C: 64, 0: Invalid function name "getUser" (invalid-name)
+C: 64, 0: Missing function docstring (missing-docstring)
+E: 65,13: Session is not callable (not-callable)
+C: 70, 0: Invalid function name "removeUser" (invalid-name)
+C: 70, 0: Missing function docstring (missing-docstring)
+E: 71,20: Session is not callable (not-callable)
+C: 77, 0: Invalid function name "updateUserPassword" (invalid-name)
+C: 77, 0: Missing function docstring (missing-docstring)
+E: 78,13: Session is not callable (not-callable)
+C: 84, 0: Invalid function name "getMaxTransactionId" (invalid-name)
+C: 84, 0: Missing function docstring (missing-docstring)
+E: 85,13: Session is not callable (not-callable)
+E: 86,26: Undefined variable 'func' (undefined-variable)
+C: 90, 0: Invalid function name "getGroupedTransactionList" (invalid-name)
+C: 90, 0: Missing function docstring (missing-docstring)
+R: 90, 0: Too many arguments (8/5) (too-many-arguments)
+R: 90, 0: Too many local variables (17/15) (too-many-locals)
+E: 94,16: Session is not callable (not-callable)
+C:114,16: Comparison to None should be 'expr is None' (singleton-comparison)
+C:123,20: Comparison to None should be 'expr is None' (singleton-comparison)
+R: 90, 0: Too many branches (16/12) (too-many-branches)
+C:145, 0: Invalid function name "getActiveTransactionList" (invalid-name)
+C:145, 0: Missing function docstring (missing-docstring)
+E:146,13: Session is not callable (not-callable)
+W:155,23: Redefining built-in 'id' (redefined-builtin)
+C:155, 0: Invalid function name "getTransactionById" (invalid-name)
+C:155, 0: Invalid argument name "id" (invalid-name)
+C:155, 0: Missing function docstring (missing-docstring)
+E:156,13: Session is not callable (not-callable)
+C:161, 0: Invalid function name "getActiveTransactions" (invalid-name)
+C:161, 0: Missing function docstring (missing-docstring)
+E:162,20: Session is not callable (not-callable)
+C:171, 0: Invalid function name "removeTransactionsByUsername" (invalid-name)
+C:171, 0: Missing function docstring (missing-docstring)
+E:172,20: Session is not callable (not-callable)
+W:178,29: Redefining built-in 'id' (redefined-builtin)
+C:178, 0: Invalid function name "removeExecutedTradesById" (invalid-name)
+C:178, 0: Invalid argument name "id" (invalid-name)
+C:178, 0: Missing function docstring (missing-docstring)
+E:179,20: Session is not callable (not-callable)
+W:185,27: Redefining built-in 'id' (redefined-builtin)
+C:185, 0: Invalid function name "removeTransactionsById" (invalid-name)
+C:185, 0: Invalid argument name "id" (invalid-name)
+C:185, 0: Missing function docstring (missing-docstring)
+E:186,20: Session is not callable (not-callable)
+W:187, 1: Unused variable 'trans_list' (unused-variable)
+C:193, 0: Invalid function name "getAllTransactionList" (invalid-name)
+C:193, 0: Missing function docstring (missing-docstring)
+E:194,20: Session is not callable (not-callable)
+W:  2, 0: Unused Column imported from sqlalchemy (unused-import)
+W:  2, 0: Unused String imported from sqlalchemy (unused-import)
+W:  2, 0: Unused Integer imported from sqlalchemy (unused-import)
+W:  3, 0: Unused sessionmaker imported from sqlalchemy.orm (unused-import)
+W:  4, 0: Unused import declarative_base from wildcard import (unused-wildcard-import)
+C:  5, 0: standard import "import datetime as dt" comes before "from sqlalchemy import *" (wrong-import-order)
+
+
+Report
+======
+160 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |21     |NC         |NC         |0.00        |100.00   |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    app 
+      \-market_methods (app.database_methods)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |165    |82.50 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |1      |0.50  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |34     |17.00 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |81     |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |3      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |107    |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |21     |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|mixed-indentation      |73          |
++-----------------------+------------+
+|invalid-name           |26          |
++-----------------------+------------+
+|missing-docstring      |22          |
++-----------------------+------------+
+|bad-indentation        |21          |
++-----------------------+------------+
+|not-callable           |17          |
++-----------------------+------------+
+|line-too-long          |12          |
++-----------------------+------------+
+|superfluous-parens     |10          |
++-----------------------+------------+
+|trailing-whitespace    |6           |
++-----------------------+------------+
+|unused-import          |4           |
++-----------------------+------------+
+|redefined-builtin      |3           |
++-----------------------+------------+
+|import-error           |3           |
++-----------------------+------------+
+|wildcard-import        |2           |
++-----------------------+------------+
+|singleton-comparison   |2           |
++-----------------------+------------+
+|relative-import        |2           |
++-----------------------+------------+
+|wrong-import-order     |1           |
++-----------------------+------------+
+|unused-wildcard-import |1           |
++-----------------------+------------+
+|unused-variable        |1           |
++-----------------------+------------+
+|undefined-variable     |1           |
++-----------------------+------------+
+|too-many-locals        |1           |
++-----------------------+------------+
+|too-many-branches      |1           |
++-----------------------+------------+
+|too-many-arguments     |1           |
++-----------------------+------------+
+|bad-whitespace         |1           |
++-----------------------+------------+
+|bad-continuation       |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -8.50/10
+
+
+
+************* Module app.database_methods
+C: 33, 0: Line too long (147/100) (line-too-long)
+C: 58, 0: Line too long (114/100) (line-too-long)
+C: 87, 0: Line too long (167/100) (line-too-long)
+C: 90, 0: Line too long (102/100) (line-too-long)
+C:115, 0: Line too long (166/100) (line-too-long)
+C:118, 0: Line too long (101/100) (line-too-long)
+C:119, 0: Line too long (167/100) (line-too-long)
+C:123, 0: Line too long (150/100) (line-too-long)
+C:125, 0: Line too long (124/100) (line-too-long)
+C:135, 0: Line too long (102/100) (line-too-long)
+C:137, 0: Line too long (119/100) (line-too-long)
+C:138, 0: Line too long (213/100) (line-too-long)
+C:151, 0: Line too long (102/100) (line-too-long)
+C:159, 0: Line too long (102/100) (line-too-long)
+C:166, 0: Line too long (104/100) (line-too-long)
+C:181, 0: Line too long (102/100) (line-too-long)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Wildcard import sqlalchemy (wildcard-import)
+E:  1, 0: Unable to import 'sqlalchemy' (import-error)
+W:  2, 0: Wildcard import database_objects (wildcard-import)
+W:  2, 0: Relative import 'database_objects', should be 'app.database_objects' (relative-import)
+W:  4, 0: Relative import 'market_methods', should be 'app.market_methods' (relative-import)
+C:  6, 0: Invalid constant name "engine" (invalid-name)
+C:  7, 0: Invalid constant name "Session" (invalid-name)
+C:  9, 0: Invalid function name "createSchema" (invalid-name)
+C:  9, 0: Missing function docstring (missing-docstring)
+C: 12, 0: Invalid function name "insertDatabaseItem" (invalid-name)
+C: 12, 0: Missing function docstring (missing-docstring)
+E: 13,16: Session is not callable (not-callable)
+C: 18, 0: Invalid function name "insertDatabaseItemWithId" (invalid-name)
+C: 18, 0: Missing function docstring (missing-docstring)
+E: 19,16: Session is not callable (not-callable)
+C: 27, 0: Invalid function name "insertNewUser" (invalid-name)
+C: 27, 0: Missing function docstring (missing-docstring)
+C: 31, 0: Invalid function name "insertNewTransaction" (invalid-name)
+C: 31, 0: Missing function docstring (missing-docstring)
+C: 36, 0: Invalid function name "updateTransactionTradeExecuted" (invalid-name)
+C: 36, 0: Missing function docstring (missing-docstring)
+E: 37,16: Session is not callable (not-callable)
+C: 43, 0: Invalid function name "updateTransactionDone" (invalid-name)
+C: 43, 0: Missing function docstring (missing-docstring)
+E: 44,16: Session is not callable (not-callable)
+C: 50, 0: Invalid function name "updateTransactionQueuedStatus" (invalid-name)
+C: 50, 0: Missing function docstring (missing-docstring)
+E: 51,16: Session is not callable (not-callable)
+C: 57, 0: Invalid function name "insertNewExecutedTrade" (invalid-name)
+C: 57, 0: Missing function docstring (missing-docstring)
+C: 61, 0: Invalid function name "getUser" (invalid-name)
+C: 61, 0: Missing function docstring (missing-docstring)
+E: 62,16: Session is not callable (not-callable)
+C: 67, 0: Invalid function name "removeUser" (invalid-name)
+C: 67, 0: Missing function docstring (missing-docstring)
+E: 68,16: Session is not callable (not-callable)
+C: 74, 0: Invalid function name "updateUserPassword" (invalid-name)
+C: 74, 0: Missing function docstring (missing-docstring)
+E: 75,16: Session is not callable (not-callable)
+C: 81, 0: Invalid function name "getMaxTransactionId" (invalid-name)
+C: 81, 0: Missing function docstring (missing-docstring)
+E: 82,16: Session is not callable (not-callable)
+E: 83,29: Undefined variable 'func' (undefined-variable)
+C: 87, 0: Invalid function name "getGroupedTransactionList" (invalid-name)
+C: 87, 0: Missing function docstring (missing-docstring)
+R: 87, 0: Too many arguments (8/5) (too-many-arguments)
+R: 87, 0: Too many local variables (17/15) (too-many-locals)
+E: 88,16: Session is not callable (not-callable)
+R: 87, 0: Too many branches (16/12) (too-many-branches)
+C:132, 0: Invalid function name "getActiveTransactionList" (invalid-name)
+C:132, 0: Missing function docstring (missing-docstring)
+E:133,16: Session is not callable (not-callable)
+C:142, 0: Invalid function name "getTransactionById" (invalid-name)
+C:142, 0: Missing function docstring (missing-docstring)
+E:143,16: Session is not callable (not-callable)
+C:148, 0: Invalid function name "getActiveTransactions" (invalid-name)
+C:148, 0: Missing function docstring (missing-docstring)
+E:149,16: Session is not callable (not-callable)
+C:157, 0: Invalid function name "removeTransactionsByUsername" (invalid-name)
+C:157, 0: Missing function docstring (missing-docstring)
+E:158,16: Session is not callable (not-callable)
+C:164, 0: Invalid function name "removeExecutedTradesById" (invalid-name)
+C:164, 0: Missing function docstring (missing-docstring)
+E:165,16: Session is not callable (not-callable)
+C:171, 0: Invalid function name "removeTransactionsById" (invalid-name)
+C:171, 0: Missing function docstring (missing-docstring)
+E:172,16: Session is not callable (not-callable)
+C:178, 0: Invalid function name "getAllTransactionList" (invalid-name)
+C:178, 0: Missing function docstring (missing-docstring)
+E:179,16: Session is not callable (not-callable)
+W:  2, 0: Unused import declarative_base from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import sessionmaker from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Column from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import String from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Integer from wildcard import (unused-wildcard-import)
+C:  3, 0: standard import "import datetime as dt" comes before "from sqlalchemy import *" (wrong-import-order)
+
+
+Report
+======
+157 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |1          |=          |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |0          |=          |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |0          |=          |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |21     |21         |=          |0.00        |100.00   |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    app 
+      \-market_methods (app.database_methods)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |161    |87.03 |164      |-3.00      |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |0        |=          |
++----------+-------+------+---------+-----------+
+|comment   |1      |0.54  |1        |=          |
++----------+-------+------+---------+-----------+
+|empty     |23     |12.43 |23       |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |62     |70       |-8.00      |
++-----------+-------+---------+-----------+
+|refactor   |3      |3        |=          |
++-----------+-------+---------+-----------+
+|warning    |9      |13       |-4.00      |
++-----------+-------+---------+-----------+
+|error      |19     |21       |-2.00      |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|invalid-name           |23          |
++-----------------------+------------+
+|missing-docstring      |22          |
++-----------------------+------------+
+|not-callable           |17          |
++-----------------------+------------+
+|line-too-long          |16          |
++-----------------------+------------+
+|unused-wildcard-import |5           |
++-----------------------+------------+
+|wildcard-import        |2           |
++-----------------------+------------+
+|relative-import        |2           |
++-----------------------+------------+
+|wrong-import-order     |1           |
++-----------------------+------------+
+|undefined-variable     |1           |
++-----------------------+------------+
+|too-many-locals        |1           |
++-----------------------+------------+
+|too-many-branches      |1           |
++-----------------------+------------+
+|too-many-arguments     |1           |
++-----------------------+------------+
+|import-error           |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -0.76/10 (previous run: -8.50/10, +7.74)
+
+
+
+************* Module app.database_objects
+C: 26, 0: Exactly one space required around assignment
+    order_type=Column(Integer, nullable=False)
+              ^ (bad-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Wildcard import sqlalchemy (wildcard-import)
+E:  1, 0: Unable to import 'sqlalchemy' (import-error)
+E:  2, 0: Unable to import 'sqlalchemy' (import-error)
+E:  3, 0: Unable to import 'sqlalchemy.orm' (import-error)
+E:  4, 0: Unable to import 'sqlalchemy.ext.declarative' (import-error)
+C:  6, 0: Invalid constant name "Base" (invalid-name)
+C:  8, 0: Missing class docstring (missing-docstring)
+R:  8, 0: Too few public methods (0/2) (too-few-public-methods)
+C: 17, 0: Missing class docstring (missing-docstring)
+C: 19, 4: Invalid class attribute name "id" (invalid-name)
+E: 20,30: Undefined variable 'ForeignKey' (undefined-variable)
+E: 24,22: Undefined variable 'Boolean' (undefined-variable)
+E: 25,20: Undefined variable 'Boolean' (undefined-variable)
+R: 17, 0: Too few public methods (0/2) (too-few-public-methods)
+C: 31, 0: Missing class docstring (missing-docstring)
+C: 33, 4: Invalid class attribute name "id" (invalid-name)
+E: 34,31: Undefined variable 'ForeignKey' (undefined-variable)
+E: 37,23: Undefined variable 'Float' (undefined-variable)
+R: 31, 0: Too few public methods (0/2) (too-few-public-methods)
+W:  3, 0: Unused sessionmaker imported from sqlalchemy.orm (unused-import)
+
+
+Report
+======
+32 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |3      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |3      |NC         |NC         |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |33     |80.49 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |1      |2.44  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |7      |17.07 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |8      |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |3      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |2      |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |9      |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|undefined-variable     |5           |
++-----------------------+------------+
+|missing-docstring      |4           |
++-----------------------+------------+
+|import-error           |4           |
++-----------------------+------------+
+|too-few-public-methods |3           |
++-----------------------+------------+
+|invalid-name           |3           |
++-----------------------+------------+
+|wildcard-import        |1           |
++-----------------------+------------+
+|unused-import          |1           |
++-----------------------+------------+
+|bad-whitespace         |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -8.12/10
+
+
+
+************* Module app.database_objects
+C: 26, 0: Exactly one space required around assignment
+    order_type=Column(Integer, nullable=False)
+              ^ (bad-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Wildcard import sqlalchemy (wildcard-import)
+E:  1, 0: Unable to import 'sqlalchemy' (import-error)
+E:  2, 0: Unable to import 'sqlalchemy' (import-error)
+E:  3, 0: Unable to import 'sqlalchemy.orm' (import-error)
+E:  4, 0: Unable to import 'sqlalchemy.ext.declarative' (import-error)
+C:  6, 0: Invalid constant name "Base" (invalid-name)
+C:  8, 0: Missing class docstring (missing-docstring)
+R:  8, 0: Too few public methods (0/2) (too-few-public-methods)
+C: 17, 0: Missing class docstring (missing-docstring)
+C: 19, 4: Invalid class attribute name "id" (invalid-name)
+E: 20,30: Undefined variable 'ForeignKey' (undefined-variable)
+E: 24,22: Undefined variable 'Boolean' (undefined-variable)
+E: 25,20: Undefined variable 'Boolean' (undefined-variable)
+R: 17, 0: Too few public methods (0/2) (too-few-public-methods)
+C: 31, 0: Missing class docstring (missing-docstring)
+C: 33, 4: Invalid class attribute name "id" (invalid-name)
+E: 34,31: Undefined variable 'ForeignKey' (undefined-variable)
+E: 37,23: Undefined variable 'Float' (undefined-variable)
+R: 31, 0: Too few public methods (0/2) (too-few-public-methods)
+W:  3, 0: Unused sessionmaker imported from sqlalchemy.orm (unused-import)
+
+
+Report
+======
+32 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |3      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |3      |NC         |NC         |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |33     |80.49 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |1      |2.44  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |7      |17.07 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |8      |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |3      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |2      |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |9      |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|undefined-variable     |5           |
++-----------------------+------------+
+|missing-docstring      |4           |
++-----------------------+------------+
+|import-error           |4           |
++-----------------------+------------+
+|too-few-public-methods |3           |
++-----------------------+------------+
+|invalid-name           |3           |
++-----------------------+------------+
+|wildcard-import        |1           |
++-----------------------+------------+
+|unused-import          |1           |
++-----------------------+------------+
+|bad-whitespace         |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -8.12/10
+
+
+
+************* Module app.market_methods
+W: 26, 0: Unnecessary semicolon (unnecessary-semicolon)
+W: 31, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 32, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 33, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+C:  1, 0: Missing module docstring (missing-docstring)
+C: 11, 0: Missing function docstring (missing-docstring)
+C: 19, 0: Missing function docstring (missing-docstring)
+C: 26, 4: Invalid variable name "t" (invalid-name)
+C: 30, 0: Missing function docstring (missing-docstring)
+C: 35, 0: Missing function docstring (missing-docstring)
+W:  3, 0: Unused import py_compile (unused-import)
+
+
+Report
+======
+37 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |4      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |38     |88.37 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |5      |11.63 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |6      |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |5      |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++----------------------+------------+
+|message id            |occurrences |
++======================+============+
+|missing-docstring     |5           |
++----------------------+------------+
+|bad-indentation       |3           |
++----------------------+------------+
+|unused-import         |1           |
++----------------------+------------+
+|unnecessary-semicolon |1           |
++----------------------+------------+
+|invalid-name          |1           |
++----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 7.03/10
+
+
+
+************* Module app.multi_processing_handler
+W:  6, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:  7, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+C: 23, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 26, 0: Trailing whitespace (trailing-whitespace)
+C: 28, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Relative import 'database_methods', should be 'app.database_methods' (relative-import)
+W:  2, 0: Wildcard import transaction (wildcard-import)
+W:  2, 0: Relative import 'transaction', should be 'app.transaction' (relative-import)
+C:  5, 0: Invalid argument name "q" (invalid-name)
+C:  5, 0: Missing function docstring (missing-docstring)
+C:  9, 0: Invalid argument name "q" (invalid-name)
+C:  9, 0: Missing function docstring (missing-docstring)
+C: 17, 0: Invalid argument name "q" (invalid-name)
+C: 17, 0: Missing function docstring (missing-docstring)
+C: 23, 8: Comparison to False should be 'not expr' or 'expr is False' (singleton-comparison)
+W: 24, 8: Unused variable 'remaining_qty' (unused-variable)
+W:  2, 0: Unused import removeTransactionsById from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import insertNewUser from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import random from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import removeTransactionsByUsername from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import datetime from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import getUser from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import removeUser from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import updateTransactionQueuedStatus from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import declarative_base from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import UserPass from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import updateTransactionTradeExecuted from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import market_methods from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import insertDatabaseItemWithId from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import String from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Transactions from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import sessionmaker from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import py_compile from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import getGroupedTransactionList from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import json from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import removeExecutedTradesById from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Base from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Integer from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import getMaxTransactionId from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import getActiveTransactions from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import engine from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import getAllTransactionList from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import updateUserPassword from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Column from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import ExecutedTrade from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import urllib2 from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import getTransactionById from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import dt from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import updateTransactionDone from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Order from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import createSchema from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import insertNewExecutedTrade from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import insertNewTransaction from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import Session from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import time from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import getActiveTransactionList from wildcard import (unused-wildcard-import)
+W:  2, 0: Unused import insertDatabaseItem from wildcard import (unused-wildcard-import)
+W:  3, 0: Unused import multiprocessing (unused-import)
+C:  3, 0: standard import "import multiprocessing" comes before "import database_methods" (wrong-import-order)
+
+
+Report
+======
+20 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |3      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    app 
+      \-database_methods (app.multi_processing_handler)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |21     |72.41 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |3      |10.34 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |5      |17.24 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |12     |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |48     |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|unused-wildcard-import |41          |
++-----------------------+------------+
+|missing-docstring      |4           |
++-----------------------+------------+
+|invalid-name           |3           |
++-----------------------+------------+
+|relative-import        |2           |
++-----------------------+------------+
+|bad-indentation        |2           |
++-----------------------+------------+
+|wrong-import-order     |1           |
++-----------------------+------------+
+|wildcard-import        |1           |
++-----------------------+------------+
+|unused-variable        |1           |
++-----------------------+------------+
+|unused-import          |1           |
++-----------------------+------------+
+|trailing-whitespace    |1           |
++-----------------------+------------+
+|trailing-newlines      |1           |
++-----------------------+------------+
+|superfluous-parens     |1           |
++-----------------------+------------+
+|singleton-comparison   |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -20.00/10
+
+
+
+************* Module app.validity_checker
+C:  1, 0: Exactly one space required around assignment
+USERNAME_MIN_LEN=4
+                ^ (bad-whitespace)
+C:  2, 0: Exactly one space required around assignment
+PASSWORD_MIN_LEN=4
+                ^ (bad-whitespace)
+C:  3, 0: Exactly one space required around assignment
+MAX_ORDER_SIZE=1000000
+              ^ (bad-whitespace)
+C: 13, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 15, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 26, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 28, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 30, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 32, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 37, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 42, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 45, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  5, 0: Missing function docstring (missing-docstring)
+C: 19, 0: Missing function docstring (missing-docstring)
+C: 26, 8: Using type() instead of isinstance() for a typecheck. (unidiomatic-typecheck)
+C: 28, 8: Comparison to None should be 'expr is None' (singleton-comparison)
+C: 36, 0: Missing function docstring (missing-docstring)
+C: 41, 0: Missing function docstring (missing-docstring)
+
+
+Report
+======
+39 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |4      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |40     |86.96 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |6      |13.04 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |19     |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++----------------------+------------+
+|message id            |occurrences |
++======================+============+
+|superfluous-parens    |8           |
++----------------------+------------+
+|missing-docstring     |5           |
++----------------------+------------+
+|bad-whitespace        |3           |
++----------------------+------------+
+|unidiomatic-typecheck |1           |
++----------------------+------------+
+|trailing-newlines     |1           |
++----------------------+------------+
+|singleton-comparison  |1           |
++----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 5.13/10
