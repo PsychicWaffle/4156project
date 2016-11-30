@@ -86,12 +86,23 @@ class TransactionExecuter:
         print "Executing 'sell' of {:,} @ {:,}".format(*order_args)
         url = TransactionExecuter.ORDER.format(random.random(), *order_args)
         executed_sub_order = False
+        original_order_size = current_order_size
+        order_size_completed = 0
         attempts_to_execute_sub_order = 0
         while (executed_sub_order == False):
             attempts_to_execute_sub_order = attempts_to_execute_sub_order + 1
             try: 
                 order = json.loads(urllib2.urlopen(url).read())
-                executed_sub_order = True
+                qty_filled = order['qty']
+                order_size_completed = order_size_completed + qty_filled
+                self.__process_filled_suborder(order, pnl, now);
+                if (order_size_completed < original_order_size):
+                    order_size_left = original_order_size - order_size_completed
+                    order_args = (order_size_left, price - TransactionExecuter.ORDER_DISCOUNT)
+                    url = TransactionExecuter.ORDER.format(random.random(), *order_args)
+                    attempts_to_execute_sub_order = 0
+                else:
+                    executed_sub_order = True
             except ValueError:
                 print 'Failed to get quote from exchange'
                 if (attempts_to_execute_sub_order > 3):
@@ -103,7 +114,6 @@ class TransactionExecuter:
                     print "Lowering order size, now executing 'sell' of {:,} @ {:,}".format(*order_args)
                     attempts_to_execute_sub_order = 0
                 continue
-        self.__process_filled_suborder(order, pnl, now);
 
     def __process_filled_suborder(self, order, pnl, now):
         # Update the PnL if the order was filled.

@@ -15,11 +15,13 @@ class Order:
 
     lower_end_price = 70
     higher_end_price = 160
-    min_order_window = 500
-    min_order_size = 5
     last_order_cushion = 1800
+    qty_threshold = 500
+    min_window_size = 500
     
     def __init__(self, initial_inventory, start_time, min_price=None, max_time=None, order_type=None):
+        self.order_window = 500
+        self.min_order_size = 5
         self.initial_inventory = initial_inventory
         self.start_time = start_time
         self.curr_inventory = self.initial_inventory
@@ -71,12 +73,22 @@ class Order:
             #print "inven %d" % curr_inventory
             curr_window = (qty_multiplier * float(cushioned_seconds_left)) / float(curr_inventory)
             #print "curr window %d" % int(curr_window)
-            if (curr_window >= self.min_order_window):
+            if (curr_window >= self.order_window):
                 self.next_order_time = curr_time + curr_window
                 self.next_order_size = 1 * int(qty_multiplier)
                 found_next_order = True
             else:
                 qty_multiplier = qty_multiplier + 1.0
+
+        verified_qty_ok = False
+        while (self.next_order_size > 500):
+            curr_time_to_next_order_time = self.next_order_time - curr_time
+            if (not curr_time_to_next_order_time < 20):
+                self.next_order_size = int(float(self.next_order_size) / 2.0)
+                self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
+            else:
+                print "too small window so will trying and execute %d" % self.next_order_size
+                break
 
         if (self.next_order_size >= self.curr_inventory):
             self.next_order_size = self.curr_inventory
@@ -96,12 +108,11 @@ class Order:
 
         return self.next_order_time
 
-    def process_executed_order(self, quantity, avg_price, time):
+    def process_executed_order(self, quantity, avg_price, time, still_executing=False):
         self.executed_trades.append({ 'quantity' : quantity, 'avg_price' :  avg_price, 'time' : time })
         self.curr_inventory -= quantity
-        time_left_to_complete = self.__time_left_to_complete_order
-        self.__set_next_order()
-        self.next_order_time += 10
+        if (still_executing == False):
+            self.__set_next_order()
         return 1
 
     def get_inventory_left(self):
