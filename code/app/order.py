@@ -15,20 +15,25 @@ class Order:
 
     lower_end_price = 70
     higher_end_price = 160
+    min_order_window = 500
+    min_order_size = 5
+    last_order_cushion = 1800
     
     def __init__(self, initial_inventory, start_time, min_price=None, max_time=None, order_type=None):
         self.initial_inventory = initial_inventory
         self.start_time = start_time
         self.curr_inventory = self.initial_inventory
-        self.next_order_time = start_time
         self.executed_trades = []
         self.min_price = min_price
         self.max_time = max_time
+        self.next_order_time = start_time
+        self.next_order_size = 0
         self.order_type = order_type
         if (max_time != None):
             self.expiration_time = start_time + max_time
         else:
-            self.expiration_time = self.__market_closing_time()
+            self.expiration_time = market_methods.get_end_of_day_time()
+        self.__set_next_order(first_order=True)
         if (self.__check_valid_order() == False):
             raise ValueError('Invalid order created')
 
@@ -42,20 +47,46 @@ class Order:
         return (order_size, order_time)
 
     def __get_next_order_size(self):
-        # order_size = self.initial_inventory / 24
+        return int(self.next_order_size)
+            
+    def __set_next_order(self, first_order=False):
+        curr_time = self.__get_current_market_time()
+        seconds_left = self.__time_left_to_complete_order()
+        print "seconds left %d" % seconds_left
+        cushioned_seconds_left = seconds_left - self.last_order_cushion
         if (self.order_type == 1):
-            order_size = self.curr_inventory
-            return int(order_size)
+            self.next_order_size = self.curr_inventory
+            self.next_order_time = curr_time - 10
+            return
+        qty_multiplier = 1.0
+        curr_inventory = self.curr_inventory
+        if (curr_inventory > 0):
+            curr_window = float(cushioned_seconds_left) / float(curr_inventory)
+            found_next_order = False
+        else:
+            found_next_order = True
 
-        order_size = self.initial_inventory / 10
-        if order_size < min_order_size:
-            order_size = min_order_size
+        while (found_next_order == False):
+            #print "cushioned secs %d" % cushioned_seconds_left
+            #print "inven %d" % curr_inventory
+            curr_window = (qty_multiplier * float(cushioned_seconds_left)) / float(curr_inventory)
+            #print "curr window %d" % int(curr_window)
+            if (curr_window >= self.min_order_window):
+                self.next_order_time = curr_time + curr_window
+                self.next_order_size = 1 * int(qty_multiplier)
+                found_next_order = True
+            else:
+                qty_multiplier = qty_multiplier + 1.0
 
-        if (order_size >= self.curr_inventory):
-            return self.curr_inventory
+        if (self.next_order_size >= self.curr_inventory):
+            self.next_order_size = self.curr_inventory
 
-        return int(order_size)
-    
+        if (first_order == True):
+            self.next_order_time = curr_time
+
+        #print "curr time %d" % curr_time
+        #print "next time %d" % self.next_order_time
+        #print "next size %d" % self.next_order_size
     def __get_next_order_time(self):
         if (self.order_type == 1):
             curr_time = self.__get_current_market_time() 
@@ -69,6 +100,7 @@ class Order:
         self.executed_trades.append({ 'quantity' : quantity, 'avg_price' :  avg_price, 'time' : time })
         self.curr_inventory -= quantity
         time_left_to_complete = self.__time_left_to_complete_order
+        self.__set_next_order()
         self.next_order_time += 10
         return 1
 
@@ -93,12 +125,15 @@ class Order:
 
     def __time_left_to_complete_order(self):
         curr_time = self.__get_current_market_time()
+        print "curr time %d" % curr_time
+        print "expo time %d" % self.expiration_time
         return self.expiration_time - curr_time
             
     def __market_closing_time(self):
         closing_time_str = "2016-11-21 08:30:00.090257"
         t = datetime.datetime.strptime(closing_time_str, "%Y-%m-%d %H:%M:%S.%f");
         closing_time_seconds = time.mktime(t.timetuple())
+        print "closing time in secs %d" % closing_time_seconds
         return closing_time_seconds
 
     def __market_price_below_min():

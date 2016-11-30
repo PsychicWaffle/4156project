@@ -15,8 +15,6 @@ def process_workload(q):
         q.task_done()
 
 def execute_transaction(q, new_id, username, order_obj):
-    # insert new transaction record and grab generated id
-    # spin up new process to execute the transaction over time
     transaction_executer = TransactionExecuter(username, new_id)
     transaction_executer.execute_transaction(order_obj)
     curr_tran = database_methods.getTransactionById(new_id)

@@ -66,7 +66,10 @@ class TransactionExecuter:
                 continue
             if now < current_order_time:
                 if (current_order_time - now > TransactionExecuter.BACK_ON_QUEUE_TIME_FRAME):
+                    time_str = datetime.datetime.fromtimestamp(current_order_time).strftime("%Y-%m-%d %H:%M:%S")
                     print "Too long until next time so putting self back on queue!"
+                    print "Next order time: %s" % time_str
+                    print "Next order size: %d" % current_order_size
                     remaining_qty_to_fill = self.my_order.get_inventory_left
                     return remaining_qty_to_fill
                 else:
