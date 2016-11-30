@@ -44,11 +44,22 @@
           <p class="left_p"> 
           <span style="float:left;">Min price: </span>
             <input type="number" name="min_price" align="right" />
-          </p>
+            </p>
+            <!--
           <p class="left_p">
           <span style="float:left;">Order Type: </span>
-            <input type="number" name="order_type" align="right" />
-          </p>
+            <input type="" name="order_type" align="right" />
+            </p>
+            -->
+
+            <p class="left_p">
+            <span style="float:left;">Order Type: </span>
+            <select name="order_type" align="right">
+              <option value="0">Regular</option>
+              <option value="1">Market</option>
+              <option value="2">Limit</option>
+            </select>
+            </p>
           <p class="left_p"><input type="submit" value="Execute"
           class="submit_button"></p>
         </form>
