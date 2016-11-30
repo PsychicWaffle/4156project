@@ -1,0 +1,355 @@
+************* Module app.database_methods
+W: 12, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 15, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 16, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 17, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 18, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 21, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 22, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 23, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 24, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 25, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 26, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 27, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 30, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 31, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 34, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+C: 35, 0: Line too long (144/100) (line-too-long)
+W: 35, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 36, 0: Trailing whitespace (trailing-whitespace)
+W: 37, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 40, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 41, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 42, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 43, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 44, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 47, 0: Trailing whitespace (trailing-whitespace)
+W: 47, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 48, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 49, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 50, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 51, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 54, 0: Trailing whitespace (trailing-whitespace)
+W: 54, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 55, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 56, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 57, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 58, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 61, 0: Line too long (111/100) (line-too-long)
+W: 61, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 62, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 65, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 66, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 67, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 68, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 71, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 72, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 73, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 74, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W: 75, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 78, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 79, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 80, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 81, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 82, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 85, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 86, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 87, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 88, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 90, 0: Line too long (129/100) (line-too-long)
+C: 91, 0: Wrong continued indentation (add 22 spaces).
+        max_qty_executed=None, queued=False):
+        ^                     | (bad-continuation)
+C: 96, 0: Line too long (102/100) (line-too-long)
+C: 97, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 98, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:101, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:102, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:105, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:106, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:109, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:110, 0: Bad indentation. Found 16 spaces, expected 12 (bad-indentation)
+C:113, 0: No space allowed before bracket
+            group = {'description': None, 'trans_id': None, 'sub_orders': None }
+                                                                               ^ (bad-whitespace)
+C:114, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:116, 0: Trailing whitespace (trailing-whitespace)
+C:123, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:125, 0: Line too long (167/100) (line-too-long)
+C:126, 0: Trailing whitespace (trailing-whitespace)
+C:128, 0: Line too long (101/100) (line-too-long)
+C:129, 0: Line too long (167/100) (line-too-long)
+C:130, 0: Trailing whitespace (trailing-whitespace)
+C:132, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:134, 0: Line too long (150/100) (line-too-long)
+C:136, 0: Line too long (124/100) (line-too-long)
+W:146, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:147, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:148, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:149, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:150, 0: Line too long (110/100) (line-too-long)
+W:150, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:151, 0: Line too long (201/100) (line-too-long)
+W:151, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:152, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:153, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:156, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:157, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:158, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:159, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:162, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:163, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:164, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:165, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:166, 0: Bad indentation. Found 20 spaces, expected 12 (bad-indentation)
+W:168, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:169, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:172, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:173, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:174, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:175, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:176, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:179, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+C:180, 0: Line too long (107/100) (line-too-long)
+W:180, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:181, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:182, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:183, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:186, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:187, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:188, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:189, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:190, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:191, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:194, 0: Bad indentation. Found 8 spaces, expected 4 (bad-indentation)
+W:195, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:196, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:197, 0: Bad indentation. Found 12 spaces, expected 8 (bad-indentation)
+W:198, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:199, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:  1, 0: Missing module docstring (missing-docstring)
+W:  1, 0: Wildcard import sqlalchemy (wildcard-import)
+E:  1, 0: Unable to import 'sqlalchemy' (import-error)
+E:  2, 0: Unable to import 'sqlalchemy' (import-error)
+E:  3, 0: Unable to import 'sqlalchemy.orm' (import-error)
+W:  4, 0: Wildcard import database_objects (wildcard-import)
+W:  4, 0: Relative import 'database_objects', should be 'app.database_objects' (relative-import)
+W:  6, 0: Relative import 'market_methods', should be 'app.market_methods' (relative-import)
+C:  8, 0: Invalid constant name "engine" (invalid-name)
+C:  9, 0: Invalid constant name "Session" (invalid-name)
+C: 11, 0: Invalid function name "createSchema" (invalid-name)
+C: 11, 0: Missing function docstring (missing-docstring)
+C: 14, 0: Invalid function name "insertDatabaseItem" (invalid-name)
+C: 14, 0: Missing function docstring (missing-docstring)
+E: 15,13: Session is not callable (not-callable)
+C: 20, 0: Invalid function name "insertDatabaseItemWithId" (invalid-name)
+C: 20, 0: Missing function docstring (missing-docstring)
+E: 21,13: Session is not callable (not-callable)
+C: 29, 0: Invalid function name "insertNewUser" (invalid-name)
+C: 29, 0: Missing function docstring (missing-docstring)
+C: 33, 0: Invalid function name "insertNewTransaction" (invalid-name)
+C: 33, 0: Missing function docstring (missing-docstring)
+C: 39, 0: Invalid function name "updateTransactionTradeExecuted" (invalid-name)
+C: 39, 0: Missing function docstring (missing-docstring)
+E: 40,13: Session is not callable (not-callable)
+C: 46, 0: Invalid function name "updateTransactionDone" (invalid-name)
+C: 46, 0: Missing function docstring (missing-docstring)
+E: 47,13: Session is not callable (not-callable)
+C: 53, 0: Invalid function name "updateTransactionQueuedStatus" (invalid-name)
+C: 53, 0: Missing function docstring (missing-docstring)
+E: 54,13: Session is not callable (not-callable)
+C: 60, 0: Invalid function name "insertNewExecutedTrade" (invalid-name)
+C: 60, 0: Missing function docstring (missing-docstring)
+C: 64, 0: Invalid function name "getUser" (invalid-name)
+C: 64, 0: Missing function docstring (missing-docstring)
+E: 65,13: Session is not callable (not-callable)
+C: 70, 0: Invalid function name "removeUser" (invalid-name)
+C: 70, 0: Missing function docstring (missing-docstring)
+E: 71,20: Session is not callable (not-callable)
+C: 77, 0: Invalid function name "updateUserPassword" (invalid-name)
+C: 77, 0: Missing function docstring (missing-docstring)
+E: 78,13: Session is not callable (not-callable)
+C: 84, 0: Invalid function name "getMaxTransactionId" (invalid-name)
+C: 84, 0: Missing function docstring (missing-docstring)
+E: 85,13: Session is not callable (not-callable)
+E: 86,26: Undefined variable 'func' (undefined-variable)
+C: 90, 0: Invalid function name "getGroupedTransactionList" (invalid-name)
+C: 90, 0: Missing function docstring (missing-docstring)
+R: 90, 0: Too many arguments (8/5) (too-many-arguments)
+R: 90, 0: Too many local variables (17/15) (too-many-locals)
+E: 94,16: Session is not callable (not-callable)
+C:114,16: Comparison to None should be 'expr is None' (singleton-comparison)
+C:123,20: Comparison to None should be 'expr is None' (singleton-comparison)
+R: 90, 0: Too many branches (16/12) (too-many-branches)
+C:145, 0: Invalid function name "getActiveTransactionList" (invalid-name)
+C:145, 0: Missing function docstring (missing-docstring)
+E:146,13: Session is not callable (not-callable)
+W:155,23: Redefining built-in 'id' (redefined-builtin)
+C:155, 0: Invalid function name "getTransactionById" (invalid-name)
+C:155, 0: Invalid argument name "id" (invalid-name)
+C:155, 0: Missing function docstring (missing-docstring)
+E:156,13: Session is not callable (not-callable)
+C:161, 0: Invalid function name "getActiveTransactions" (invalid-name)
+C:161, 0: Missing function docstring (missing-docstring)
+E:162,20: Session is not callable (not-callable)
+C:171, 0: Invalid function name "removeTransactionsByUsername" (invalid-name)
+C:171, 0: Missing function docstring (missing-docstring)
+E:172,20: Session is not callable (not-callable)
+W:178,29: Redefining built-in 'id' (redefined-builtin)
+C:178, 0: Invalid function name "removeExecutedTradesById" (invalid-name)
+C:178, 0: Invalid argument name "id" (invalid-name)
+C:178, 0: Missing function docstring (missing-docstring)
+E:179,20: Session is not callable (not-callable)
+W:185,27: Redefining built-in 'id' (redefined-builtin)
+C:185, 0: Invalid function name "removeTransactionsById" (invalid-name)
+C:185, 0: Invalid argument name "id" (invalid-name)
+C:185, 0: Missing function docstring (missing-docstring)
+E:186,20: Session is not callable (not-callable)
+W:187, 1: Unused variable 'trans_list' (unused-variable)
+C:193, 0: Invalid function name "getAllTransactionList" (invalid-name)
+C:193, 0: Missing function docstring (missing-docstring)
+E:194,20: Session is not callable (not-callable)
+W:  2, 0: Unused Column imported from sqlalchemy (unused-import)
+W:  2, 0: Unused String imported from sqlalchemy (unused-import)
+W:  2, 0: Unused Integer imported from sqlalchemy (unused-import)
+W:  3, 0: Unused sessionmaker imported from sqlalchemy.orm (unused-import)
+W:  4, 0: Unused import declarative_base from wildcard import (unused-wildcard-import)
+C:  5, 0: standard import "import datetime as dt" comes before "from sqlalchemy import *" (wrong-import-order)
+
+
+Report
+======
+160 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |21     |NC         |NC         |0.00        |100.00   |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    app 
+      \-market_methods (app.database_methods)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |165    |82.50 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |1      |0.50  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |34     |17.00 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |81     |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |3      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |107    |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |21     |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|mixed-indentation      |73          |
++-----------------------+------------+
+|invalid-name           |26          |
++-----------------------+------------+
+|missing-docstring      |22          |
++-----------------------+------------+
+|bad-indentation        |21          |
++-----------------------+------------+
+|not-callable           |17          |
++-----------------------+------------+
+|line-too-long          |12          |
++-----------------------+------------+
+|superfluous-parens     |10          |
++-----------------------+------------+
+|trailing-whitespace    |6           |
++-----------------------+------------+
+|unused-import          |4           |
++-----------------------+------------+
+|redefined-builtin      |3           |
++-----------------------+------------+
+|import-error           |3           |
++-----------------------+------------+
+|wildcard-import        |2           |
++-----------------------+------------+
+|singleton-comparison   |2           |
++-----------------------+------------+
+|relative-import        |2           |
++-----------------------+------------+
+|wrong-import-order     |1           |
++-----------------------+------------+
+|unused-wildcard-import |1           |
++-----------------------+------------+
+|unused-variable        |1           |
++-----------------------+------------+
+|undefined-variable     |1           |
++-----------------------+------------+
+|too-many-locals        |1           |
++-----------------------+------------+
+|too-many-branches      |1           |
++-----------------------+------------+
+|too-many-arguments     |1           |
++-----------------------+------------+
+|bad-whitespace         |1           |
++-----------------------+------------+
+|bad-continuation       |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -8.50/10
+

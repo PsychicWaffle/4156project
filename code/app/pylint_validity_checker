@@ -1,0 +1,121 @@
+************* Module app.validity_checker
+C:  1, 0: Exactly one space required around assignment
+USERNAME_MIN_LEN=4
+                ^ (bad-whitespace)
+C:  2, 0: Exactly one space required around assignment
+PASSWORD_MIN_LEN=4
+                ^ (bad-whitespace)
+C:  3, 0: Exactly one space required around assignment
+MAX_ORDER_SIZE=1000000
+              ^ (bad-whitespace)
+C: 13, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 15, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 26, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 28, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 30, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 32, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 37, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 42, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C: 45, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+C:  5, 0: Missing function docstring (missing-docstring)
+C: 19, 0: Missing function docstring (missing-docstring)
+C: 26, 8: Using type() instead of isinstance() for a typecheck. (unidiomatic-typecheck)
+C: 28, 8: Comparison to None should be 'expr is None' (singleton-comparison)
+C: 36, 0: Missing function docstring (missing-docstring)
+C: 41, 0: Missing function docstring (missing-docstring)
+
+
+Report
+======
+39 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |4      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |40     |86.96 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |6      |13.04 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |19     |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |0      |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++----------------------+------------+
+|message id            |occurrences |
++======================+============+
+|superfluous-parens    |8           |
++----------------------+------------+
+|missing-docstring     |5           |
++----------------------+------------+
+|bad-whitespace        |3           |
++----------------------+------------+
+|unidiomatic-typecheck |1           |
++----------------------+------------+
+|trailing-newlines     |1           |
++----------------------+------------+
+|singleton-comparison  |1           |
++----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 5.13/10
+
