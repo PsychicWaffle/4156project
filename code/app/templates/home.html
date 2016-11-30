@@ -11,7 +11,12 @@
 
     <script type="text/javascript">
       get_latest = function() {
-          document.getElementById('comp').src = document.getElementById('comp').src;
+        document.getElementById('comp').src = document.getElementById('comp').src;
+        $.getJSON($SCRIPT_ROOT + '/market_price_request', {
+            }, function(data) {
+              $("#market_price").text("Current Market Price: " + data.price);
+              $("#market_time").text("Time: " + data.time);
+            });
       };
 
     document.interval = setInterval(get_latest, 4000);
@@ -20,6 +25,10 @@
 
   </head>
   <body>
+    <div class="ticker">
+      <h2 id="market_price"></h2>
+      <h2 id="market_time"></h2>
+    </div>
     <div class="topbar">
       <h3 class="title">Psychic Waffle</h3>
       <div style="max-width:530px;margin:auto;">

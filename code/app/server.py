@@ -105,6 +105,14 @@ def track_order():
 
     return render_template('active-list.html', queued_transactions=queued_list[::-1], transactions=grouped_list[::-1], complete_transactions=recent_complete_list[::-1], price=curr_price, time=curr_time_str)
             
+
+@app.route('/market_price_request', methods=['GET'])
+def market_price_request():
+    curr_price=market_methods.get_market_price()
+    curr_time_str = market_methods.get_market_time_formatted("%H:%M:%S")
+    return jsonify(price=curr_price, time=curr_time_str)
+
+
 @app.route('/history', methods=['GET', 'POST'])
 def show_history():
     if 'username' not in session:
