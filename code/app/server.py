@@ -35,7 +35,8 @@ def check_incomplete_transaction():
         remaining_qty = active_transaction.qty_requested - active_transaction.qty_executed
         trans_id = active_transaction.id
         start_time = active_transaction.timestamp
-        order = Order(remaining_qty, start_time)
+        order_type = active_transaction.order_type
+        order = Order(remaining_qty, start_time, order_type)
         workload = [trans_id, session['username'], order]
         multi_processing_handler.add_workload_to_queue(my_queue, workload)
 
@@ -61,7 +62,12 @@ def transaction():
                     username=session['username'], **context)
         new_id = insertNewTransaction(float(request.form['quantity']), session['username'])
         start_time = market_methods.get_market_time()
-        order = Order(float((request.form['quantity'])), start_time)
+        if not (request.form['order_type'] == '' or 'order_type' not in request.form):
+            order_type = int(request.form['order_type'])
+        else:
+            order_type = None
+
+        order = Order(float((request.form['quantity'])), start_time, order_type=order_type)
         workload = [new_id, session['username'], order]
         multi_processing_handler.add_workload_to_queue(my_queue, workload)
     return render_template("home.html", username=session['username'])

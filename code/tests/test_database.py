@@ -32,7 +32,7 @@ class DatabaseTest(unittest.TestCase):
                 test_username = "Sam"
                 test_passhash = "dfjlkd"
                 dm.insertNewUser(test_username, test_passhash)
-                transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=0, timestamp=time.time(), queued=True)
+                transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=0, timestamp=time.time(), queued=True, order_type=0)
                 ret = dm.insertDatabaseItemWithId(transaction)
                 returned_transactions = dm.getAllTransactionList(test_username)
                 self.assertTrue(len(returned_transactions) > 0)

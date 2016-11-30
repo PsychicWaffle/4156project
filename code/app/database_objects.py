@@ -23,6 +23,7 @@ class Transactions(Base):
     timestamp = Column(Integer, nullable=False)
     finished = Column(Boolean, nullable=False)
     queued = Column(Boolean, nullable=False)
+    order_type=Column(Integer, nullable=False)
 
     def __repr__(self):
         return "<Transactions(username='%s', id='%d')>" % (self.username, self.id)

@@ -9,12 +9,14 @@ HOURS_IN_DAY = 24
 
 min_order_size = 1
 
+# order type -> 0 = regular order 1-> market order
+
 class Order:
 
     lower_end_price = 70
     higher_end_price = 160
     
-    def __init__(self, initial_inventory, start_time, min_price=None, max_time=None):
+    def __init__(self, initial_inventory, start_time, min_price=None, max_time=None, order_type=None):
         self.initial_inventory = initial_inventory
         self.start_time = start_time
         self.curr_inventory = self.initial_inventory
@@ -22,6 +24,7 @@ class Order:
         self.executed_trades = []
         self.min_price = min_price
         self.max_time = max_time
+        self.order_type = order_type
         if (max_time != None):
             self.expiration_time = start_time + max_time
         else:
@@ -36,6 +39,10 @@ class Order:
 
     def __get_next_order_size(self):
         # order_size = self.initial_inventory / 24
+        if (self.order_type == 1):
+            order_size = self.curr_inventory
+            return int(order_size)
+
         order_size = self.initial_inventory / 10
         if order_size < min_order_size:
             order_size = min_order_size
@@ -46,6 +53,12 @@ class Order:
         return int(order_size)
     
     def __get_next_order_time(self):
+        if (self.order_type == 1):
+            curr_time = self.__get_curret_market_time() 
+            if (self.next_order_time > curr_time):
+                self.next_order_time = curr_time
+            return self.next_order_time
+
         return self.next_order_time
 
     def process_executed_order(self, quantity, avg_price, time):
