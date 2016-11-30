@@ -54,7 +54,6 @@ class Order:
     def __set_next_order(self, first_order=False):
         curr_time = self.__get_current_market_time()
         seconds_left = self.__time_left_to_complete_order()
-        print "seconds left %d" % seconds_left
         cushioned_seconds_left = seconds_left - self.last_order_cushion
         if (self.order_type == 1):
             self.next_order_size = self.curr_inventory
@@ -87,7 +86,7 @@ class Order:
                 self.next_order_size = int(float(self.next_order_size) / 2.0)
                 self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
             else:
-                print "too small window so will trying and execute %d" % self.next_order_size
+                #print "too small window so will trying and execute %d" % self.next_order_size
                 break
 
         if (self.next_order_size >= self.curr_inventory):
@@ -136,15 +135,12 @@ class Order:
 
     def __time_left_to_complete_order(self):
         curr_time = self.__get_current_market_time()
-        print "curr time %d" % curr_time
-        print "expo time %d" % self.expiration_time
         return self.expiration_time - curr_time
             
     def __market_closing_time(self):
         closing_time_str = "2016-11-21 08:30:00.090257"
         t = datetime.datetime.strptime(closing_time_str, "%Y-%m-%d %H:%M:%S.%f");
         closing_time_seconds = time.mktime(t.timetuple())
-        print "closing time in secs %d" % closing_time_seconds
         return closing_time_seconds
 
     def __market_price_below_min():
