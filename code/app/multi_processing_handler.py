@@ -3,12 +3,10 @@ from transaction import *
 import multiprocessing
 
 def add_workload_to_queue(q, workload):
-        print "processing workload"
         database_methods.updateTransactionQueuedStatus(workload[0], True)
         q.put(workload)
 
 def process_workload(q):
-    print "processing workload"
     while True:
         workload = q.get()
         # workload = id, username, order object

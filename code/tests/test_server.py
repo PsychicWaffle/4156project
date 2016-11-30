@@ -9,7 +9,6 @@ from sqlalchemy.orm import sessionmaker
 import database_methods
 import database_objects
 
-
 class ServerTest(unittest.TestCase):
     TEST_USERNAME='test'
     TEST_PASSWORD='test'

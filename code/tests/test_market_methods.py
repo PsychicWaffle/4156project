@@ -17,7 +17,17 @@ class MarketMethodsTest(unittest.TestCase):
     def test_get_market_time(self):
         curr_time = market_methods.get_market_time()
         self.assertTrue(curr_time != None)
+        self.assertTrue(type(curr_time) == float)
         self.assertTrue(curr_time >= 0)
+        
+    def test_get_market_quote(self):
+        quote = market_methods.get_market_time()
+        self.assertTrue(quote != None)
+
+    def test_get_market_time_formatted(self):
+        curr_time = market_methods.get_market_time_formatted("%Y-%m-%d %H:%M:%S.%f")
+        self.assertTrue(isinstance(curr_time, (str, unicode)) == True)
+        self.assertTrue(curr_time != None)
 
     def test_get_price(self):
         curr_price = market_methods.get_market_price()
