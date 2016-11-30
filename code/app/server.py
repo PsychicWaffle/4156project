@@ -100,7 +100,7 @@ def track_order():
     curr_time_str = market_methods.get_market_time_formatted("%H:%M:%S")
     curr_price = market_methods.get_market_price()
     queued_list = getGroupedTransactionList(username, queued=True)
-    grouped_list = getGroupedTransactionList(username, min_qty_executed=1)
+    grouped_list = getGroupedTransactionList(username, min_qty_executed=0)
     recent_complete_list = getGroupedTransactionList(username, completed=True, start_date=curr_time - MAX_AGE, end_date=curr_time)
 
     return render_template('active-list.html', queued_transactions=queued_list[::-1], transactions=grouped_list[::-1], complete_transactions=recent_complete_list[::-1], price=curr_price, time=curr_time_str)

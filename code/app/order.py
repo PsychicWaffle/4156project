@@ -25,11 +25,6 @@ class Order:
         self.min_price = min_price
         self.max_time = max_time
         self.order_type = order_type
-        if (order_type != None):
-            print "creating order with order type %d" % order_type
-        if (min_price != None):
-            print "creating order with min pirce %d" % min_price
-
         if (max_time != None):
             self.expiration_time = start_time + max_time
         else:
