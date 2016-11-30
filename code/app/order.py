@@ -25,6 +25,11 @@ class Order:
         self.min_price = min_price
         self.max_time = max_time
         self.order_type = order_type
+        if (order_type != None):
+            print "creating order with order type %d" % order_type
+        if (min_price != None):
+            print "creating order with min pirce %d" % min_price
+
         if (max_time != None):
             self.expiration_time = start_time + max_time
         else:
@@ -33,6 +38,10 @@ class Order:
             raise ValueError('Invalid order created')
 
     def get_next_order(self):
+        if (self.order_type == 2):
+            curr_price = self.__get_current_market_price() 
+            if (curr_price < self.min_price):
+                return (None, None)
         order_size = self.__get_next_order_size()
         order_time = self.__get_next_order_time()
         return (order_size, order_time)
@@ -54,7 +63,7 @@ class Order:
     
     def __get_next_order_time(self):
         if (self.order_type == 1):
-            curr_time = self.__get_curret_market_time() 
+            curr_time = self.__get_current_market_time() 
             if (self.next_order_time > curr_time):
                 self.next_order_time = curr_time
             return self.next_order_time
@@ -78,17 +87,17 @@ class Order:
         price = market_methods.get_market_price()
         return price
 
-    def __get_curret_market_time(self):
+    def __get_current_market_time(self):
         time = market_methods.get_market_time()
         return time
 
     def __time_left_in_day(self):
-        curr_time = self.__get_curret_market_time() 
+        curr_time = self.__get_current_market_time() 
         closing_time = self.__market_closing_time()
         return closing_time - curr_time
 
     def __time_left_to_complete_order(self):
-        curr_time = self.__get_curret_market_time()
+        curr_time = self.__get_current_market_time()
         return self.expiration_time - curr_time
             
     def __market_closing_time(self):
@@ -101,7 +110,7 @@ class Order:
         if (self.min_price == None):
             return False
         else:
-            curr_price = curr_time = self.__get_curret_market_price()
+            curr_price = curr_time = self.__get_current_market_price()
             if (curr_price < self.min_price):
                 return True
             else:

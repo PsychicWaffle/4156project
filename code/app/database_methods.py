@@ -30,10 +30,9 @@ def insertNewUser(username, passhash):
 	new_user = UserPass(username=username, password=passhash)
 	insertDatabaseItem(new_user)
 
-def insertNewTransaction(quantity, username):
+def insertNewTransaction(quantity, username, order_type=0, min_price=-1):
         now = market_methods.get_market_time()
-	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=now, queued=True, order_type=0)
-                
+	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=now, queued=True, order_type=order_type, min_price=None)
 	return insertDatabaseItemWithId(transaction)
 
 def updateTransactionTradeExecuted(trans_id, qty_remaining):

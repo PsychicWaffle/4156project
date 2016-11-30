@@ -24,6 +24,7 @@ class Transactions(Base):
     finished = Column(Boolean, nullable=False)
     queued = Column(Boolean, nullable=False)
     order_type=Column(Integer, nullable=False)
+    min_price=Column(Integer, nullable=False)
 
     def __repr__(self):
         return "<Transactions(username='%s', id='%d')>" % (self.username, self.id)

@@ -35,8 +35,9 @@ def check_incomplete_transaction():
         remaining_qty = active_transaction.qty_requested - active_transaction.qty_executed
         trans_id = active_transaction.id
         start_time = active_transaction.timestamp
-        order_type = active_transaction.order_type
-        order = Order(remaining_qty, start_time, order_type)
+        order_type = active_transaction.order_type 
+        min_price = active_transaction.min_price 
+        order = Order(remaining_qty, start_time, min_price=min_price, order_type=order_type)
         workload = [trans_id, session['username'], order]
         multi_processing_handler.add_workload_to_queue(my_queue, workload)
 
@@ -53,21 +54,38 @@ def transaction():
     if request.method == 'POST':
         if request.form['quantity'] == '' or 'quantity' not in request.form:
             context = dict(error_message = "No quantity given")
-            return render_template("home.html",
-                    username=session['username'], **context)
+            return render_template("home.html", username=session['username'], **context)
         # call function to execute the transaction
         if (validity_checker.valid_order_parameters(request.form['quantity']) == False):
             context = dict(error_message = "Invalid parameters")
             return render_template("home.html",
                     username=session['username'], **context)
-        new_id = insertNewTransaction(float(request.form['quantity']), session['username'])
         start_time = market_methods.get_market_time()
         if not (request.form['order_type'] == '' or 'order_type' not in request.form):
-            order_type = int(request.form['order_type'])
+            new_order_type = int(request.form['order_type'])
+            if (new_order_type == 2):
+                if (request.form['min_price'] == '' or ('min_price' not in request.form)):
+                    context = dict(error_message = "Invalid limit order given")
+                    return render_template("home.html", username=session['username'], **context)
+                else:
+                    new_min_price = int(request.form['min_price'])
+            else:
+                new_min_price = None
         else:
-            order_type = None
+            new_order_type = None
+            new_min_price = None
 
-        order = Order(float((request.form['quantity'])), start_time, order_type=order_type)
+        if (new_order_type == None):
+            new_id = insertNewTransaction(float(request.form['quantity']), session['username'])
+        else:
+            if (new_min_price == None):
+                new_id = insertNewTransaction(float(request.form['quantity']), session['username'], order_type=new_order_type)
+            else:
+                new_id = insertNewTransaction(float(request.form['quantity']), session['username'], min_price=new_min_price, order_type=new_order_type)
+                        
+
+
+        order = Order(float((request.form['quantity'])), start_time, min_price=new_min_price, order_type=new_order_type)
         workload = [new_id, session['username'], order]
         multi_processing_handler.add_workload_to_queue(my_queue, workload)
     return render_template("home.html", username=session['username'])

@@ -62,6 +62,9 @@ class TransactionExecuter:
                 continue
             now = market_methods.get_market_time()
             current_order_size, current_order_time = self.my_order.get_next_order()
+            if (current_order_size == None or current_order_time == None):
+                print "nothign to do"
+                continue
             if now < current_order_time:
                 if (current_order_time - now > TransactionExecuter.BACK_ON_QUEUE_TIME_FRAME):
                     print "Too long until next time so putting self back on queue!"
