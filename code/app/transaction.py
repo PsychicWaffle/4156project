@@ -54,6 +54,7 @@ class TransactionExecuter:
         start_time = market_methods.get_market_time()
         self.my_order = my_order
 
+        recalculate_next_order = False
         # Repeat the strategy until we run out of shares.
         while (self.my_order.get_inventory_left() > 0):
             price = self.__print_quotes()
@@ -61,8 +62,14 @@ class TransactionExecuter:
                 time.sleep(3)
                 continue
             now = market_methods.get_market_time()
-            current_order_size, current_order_time = self.my_order.get_next_order()
+            if recalculate_next_order == True:
+                current_order_size, current_order_time = self.my_order.get_next_order(recalc=True)
+                recalculate_next_order = False
+            else:
+                current_order_size, current_order_time = self.my_order.get_next_order()
+
             if (current_order_size == None or current_order_time == None):
+                recalculate_next_order = True
                 continue
             if now < current_order_time:
                 if (current_order_time - now > TransactionExecuter.BACK_ON_QUEUE_TIME_FRAME):

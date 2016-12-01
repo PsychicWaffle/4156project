@@ -39,7 +39,9 @@ class Order:
         if (self.__check_valid_order() == False):
             raise ValueError('Invalid order created')
 
-    def get_next_order(self):
+    def get_next_order(self, recalc=False):
+        if recalc == True:
+            self.__set_next_order()
         if (self.order_type == 2):
             curr_price = self.__get_current_market_price() 
             if (curr_price < self.min_price):
