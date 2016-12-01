@@ -59,6 +59,11 @@ class Order:
         curr_time = self.__get_current_market_time()
         seconds_left = self.__time_left_to_complete_order()
         cushioned_seconds_left = seconds_left - self.last_order_cushion
+        if cushioned_seconds_left <= 0:
+            self.next_order_size = self.curr_inventory
+            self.next_order_time = curr_time
+            return
+
         if (self.order_type == 1):
             self.next_order_size = self.curr_inventory
             self.next_order_time = curr_time - 10
@@ -92,6 +97,18 @@ class Order:
             else:
                 #print "too small window so will trying and execute %d" % self.next_order_size
                 break
+        curr_price = self.__get_current_market_price()
+        if (curr_price >= 140):
+            self.next_order_size = int(float(self.next_order_size) * 3.0)
+        else:
+            if (curr_price >= 130):
+                self.next_order_size = int(float(self.next_order_size) * 1.5)
+            else:
+                if (curr_price >= 120):
+                    self.next_order_size = int(float(self.next_order_size) * 1.2)
+                else:
+                    if (curr_price >= 110):
+                        self.next_order_size = int(float(self.next_order_size) * 1.1)
 
         if (self.next_order_size >= self.curr_inventory):
             self.next_order_size = self.curr_inventory
@@ -99,9 +116,6 @@ class Order:
         if (first_order == True):
             self.next_order_time = curr_time
 
-        #print "curr time %d" % curr_time
-        #print "next time %d" % self.next_order_time
-        #print "next size %d" % self.next_order_size
     def __get_next_order_time(self):
         if (self.order_type == 1):
             curr_time = self.__get_current_market_time() 
