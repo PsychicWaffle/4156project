@@ -40,12 +40,14 @@ class Order:
             raise ValueError('Invalid order created')
 
     def get_next_order(self, recalc=False):
-        if recalc == True:
-            self.__set_next_order()
         if (self.order_type == 2):
             curr_price = self.__get_current_market_price() 
             if (curr_price < self.min_price):
                 return (None, None)
+            else:
+                if recalc == True:
+                    self.__set_next_order(first_order=True)
+
         order_size = self.__get_next_order_size()
         order_time = self.__get_next_order_time()
         return (order_size, order_time)
