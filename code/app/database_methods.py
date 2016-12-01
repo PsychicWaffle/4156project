@@ -2,6 +2,7 @@ from sqlalchemy import *
 from database_objects import *
 import datetime as dt
 import market_methods
+import order
 
 engine = None
 Session = None
@@ -118,6 +119,10 @@ def getGroupedTransactionList(username, completed=False, start_date=None, end_da
             group['trans_id'] = trans.id
             group['sub_orders'] = []
             curr_avg_total = 0
+            order_type = order.get_order_type_str(trans.order_type)
+            if trans.order_type == 2:
+                min_price = str(trans.min_price)
+                order_type = order_type + " min price of " + min_price
             for trade in dbsession.query(ExecutedTrade).filter_by(trans_id=trans.id):
                 if date_format is None:
                     timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
@@ -129,9 +134,11 @@ def getGroupedTransactionList(username, completed=False, start_date=None, end_da
                     curr_avg_total = curr_avg_total + (trade.quantity * trade.avg_price)
             if trans.qty_executed != 0:
                 total_avg = round(curr_avg_total / trans.qty_executed, 2)
-                description = "%s: units requested: %d, executed: %d, avg price: %s" % (timestamp, trans.qty_requested, trans.qty_executed, total_avg)
+                description = "%s: units requested: %d, executed: %d, avg price: %s %s" % (timestamp, trans.qty_requested, trans.qty_executed, total_avg, " (" + order_type + ")")
+
             else:
-                description = "%s: units requested: %d, executed: %d" % (timestamp, trans.qty_requested, trans.qty_executed)
+                description = "%s: units requested: %d, executed: %d %s" % (timestamp, trans.qty_requested, trans.qty_executed, " (" + order_type + ")" )
+
             group['description'] = description
             grouped_trans.append(group)
     dbsession.close()

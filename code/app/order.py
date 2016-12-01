@@ -169,3 +169,13 @@ class Order:
         print "Printing Order Summary:"
         for trade in self.get_executed_trades():
             print "{ qt: %d , avg_price: %f, trade_time: %s }" % (trade['quantity'], trade['avg_price'], time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(trade['time'])))
+
+
+def get_order_type_str(o):
+    if o == 0:
+        return "Time-weighted Order"
+    if o == 1:
+        return "Market Order"
+    if o == 2: 
+        return "Limit Order"
+    raise ValueError('Unknown order type')
