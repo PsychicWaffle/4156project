@@ -95,29 +95,37 @@ class Order:
                 self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
             else:
                 break
+
+        increased_due_to_price = False
         curr_price = self.__get_current_market_price()
         if (curr_price >= 140):
             self.next_order_size = int(float(self.next_order_size) * 8)
+            increased_due_to_price = True
         else:
             if (curr_price >= 130):
                 self.next_order_size = int(float(self.next_order_size) * 5)
+                increased_due_to_price = True
             else:
                 if (curr_price >= 120):
                     self.next_order_size = int(float(self.next_order_size) * 3)
+                    increased_due_to_price = True
                 else:
                     if (curr_price >= 110):
                         self.next_order_size = int(float(self.next_order_size) * 2)
+                        increased_due_to_price = True
                     else: 
                         if curr_price > 100:
                             self.next_order_size = int(float(self.next_order_size) * 1.3)
+                            increased_due_to_price = True
 
-        while (self.next_order_size > 500):
-            curr_time_to_next_order_time = self.next_order_time - curr_time
-            if (not curr_time_to_next_order_time < 5):
-                self.next_order_size = int(float(self.next_order_size) / 2.0)
-                self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
-            else:
-                break
+        if increased_due_to_price == True:
+            while (self.next_order_size > 500):
+                curr_time_to_next_order_time = self.next_order_time - curr_time
+                if (not curr_time_to_next_order_time < 5):
+                    self.next_order_size = int(float(self.next_order_size) / 2.0)
+                    self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
+                else:
+                    break
 
         if (self.next_order_size >= self.curr_inventory):
             self.next_order_size = self.curr_inventory
