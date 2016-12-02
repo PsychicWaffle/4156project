@@ -95,9 +95,11 @@ class TransactionExecuter:
         executed_sub_order = False
         original_order_size = current_order_size
         order_size_completed = 0
+        total_attempts_to_execute_sub_order = 0
         attempts_to_execute_sub_order = 0
         while (executed_sub_order == False):
             attempts_to_execute_sub_order = attempts_to_execute_sub_order + 1
+            total_attempts_to_execute_sub_order = total_attempts_to_execute_sub_order + 1
             try: 
                 order = json.loads(urllib2.urlopen(url).read())
                 qty_filled = order['qty']
@@ -112,6 +114,8 @@ class TransactionExecuter:
                     executed_sub_order = True
             except ValueError:
                 print 'Failed to get quote from exchange'
+                if (total_attempts_to_execute_sub_order > 10):
+                    time.sleep(total_attempts_to_execute_sub_order / 10)
                 if (attempts_to_execute_sub_order > 3):
                     current_order_size = current_order_size / 2
                     if (current_order_size == 0):

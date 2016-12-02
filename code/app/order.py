@@ -88,18 +88,16 @@ class Order:
             else:
                 qty_multiplier = qty_multiplier + 1.0
 
-        verified_qty_ok = False
         while (self.next_order_size > 500):
             curr_time_to_next_order_time = self.next_order_time - curr_time
             if (not curr_time_to_next_order_time < 20):
                 self.next_order_size = int(float(self.next_order_size) / 2.0)
                 self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
             else:
-                #print "too small window so will trying and execute %d" % self.next_order_size
                 break
         curr_price = self.__get_current_market_price()
         if (curr_price >= 140):
-            self.next_order_size = int(float(self.next_order_size) * 10)
+            self.next_order_size = int(float(self.next_order_size) * 8)
         else:
             if (curr_price >= 130):
                 self.next_order_size = int(float(self.next_order_size) * 5)
@@ -112,6 +110,14 @@ class Order:
                     else: 
                         if curr_price > 100:
                             self.next_order_size = int(float(self.next_order_size) * 1.3)
+
+        while (self.next_order_size > 500):
+            curr_time_to_next_order_time = self.next_order_time - curr_time
+            if (not curr_time_to_next_order_time < 5):
+                self.next_order_size = int(float(self.next_order_size) / 2.0)
+                self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
+            else:
+                break
 
         if (self.next_order_size >= self.curr_inventory):
             self.next_order_size = self.curr_inventory
