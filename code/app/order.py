@@ -15,7 +15,7 @@ class Order:
 
     lower_end_price = 70
     higher_end_price = 160
-    last_order_cushion = 1800
+    last_order_cushion = 3600
     qty_threshold = 500
     min_window_size = 500
     
@@ -99,16 +99,19 @@ class Order:
                 break
         curr_price = self.__get_current_market_price()
         if (curr_price >= 140):
-            self.next_order_size = int(float(self.next_order_size) * 3.0)
+            self.next_order_size = int(float(self.next_order_size) * 10)
         else:
             if (curr_price >= 130):
-                self.next_order_size = int(float(self.next_order_size) * 1.5)
+                self.next_order_size = int(float(self.next_order_size) * 5)
             else:
                 if (curr_price >= 120):
-                    self.next_order_size = int(float(self.next_order_size) * 1.2)
+                    self.next_order_size = int(float(self.next_order_size) * 3)
                 else:
                     if (curr_price >= 110):
-                        self.next_order_size = int(float(self.next_order_size) * 1.1)
+                        self.next_order_size = int(float(self.next_order_size) * 2)
+                    else: 
+                        if curr_price > 100:
+                            self.next_order_size = int(float(self.next_order_size) * 1.3)
 
         if (self.next_order_size >= self.curr_inventory):
             self.next_order_size = self.curr_inventory
