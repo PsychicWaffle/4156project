@@ -159,7 +159,7 @@ def getGroupedTransactionList(username,
                 timestamp = \
                     str(dt.datetime.fromtimestamp(trans.timestamp).
                         strftime(date_format))
-            #print timestamp
+            # print timestamp
             group['trans_id'] = trans.id
             group['sub_orders'] = []
             curr_avg_total = 0
@@ -167,21 +167,45 @@ def getGroupedTransactionList(username,
             if trans.order_type == 2:
                 min_price = str(trans.min_price)
                 order_type = order_type + " min price of " + min_price
-            for trade in dbsession.query(ExecutedTrade).filter_by(trans_id=trans.id):
+            for trade in \
+                    dbsession.query(ExecutedTrade).\
+                    filter_by(trans_id=trans.id):
                 if date_format is None:
-                    timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S'))
-                    group['sub_orders'].append('ID: ' + str(trans.id) + ' Time: ' + timestamp +' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
-                    curr_avg_total = curr_avg_total + (trade.quantity * trade.avg_price)
+                    timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).
+                                    strftime('%H:%M:%S'))
+                    group['sub_orders'].append('ID: ' + str(trans.id) +
+                                               ' Time: ' + timestamp +
+                                               ' Qty: ' + str(trade.quantity) +
+                                               ' Avg Price: ' +
+                                               str(trade.avg_price))
+                    curr_avg_total = curr_avg_total + (trade.quantity *
+                                                       trade.avg_price)
                 else:
-                    timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).strftime(date_format))
-                    group['sub_orders'].append('ID: ' + str(trans.id) + ' Time: ' + timestamp + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
-                    curr_avg_total = curr_avg_total + (trade.quantity * trade.avg_price)
+                    timestamp = str(dt.datetime.fromtimestamp(trade.timestamp).
+                                    strftime(date_format))
+                    group['sub_orders'].append('ID: ' + str(trans.id) +
+                                               ' Time: ' + timestamp +
+                                               ' Qty: ' + str(trade.quantity) +
+                                               ' Avg Price: ' +
+                                               str(trade.avg_price))
+                    curr_avg_total = curr_avg_total + (trade.quantity *
+                                                       trade.avg_price)
             if trans.qty_executed != 0:
                 total_avg = round(curr_avg_total / trans.qty_executed, 2)
-                description = "%s: units requested: %d, executed: %d, avg price: %s %s" % (timestamp, trans.qty_requested, trans.qty_executed, total_avg, " (" + order_type + ")")
+                description = \
+                    "%s: units requested: %d, " \
+                    "executed: %d, avg price: %s %s" % \
+                    (timestamp,
+                     trans.qty_requested,
+                     trans.qty_executed,
+                     total_avg, " (" + order_type + ")")
 
             else:
-                description = "%s: units requested: %d, executed: %d %s" % (timestamp, trans.qty_requested, trans.qty_executed, " (" + order_type + ")" )
+                description = \
+                    "%s: units requested: %d, executed: %d %s" % \
+                    (timestamp,
+                     trans.qty_requested,
+                     trans.qty_executed, " (" + order_type + ")")
 
             group['description'] = description
             grouped_trans.append(group)
@@ -192,12 +216,23 @@ def getGroupedTransactionList(username,
 def getActiveTransactionList(username):
     dbsession = Session()
     trade_list = []
-    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+    for trans in dbsession.query(Transactions).\
+            filter_by(username=username).\
+            order_by(Transactions.id):
         if trans.finished is False:
-            for trade in dbsession.query(ExecutedTrade).order_by(ExecutedTrade.timestamp).filter_by(trans_id=trans.id):
-                trade_list.append('ID: ' + str(trans.id) + ' Time: ' + str(dt.datetime.fromtimestamp(trade.timestamp).strftime('%H:%M:%S')) + ' Qty: ' + str(trade.quantity) + ' Avg Price: ' + str(trade.avg_price))
+            for trade in dbsession.query(ExecutedTrade).\
+                    order_by(ExecutedTrade.timestamp).\
+                    filter_by(trans_id=trans.id):
+                trade_list.append('ID: ' + str(trans.id) +
+                                  ' Time: ' +
+                                  str(dt.datetime.
+                                      fromtimestamp(trade.timestamp).
+                                      strftime('%H:%M:%S')) +
+                                  ' Qty: ' + str(trade.quantity) +
+                                  ' Avg Price: ' + str(trade.avg_price))
     dbsession.close()
     return trade_list
+
 
 def getTransactionById(tid):
     dbsession = Session()
@@ -205,40 +240,55 @@ def getTransactionById(tid):
     dbsession.close()
     return trans
 
+
 def getActiveTransactions(username):
     dbsession = Session()
     transactions = []
-    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+    for trans in dbsession.query(Transactions).\
+            filter_by(username=username).\
+            order_by(Transactions.id):
         if trans.finished is False:
             transactions.append(trans)
     dbsession.close()
     return transactions
 
+
 def removeTransactionsByUsername(username):
     dbsession = Session()
-    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+    for trans in dbsession.query(Transactions).\
+            filter_by(username=username).\
+            order_by(Transactions.id):
         dbsession.delete(trans)
         dbsession.commit()
     dbsession.close()
 
+
 def removeExecutedTradesById(tid):
     dbsession = Session()
-    for item in dbsession.query(ExecutedTrade).filter_by(trans_id=tid).order_by(ExecutedTrade.trans_id):
+    for item in dbsession.query(ExecutedTrade).\
+            filter_by(trans_id=tid).\
+            order_by(ExecutedTrade.trans_id):
         dbsession.delete(item)
         dbsession.commit()
     dbsession.close()
 
+
 def removeTransactionsById(tid):
     dbsession = Session()
-    for trans in dbsession.query(Transactions).filter_by(id=tid).order_by(Transactions.id):
+    for trans in dbsession.query(Transactions).\
+            filter_by(id=tid).\
+            order_by(Transactions.id):
         dbsession.delete(trans)
         dbsession.commit()
     dbsession.close()
 
+
 def getAllTransactionList(username):
     dbsession = Session()
     trans_list = []
-    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
+    for trans in dbsession.query(Transactions).\
+            filter_by(username=username).\
+            order_by(Transactions.id):
         trans_list.append(trans)
     dbsession.close()
     return trans_list
