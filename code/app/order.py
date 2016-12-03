@@ -11,6 +11,7 @@ min_order_size = 1
 
 # order type -> 0 = regular order 1-> market order
 
+
 class Order:
 
     lower_end_price = 70
@@ -18,8 +19,13 @@ class Order:
     last_order_cushion = 3600
     qty_threshold = 500
     min_window_size = 500
-    
-    def __init__(self, initial_inventory, start_time, min_price=None, max_time=None, order_type=None):
+
+    def __init__(self,
+                 initial_inventory,
+                 start_time,
+                 min_price=None,
+                 max_time=None,
+                 order_type=None):
         self.order_window = 500
         self.min_order_size = 5
         self.initial_inventory = initial_inventory
@@ -31,21 +37,21 @@ class Order:
         self.next_order_time = start_time
         self.next_order_size = 0
         self.order_type = order_type
-        if (max_time != None):
+        if (max_time is not None):
             self.expiration_time = start_time + max_time
         else:
             self.expiration_time = market_methods.get_end_of_day_time()
         self.__set_next_order(first_order=True)
-        if (self.__check_valid_order() == False):
+        if (self.__check_valid_order() is False):
             raise ValueError('Invalid order created')
 
     def get_next_order(self, recalc=False):
         if (self.order_type == 2):
-            curr_price = self.__get_current_market_price() 
+            curr_price = self.__get_current_market_price()
             if (curr_price < self.min_price):
                 return (None, None)
             else:
-                if recalc == True:
+                if recalc is True:
                     self.__set_next_order(first_order=True)
 
         order_size = self.__get_next_order_size()
@@ -54,7 +60,7 @@ class Order:
 
     def __get_next_order_size(self):
         return int(self.next_order_size)
-            
+
     def __set_next_order(self, first_order=False):
         curr_time = self.__get_current_market_time()
         seconds_left = self.__time_left_to_complete_order()
@@ -76,11 +82,13 @@ class Order:
         else:
             found_next_order = True
 
-        while (found_next_order == False):
-            #print "cushioned secs %d" % cushioned_seconds_left
-            #print "inven %d" % curr_inventory
-            curr_window = (qty_multiplier * float(cushioned_seconds_left)) / float(curr_inventory)
-            #print "curr window %d" % int(curr_window)
+        while (found_next_order is False):
+            # print "cushioned secs %d" % cushioned_seconds_left
+            # print "inven %d" % curr_inventory
+            curr_window = ((qty_multiplier *
+                           float(cushioned_seconds_left)) /
+                           float(curr_inventory))
+            # print "curr window %d" % int(curr_window)
             if (curr_window >= self.order_window):
                 self.next_order_time = curr_time + curr_window
                 self.next_order_size = 1 * int(qty_multiplier)
@@ -92,7 +100,9 @@ class Order:
             curr_time_to_next_order_time = self.next_order_time - curr_time
             if (not curr_time_to_next_order_time < 20):
                 self.next_order_size = int(float(self.next_order_size) / 2.0)
-                self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
+                self.next_order_time = \
+                    self.next_order_time - \
+                    int((float(curr_time_to_next_order_time) / 2.0))
             else:
                 break
 
@@ -111,41 +121,52 @@ class Order:
                     increased_due_to_price = True
                 else:
                     if (curr_price >= 110):
-                        self.next_order_size = int(float(self.next_order_size) * 2)
+                        self.next_order_size = \
+                            int(float(self.next_order_size) * 2)
                         increased_due_to_price = True
-                    else: 
+                    else:
                         if curr_price > 100:
-                            self.next_order_size = int(float(self.next_order_size) * 1.3)
+                            self.next_order_size = \
+                                int(float(self.next_order_size) * 1.3)
                             increased_due_to_price = True
 
-        if increased_due_to_price == True:
+        if increased_due_to_price is True:
             while (self.next_order_size > 500):
                 curr_time_to_next_order_time = self.next_order_time - curr_time
                 if (not curr_time_to_next_order_time < 5):
-                    self.next_order_size = int(float(self.next_order_size) / 2.0)
-                    self.next_order_time = self.next_order_time - int((float(curr_time_to_next_order_time) / 2.0))
+                    self.next_order_size = \
+                        int(float(self.next_order_size) / 2.0)
+                    self.next_order_time = \
+                        self.next_order_time - \
+                        int((float(curr_time_to_next_order_time) / 2.0))
                 else:
                     break
 
         if (self.next_order_size >= self.curr_inventory):
             self.next_order_size = self.curr_inventory
 
-        if (first_order == True):
+        if (first_order is True):
             self.next_order_time = curr_time
 
     def __get_next_order_time(self):
         if (self.order_type == 1):
-            curr_time = self.__get_current_market_time() 
+            curr_time = self.__get_current_market_time()
             if (self.next_order_time > curr_time):
                 self.next_order_time = curr_time
             return self.next_order_time
 
         return self.next_order_time
 
-    def process_executed_order(self, quantity, avg_price, time, still_executing=False):
-        self.executed_trades.append({ 'quantity' : quantity, 'avg_price' :  avg_price, 'time' : time })
+    def process_executed_order(self,
+                               quantity,
+                               avg_price,
+                               time,
+                               still_executing=False):
+        self.executed_trades.append({'quantity': quantity,
+                                     'avg_price':  avg_price,
+                                     'time': time})
         self.curr_inventory -= quantity
-        if (still_executing == False):
+        if (still_executing is False):
             self.__set_next_order()
         return 1
 
@@ -164,22 +185,23 @@ class Order:
         return time
 
     def __time_left_in_day(self):
-        curr_time = self.__get_current_market_time() 
+        curr_time = self.__get_current_market_time()
         closing_time = self.__market_closing_time()
         return closing_time - curr_time
 
     def __time_left_to_complete_order(self):
         curr_time = self.__get_current_market_time()
         return self.expiration_time - curr_time
-            
+
     def __market_closing_time(self):
         closing_time_str = "2016-11-21 08:30:00.090257"
-        t = datetime.datetime.strptime(closing_time_str, "%Y-%m-%d %H:%M:%S.%f");
+        t = datetime.datetime.strptime(closing_time_str,
+                                       "%Y-%m-%d %H:%M:%S.%f")
         closing_time_seconds = time.mktime(t.timetuple())
         return closing_time_seconds
 
     def __market_price_below_min():
-        if (self.min_price == None):
+        if (self.min_price is None):
             return False
         else:
             curr_price = curr_time = self.__get_current_market_price()
@@ -203,7 +225,11 @@ class Order:
         print "Initial inventory: %d" % self.initial_inventory
         print "Printing Order Summary:"
         for trade in self.get_executed_trades():
-            print "{ qt: %d , avg_price: %f, trade_time: %s }" % (trade['quantity'], trade['avg_price'], time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(trade['time'])))
+            print "{ qt: %d , avg_price: %f, trade_time: %s }" % \
+                  (trade['quantity'],
+                   trade['avg_price'],
+                   time.strftime("%Y-%m-%d %H:%M:%S",
+                                 time.gmtime(trade['time'])))
 
 
 def get_order_type_str(o):
@@ -211,6 +237,6 @@ def get_order_type_str(o):
         return "Time-weighted Order"
     if o == 1:
         return "Market Order"
-    if o == 2: 
+    if o == 2:
         return "Limit Order"
     raise ValueError('Unknown order type')
