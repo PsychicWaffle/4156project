@@ -1,6 +1,7 @@
-USERNAME_MIN_LEN=4
-PASSWORD_MIN_LEN=4
-MAX_ORDER_SIZE=1000000
+USERNAME_MIN_LEN = 4
+PASSWORD_MIN_LEN = 4
+MAX_ORDER_SIZE = 1000000
+
 
 def valid_history_date_range(start_date, end_date):
     try:
@@ -16,6 +17,7 @@ def valid_history_date_range(start_date, end_date):
         return False
     return True
 
+
 def valid_order_parameters(quantity):
     try:
         float(quantity)
@@ -25,7 +27,7 @@ def valid_order_parameters(quantity):
 
     if (type(quantity) != int):
         return False
-    if (quantity == None):
+    if (quantity is None):
         return False
     if (quantity <= 0):
         return False
@@ -33,13 +35,14 @@ def valid_order_parameters(quantity):
         return False
     return True
 
+
 def valid_username(username):
     if (len(username) < USERNAME_MIN_LEN):
         return False
     return True
 
+
 def valid_password(password):
     if (len(password) < PASSWORD_MIN_LEN):
         return False
     return True
-
