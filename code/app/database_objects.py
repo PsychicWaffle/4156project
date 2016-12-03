@@ -43,5 +43,5 @@ class ExecutedTrade(Base):
     avg_price = Column(Float, nullable=False)
 
     def __repr__(self):
-        return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" %
-        (self.id, self.timestamp)
+        return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" % \
+            (self.id, self.timestamp)

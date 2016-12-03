@@ -65,13 +65,12 @@ class TransactionExecuter:
             now = market_methods.get_market_time()
             if recalculate_next_order is True:
                 current_order_size,
-                current_order_time =
-                self.my_order.get_next_order(recalc=True)
+                current_order_time = \
+                    self.my_order.get_next_order(recalc=True)
                 recalculate_next_order = False
             else:
-                current_order_size,
-                current_order_time =
-                self.my_order.get_next_order()
+                current_order_size, current_order_time = \
+                    self.my_order.get_next_order()
 
             if (current_order_size is None or current_order_time is None):
                 recalculate_next_order = True
@@ -79,15 +78,15 @@ class TransactionExecuter:
             if now < current_order_time:
                 if (current_order_time - now >
                         TransactionExecuter.BACK_ON_QUEUE_TIME_FRAME):
-                    time_str =
-                    datetime.datetime.fromtimestamp(current_order_time).\
+                    time_str = \
+                        datetime.datetime.fromtimestamp(current_order_time).\
                         strftime("%Y-%m-%d %H:%M:%S")
                     print "Too long until next time so "\
                           "putting self back on queue!"
                     print "Next order time: %s" % time_str
                     print "Next order size: %d" % current_order_size
-                    remaining_qty_to_fill =
-                    self.my_order.get_inventory_left
+                    remaining_qty_to_fill = \
+                        self.my_order.get_inventory_left
                     return remaining_qty_to_fill
                 else:
                     continue
@@ -124,8 +123,8 @@ class TransactionExecuter:
                 order_size_completed = order_size_completed + qty_filled
                 self.__process_filled_suborder(order, pnl, now)
                 if (order_size_completed < original_order_size):
-                    order_size_left =
-                    original_order_size - order_size_completed
+                    order_size_left = \
+                        original_order_size - order_size_completed
                     order_args = (order_size_left,
                                   price - TransactionExecuter.ORDER_DISCOUNT)
                     url = TransactionExecuter.ORDER.format(random.random(),
@@ -141,9 +140,9 @@ class TransactionExecuter:
                     current_order_size = current_order_size / 2
                     if (current_order_size == 0):
                         current_order_size = 1
-                    order_args =
-                    (current_order_size,
-                     price - TransactionExecuter.ORDER_DISCOUNT)
+                    order_args = \
+                        (current_order_size,
+                         price - TransactionExecuter.ORDER_DISCOUNT)
                     url = TransactionExecuter.ORDER.format(random.random(),
                                                            *order_args)
                     print
@@ -171,8 +170,8 @@ class TransactionExecuter:
             insertNewExecutedTrade(self.trans_id, now, qty, price)
         else:
             print
-            "Unfilled order; $%s total, %s qty" %
-            (pnl, self.my_order.get_inventory_left())
+            "Unfilled order; $%s total, %s qty" % \
+                (pnl, self.my_order.get_inventory_left())
         # update the transaction in db for executed trade
         updateTransactionTradeExecuted(self.trans_id,
                                        self.my_order.get_inventory_left())

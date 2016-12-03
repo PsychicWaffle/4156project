@@ -7,14 +7,17 @@ import order
 engine = None
 Session = None
 
+
 def createSchema():
     Base.metadata.create_all(engine)
+
 
 def insertDatabaseItem(item):
     dbsession = Session()
     dbsession.add(item)
     dbsession.commit()
     dbsession.close()
+
 
 def insertDatabaseItemWithId(item):
     dbsession = Session()
@@ -25,23 +28,37 @@ def insertDatabaseItemWithId(item):
     dbsession.close()
     return id_gen
 
+
 def insertNewUser(username, passhash):
     new_user = UserPass(username=username, password=passhash)
     insertDatabaseItem(new_user)
 
-def insertNewTransaction(quantity, username, order_type=0, min_price=-1):
-        now = market_methods.get_market_time()
-	transaction = Transactions(username=username, finished=False, qty_requested=quantity, qty_executed=0, timestamp=now,
-                queued=True, order_type=order_type, min_price=min_price)
-	return insertDatabaseItemWithId(transaction)
 
-def insertNewTransaction(quantity, username, order_type=0,
-        min_price=-1):
+def insertNewTransaction(quantity, username, order_type=0, min_price=-1):
     now = market_methods.get_market_time()
     transaction = Transactions(username=username,
-            finished=False, qty_requested=quantity, qty_executed=0, timestamp=now, queued=True, order_type=order_type, min_price=min_price)
-            
+                               finished=False,
+                               qty_requested=quantity,
+                               qty_executed=0,
+                               timestamp=now,
+                               queued=True,
+                               order_type=order_type,
+                               min_price=min_price)
     return insertDatabaseItemWithId(transaction)
+
+
+def insertNewTransaction(quantity, username, order_type=0, min_price=-1):
+    now = market_methods.get_market_time()
+    transaction = Transactions(username=username,
+                               finished=False,
+                               qty_requested=quantity,
+                               qty_executed=0,
+                               timestamp=now,
+                               queued=True,
+                               order_type=order_type,
+                               min_price=min_price)
+    return insertDatabaseItemWithId(transaction)
+
 
 def updateTransactionTradeExecuted(trans_id, qty_remaining):
     dbsession = Session()
@@ -50,12 +67,14 @@ def updateTransactionTradeExecuted(trans_id, qty_remaining):
     dbsession.commit()
     dbsession.close()
 
+
 def updateTransactionDone(trans_id):
     dbsession = Session()
     trans = dbsession.query(Transactions).filter_by(id=trans_id).first()
     trans.finished = True
     dbsession.commit()
     dbsession.close()
+
 
 def updateTransactionQueuedStatus(trans_id, status):
     dbsession = Session()
@@ -64,15 +83,21 @@ def updateTransactionQueuedStatus(trans_id, status):
     dbsession.commit()
     dbsession.close()
 
+
 def insertNewExecutedTrade(trans_id, timestamp, quantity, avg_price):
-    executed_trade = ExecutedTrade(trans_id=trans_id, timestamp=timestamp, quantity=quantity, avg_price=avg_price)
+    executed_trade = ExecutedTrade(trans_id=trans_id,
+                                   timestamp=timestamp,
+                                   quantity=quantity,
+                                   avg_price=avg_price)
     return insertDatabaseItemWithId(executed_trade)
+
 
 def getUser(username):
     dbsession = Session()
     user = dbsession.query(UserPass).filter_by(username=username).first()
     dbsession.close()
     return user
+
 
 def removeUser(username):
     dbsession = Session()
@@ -81,6 +106,7 @@ def removeUser(username):
     dbsession.commit()
     dbsession.close()
 
+
 def updateUserPassword(username, newpasshash):
     dbsession = Session()
     user = dbsession.query(UserPass).filter_by(username=username).first()
@@ -88,23 +114,37 @@ def updateUserPassword(username, newpasshash):
     dbsession.commit()
     dbsession.close()
 
+
 def getMaxTransactionId(username):
     dbsession = Session()
-    max_id = dbsession.query(func.max(Transactions.id)).filter_by(username=username).first()[0]
+    max_id = \
+        dbsession.query(func.max(Transactions.id)).\
+        filter_by(username=username).first()[0]
     dbsession.close()
     return max_id
 
-def getGroupedTransactionList(username, completed=False, start_date=None, end_date=None, date_format=None, min_qty_executed=None, max_qty_executed=None, queued=False):
+
+def getGroupedTransactionList(username,
+                              completed=False,
+                              start_date=None,
+                              end_date=None,
+                              date_format=None,
+                              min_qty_executed=None,
+                              max_qty_executed=None,
+                              queued=False):
     dbsession = Session()
     grouped_trans = []
-    for trans in dbsession.query(Transactions).filter_by(username=username).order_by(Transactions.id):
-        if start_date != None:
-            if not (trans.timestamp < end_date and trans.timestamp > start_date):
+    for trans in dbsession.query(Transactions).\
+            filter_by(username=username).\
+            order_by(Transactions.id):
+        if start_date is not None:
+            if not (trans.timestamp < end_date and
+                    trans.timestamp > start_date):
                 continue
-        if min_qty_executed != None:
+        if min_qty_executed is not None:
             if not trans.qty_executed >= min_qty_executed:
                 continue
-        if max_qty_executed != None:
+        if max_qty_executed is not None:
             if not trans.qty_executed <= max_qty_executed:
                 continue
         if not trans.queued == queued:
@@ -112,9 +152,13 @@ def getGroupedTransactionList(username, completed=False, start_date=None, end_da
         if trans.finished == completed:
             group = {'description': None, 'trans_id': None, 'sub_orders': None}
             if date_format is None:
-                timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime('%H:%M:%S'))
+                timestamp = \
+                    str(dt.datetime.fromtimestamp(trans.timestamp).
+                        strftime('%H:%M:%S'))
             else:
-                timestamp = str(dt.datetime.fromtimestamp(trans.timestamp).strftime(date_format))
+                timestamp = \
+                    str(dt.datetime.fromtimestamp(trans.timestamp).
+                        strftime(date_format))
             #print timestamp
             group['trans_id'] = trans.id
             group['sub_orders'] = []
