@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class UserPass(Base):
     __tablename__ = 'userpass'
     # id = Column(Integer, primary_key=True)
@@ -12,7 +13,9 @@ class UserPass(Base):
     password = Column(String, nullable=False)
 
     def __repr__(self):
-        return "<UserPass(username='%s', password='%s')>" % (self.username, self.password)
+        return "<UserPass(username='%s', password='%s')>" % (self.username,
+                                                             self.password)
+
 
 class Transactions(Base):
     __tablename__ = 'transactions'
@@ -23,11 +26,13 @@ class Transactions(Base):
     timestamp = Column(Integer, nullable=False)
     finished = Column(Boolean, nullable=False)
     queued = Column(Boolean, nullable=False)
-    order_type=Column(Integer, nullable=False)
-    min_price=Column(Integer, nullable=False)
+    order_type = Column(Integer, nullable=False)
+    min_price = Column(Integer, nullable=False)
 
     def __repr__(self):
-        return "<Transactions(username='%s', id='%d')>" % (self.username, self.id)
+        return "<Transactions(username='%s', id='%d')>" % (self.username,
+                                                           self.id)
+
 
 class ExecutedTrade(Base):
     __tablename__ = 'executedtrade'
@@ -38,4 +43,5 @@ class ExecutedTrade(Base):
     avg_price = Column(Float, nullable=False)
 
     def __repr__(self):
-        return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" % (self.id, self.timestamp)
+        return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" %
+        (self.id, self.timestamp)
