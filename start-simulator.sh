@@ -1,3 +1,3 @@
 #!/bin/bash
-simulator.py &
+python simulator.py &
 sleep 20
