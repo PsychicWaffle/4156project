@@ -18,8 +18,6 @@ from threading import Thread
 from flask import Flask, jsonify, request, render_template, \
     g, redirect, Response, session
 
-#Testing travis
-
 app = Flask(__name__)
 app.secret_key = \
     '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
