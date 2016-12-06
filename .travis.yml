@@ -9,6 +9,7 @@ install: "pip install -r code/requirements.txt"
 #create database
 before_script:
   - psql -c 'create database master_4156_database;' -U postgres
+  - chmod ugo+x ./start-simulator.sh
   - ./start-simulator.sh
 # command to run tests
 script:
