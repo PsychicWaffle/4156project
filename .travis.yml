@@ -6,5 +6,5 @@ install: "pip install -r code/requirements.txt"
 # command to run tests
 script:
 - python exchange_simulator/server.py &
-- python code/app/server.py &
+- python simulator.py &
 - python -m unittest discover code/tests
