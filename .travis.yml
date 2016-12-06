@@ -1,11 +1,14 @@
 language: python
 python:
   - "2.7"
+#Start postgres
+services:
+  - postgresql
 # command to install dependencies
 install: "pip install -r code/requirements.txt"
 #create database
 before_script:
-  - psql -c 'master_4156_database;' -U postgres
+  - psql -c 'create database master_4156_database;' -U postgres
 # command to run tests
 script:
 - python exchange_simulator/server.py &
