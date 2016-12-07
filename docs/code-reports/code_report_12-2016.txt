@@ -1,0 +1,17 @@
+One component that Jake and Andy worked on was the multiprocessing architecture to the project. The files that we examined were
+multi\_processing\_handler.py and server.py. Andy was the reader and Jake was the recorder. We took notes by hand but here is the
+summary and highlights of the discussion. One of the first things that Jacob noticed was the lack of object oriented design, more
+specifically both files were implemented without any classes. This made the code messy and hard to read. For example, in the
+multiproc handler code, it would have made a lot of sense to use a class because the queue was a parameter to each function.
+Furthermore, this made it hard to test. Another thing we noticed was the presence of magic constants. Specifically, the workload that
+the queue processed was a list, and it wasn't clear what this list truly consisted of. There weren't many comments and even worse
+there were outdated comments.
+
+The component we analyzed for Jacob and A.J. was the UI based code (html files), specifically completed-list.html, active-list.html
+and server.py. Jacob was the reader and A.J. was the recorder. One of the first things we discussed was the existence of duplicated
+code in both html files. Both files performed similar functions and some of that could have been abstracted out. Furthermore, the
+code powering the UI in server.py was not a clean interface to the UI code and it was scattered throughout the python code. We
+discussed ways to condense it and make it clearer how the python code was interacting with the UI. Further, the formatting on the
+html files were off, making the code difficult to read and edit the UI code by anyone other than the writer.
+
+
