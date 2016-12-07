@@ -1,0 +1,10 @@
+- files: server.py, mulit_processing_handler.py 
+- nice consumer - producer architecutre
+- lack of oo design
+   - convert mulit_processing_handler.py file to class?
+- how do we test code?
+- messy interactions with database
+- random constants... create vars at top of file?
+- need to re-format 
+   - inconsistent duplication
+- add comments 

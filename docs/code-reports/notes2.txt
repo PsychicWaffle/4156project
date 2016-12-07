@@ -1,0 +1,7 @@
+- files: completed- list.html, active-list.html and server.py
+- duplicate code
+   - refactor DRY
+- no UI interface layer
+- would be hard to expand project due to ugly interace
+- use indentation for html files for easier reading
+- nice use of javascript for interactive content
