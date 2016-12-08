@@ -11,7 +11,7 @@ before_script:
   - psql -c 'create database master_4156_database;' -U postgres
   - pip install coverage
   - chmod ugo+x ./start-simulator.sh
-  - ./start-simulator.sh
+  - ./start-simulator.sh > /dev/null
 # command to run tests
 script:
   - cd code && coverage run --source=app/  -m unittest discover tests
