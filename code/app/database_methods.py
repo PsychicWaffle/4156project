@@ -177,22 +177,31 @@ def getGroupedTransactionList(username,
                                                str(trade.avg_price))
                     curr_avg_total = curr_avg_total + (trade.quantity *
                                                        trade.avg_price)
+            if trans.finished == True:
+                if (trans.qty_requested != trans.qty_executed):
+                    fill_desc = "Failed to fill total size"
+                else:
+                    fill_desc = "Successfully filled"
+            else:
+                fill_desc = "In progress"
+
             if trans.qty_executed != 0:
                 total_avg = round(curr_avg_total / trans.qty_executed, 2)
                 description = \
                     "%s: units requested: %d, " \
-                    "executed: %d, avg price: %s %s" % \
+                    "executed: %d, avg price: %s, order status: %s %s" % \
                     (timestamp,
                      trans.qty_requested,
                      trans.qty_executed,
-                     total_avg, " (" + order_type + ")")
-
+                     total_avg, 
+                     fill_desc,
+                     " (" + order_type + ")")
             else:
                 description = \
-                    "%s: units requested: %d, executed: %d %s" % \
+                        "%s: units requested: %d, executed: %d, order status: %s, %s" % \
                     (timestamp,
                      trans.qty_requested,
-                     trans.qty_executed, " (" + order_type + ")")
+                     trans.qty_executed, fill_desc, " (" + order_type + ")")
 
             group['description'] = description
             grouped_trans.append(group)

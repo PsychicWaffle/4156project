@@ -44,7 +44,7 @@ def get_end_of_day_time():
     timestamp_modified = timestamp.split(" ")[0] + " 00:00:00.0"
     t = datetime.datetime.strptime(timestamp_modified, "%Y-%m-%d %H:%M:%S.%f")
     seconds = time.mktime(t.timetuple())
-    seconds = seconds + ((8 * 60) * 60)
+    seconds = seconds + ((8 * 60) * 60) + (30 * 60)
     return seconds
 
 def get_beg_of_day_time():
