@@ -21,7 +21,7 @@ class MarketMethodsTest(unittest.TestCase):
         self.assertTrue(curr_time >= 0)
         
     def test_get_market_quote(self):
-        quote = market_methods.get_market_time()
+        quote = market_methods.get_market_quote()
         self.assertTrue(quote != None)
 
     def test_get_market_time_formatted(self):
@@ -33,6 +33,16 @@ class MarketMethodsTest(unittest.TestCase):
         curr_price = market_methods.get_market_price()
         self.assertTrue(curr_price != None)
         self.assertTrue(curr_price >= 0)
+
+    def test_get_beg_time(self):
+        seconds = market_methods.get_beg_of_day_time()
+        self.assertTrue(seconds > 0)
+
+    def test_timestamp_today(self):
+        ret = market_methods.timestamp_from_today(9999999999999999999999)
+        self.assertTrue(ret)
+        ret = market_methods.timestamp_from_today(0)
+        self.assertFalse(ret)
 
     def tearDown(self):
         pass
