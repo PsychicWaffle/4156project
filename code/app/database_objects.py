@@ -8,7 +8,6 @@ Base = declarative_base()
 
 class UserPass(Base):
     __tablename__ = 'userpass'
-    # id = Column(Integer, primary_key=True)
     username = Column(String, primary_key=True)
     password = Column(String, nullable=False)
 

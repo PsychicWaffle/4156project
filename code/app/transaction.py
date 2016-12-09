@@ -42,8 +42,6 @@ class TransactionExecuter:
         self.username = username
         self.trans_id = trans_id
         self.my_order = None
-        if (self.check_valid_transaction() is False):
-            raise ValueError('Invalid transaction parameters')
 
     def execute_transaction(self, my_order):
         '''
@@ -55,7 +53,6 @@ class TransactionExecuter:
         start_time = market_methods.get_market_time()
         self.my_order = my_order
 
-        recalculate_next_order = False
         # Repeat the strategy until we run out of shares.
         while (self.my_order.get_inventory_left() > 0):
             price = self.__print_quotes()
@@ -63,14 +60,8 @@ class TransactionExecuter:
                 time.sleep(3)
                 continue
             now = market_methods.get_market_time()
-            if recalculate_next_order is True:
-                current_order_size,
-                current_order_time = \
-                    self.my_order.get_next_order(recalc=True)
-                recalculate_next_order = False
-            else:
-                current_order_size, current_order_time = \
-                    self.my_order.get_next_order()
+            current_order_size, current_order_time = \
+            self.my_order.get_next_order()
 
             if (current_order_size is None or current_order_time is None):
                 print "Price too low - putting "\
@@ -82,10 +73,6 @@ class TransactionExecuter:
                     time_str = \
                         datetime.datetime.fromtimestamp(current_order_time).\
                         strftime("%Y-%m-%d %H:%M:%S")
-                    print "Too long until next time so "\
-                          "putting self back on queue!"
-                    print "Next order time: %s" % time_str
-                    print "Next order size: %d" % current_order_size
                     remaining_qty_to_fill = \
                         self.my_order.get_inventory_left()
                     return remaining_qty_to_fill
@@ -196,5 +183,3 @@ class TransactionExecuter:
 
         return price
 
-    def check_valid_transaction(self):
-        return True

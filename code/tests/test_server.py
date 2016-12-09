@@ -309,13 +309,6 @@ class ServerTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_command_args_onearg(self):
-        server.process_command_line_args(["arg1"])
-        pass
-
-    def test_command_args_prices(self):
-        server.process_command_line_args(["server.py", "print_prices"])
-
 if __name__ == '__main__':
     unittest.main()
 

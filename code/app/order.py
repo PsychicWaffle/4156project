@@ -9,9 +9,6 @@ HOURS_IN_DAY = 24
 
 min_order_size = 1
 
-# order type -> 0 = regular order 1-> market order
-
-
 class Order:
 
     lower_end_price = 70
