@@ -320,32 +320,32 @@ def process_command_line_args(argv):
     num_args = len(argv)
     if (num_args == 1):
         return
-    if (argv[1] == 'print_prices'):
-        max = 0
-        min = -1
-        counter = 0
-        try:
-            while (True):
-                quote = market_methods.get_market_quote()
-                timestamp = quote['timestamp']
-                price = quote['top_bid']['price']
-                if (price == -1):
-                    continue
-                if (min == -1):
-                    min = price
-                if (price < min):
-                    min = price
-                if (price > max):
-                    max = price
-                print timestamp
-                print price
-                counter = counter + 1
-        except TypeError:
-            print "done"
-    else:
-        print 'unknow arg'
-    print "max %d" % max
-    print "min %d" % min
+    # if (argv[1] == 'print_prices'):
+    #     max = 0
+    #     min = -1
+    #     counter = 0
+    #     try:
+    #         while (True):
+    #             quote = market_methods.get_market_quote()
+    #             timestamp = quote['timestamp']
+    #             price = quote['top_bid']['price']
+    #             if (price == -1):
+    #                 continue
+    #             if (min == -1):
+    #                 min = price
+    #             if (price < min):
+    #                 min = price
+    #             if (price > max):
+    #                 max = price
+    #             print timestamp
+    #             print price
+    #             counter = counter + 1
+    #     except TypeError:
+    #         print "done"
+    # else:
+    #     print 'unknow arg'
+    # print "max %d" % max
+    # print "min %d" % min
 
 if __name__ == '__main__':
     process_command_line_args(sys.argv)
