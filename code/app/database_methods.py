@@ -47,19 +47,6 @@ def insertNewTransaction(quantity, username, order_type=0, min_price=-1):
     return insertDatabaseItemWithId(transaction)
 
 
-def insertNewTransaction(quantity, username, order_type=0, min_price=-1):
-    now = market_methods.get_market_time()
-    transaction = Transactions(username=username,
-                               finished=False,
-                               qty_requested=quantity,
-                               qty_executed=0,
-                               timestamp=now,
-                               queued=True,
-                               order_type=order_type,
-                               min_price=min_price)
-    return insertDatabaseItemWithId(transaction)
-
-
 def updateTransactionTradeExecuted(trans_id, qty_remaining):
     dbsession = Session()
     trans = dbsession.query(Transactions).filter_by(id=trans_id).first()
