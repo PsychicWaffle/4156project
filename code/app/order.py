@@ -49,6 +49,9 @@ class Order:
         if (self.order_type == 2):
             curr_price = self.__get_current_market_price()
             if (curr_price < self.min_price):
+                curr_time = self.__get_current_market_time()
+                if (self.__get_next_order_time() < curr_time):
+                    self.__set_next_order(first_order=True)
                 return (None, None)
             else:
                 if recalc is True:
@@ -146,7 +149,7 @@ class Order:
             self.next_order_size = self.curr_inventory
 
         if (first_order is True):
-            self.next_order_time = curr_time
+            self.next_order_time = curr_time - 10
 
     def __get_next_order_time(self):
         if (self.order_type == 1):

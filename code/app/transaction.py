@@ -73,8 +73,7 @@ class TransactionExecuter:
                     self.my_order.get_next_order()
 
             if (current_order_size is None or current_order_time is None):
-                recalculate_next_order = True
-                continue
+                return self.my_order.get_inventory_left
             if now < current_order_time:
                 if (current_order_time - now >
                         TransactionExecuter.BACK_ON_QUEUE_TIME_FRAME):

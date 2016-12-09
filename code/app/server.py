@@ -38,19 +38,22 @@ def check_incomplete_transaction():
         database_methods.getActiveTransactions(session['username'])
 
     for active_transaction in active_transactions:
-        remaining_qty = \
-            active_transaction.qty_requested - active_transaction.qty_executed
-        trans_id = active_transaction.id
         start_time = active_transaction.timestamp
-        order_type = active_transaction.order_type
-        min_price = active_transaction.min_price
-        order = Order(remaining_qty,
-                      start_time,
-                      min_price=min_price,
-                      order_type=order_type)
-        workload = [trans_id, session['username'], order]
-        multi_processing_handler.add_workload_to_queue(my_queue, workload)
-
+        trans_id = active_transaction.id
+        trans_from_today = market_methods.timestamp_from_today(start_time)
+        if (trans_from_today is True):
+            remaining_qty = \
+                active_transaction.qty_requested - active_transaction.qty_executed
+            order_type = active_transaction.order_type
+            min_price = active_transaction.min_price
+            order = Order(remaining_qty,
+                          start_time,
+                          min_price=min_price,
+                          order_type=order_type)
+            workload = [trans_id, session['username'], order]
+            multi_processing_handler.add_workload_to_queue(my_queue, workload)
+        else:
+            database_methods.updateTransactionDone(trans_id)
 
 @app.route('/')
 def hello_world():
@@ -83,12 +86,17 @@ def transaction():
             if (new_order_type == 2):
                 if (request.form['min_price'] == '' or
                         ('min_price' not in request.form)):
-                    context = dict(error_message="Invalid limit order given")
+                    context = dict(error_message="Invalid limit order given: No min price given")
                     return render_template("home.html",
                                            username=session['username'],
                                            **context)
                 else:
                     new_min_price = int(request.form['min_price'])
+                    if (new_min_price <= 0):
+                        context = dict(error_message="Invalid limit order given: min price cannot be less than 0")
+                        return render_template("home.html",
+                                           username=session['username'],
+                                           **context)
             else:
                 new_min_price = None
         else:

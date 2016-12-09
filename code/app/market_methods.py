@@ -47,6 +47,26 @@ def get_end_of_day_time():
     seconds = seconds + ((8 * 60) * 60)
     return seconds
 
+def get_beg_of_day_time():
+    try:
+        quote = \
+            json.loads(urllib2.urlopen(QUERY.format(random.random())).read())
+    except ValueError:
+        print 'Failed to get quote from exchange'
+        return -1
+
+    timestamp = quote['timestamp']
+    timestamp_modified = timestamp.split(" ")[0] + " 00:00:00.0"
+    t = datetime.datetime.strptime(timestamp_modified, "%Y-%m-%d %H:%M:%S.%f")
+    seconds = time.mktime(t.timetuple())
+    return seconds
+
+def timestamp_from_today(ts):
+    beg_day_time = get_beg_of_day_time()
+    if (ts < beg_day_time):
+        return False
+    else:
+        return True
 
 def get_market_time_formatted(format_str):
         time_seconds = get_market_time()
