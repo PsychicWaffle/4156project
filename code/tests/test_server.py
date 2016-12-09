@@ -40,6 +40,21 @@ class ServerTest(unittest.TestCase):
         ret = self.app.get('/track_order')
         self.assertTrue(ret != None)
 
+    def test_get_history(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.get('/history')
+        self.assertTrue(ret != None)
+
+    def test_history_no_date(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/history', data=dict(
+               start_date="",
+               end_date="10"
+               ), follow_redirects=True)
+        self.assertTrue('No quantity given' in ret.data)
+
     def test_history_bad_start_range(self):
         self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
         self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
@@ -91,11 +106,98 @@ class ServerTest(unittest.TestCase):
         ret = self.app.get('/change')
         self.assertTrue(ret != None)
 
+    def test_change_nousername(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/change', data=dict(
+            username=""
+            ), follow_redirects=True)
+        self.assertTrue('No username given' in ret.data)
+
+    def test_change_nopassword(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/change', data=dict(
+            username="joe",
+            password=""
+            ), follow_redirects=True)
+        self.assertTrue('No password given' in ret.data)
+
+    def test_change_newpass_nomatch(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/change', data=dict(
+            username="jake",
+            password="maybe",
+            new_password="no",
+            password_conf="yes"
+            ), follow_redirects=True)
+        self.assertTrue('Passwords must match' in ret.data)
+
+    def test_change_password_good(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/change', data=dict(
+            username=self.TEST_USERNAME,
+            password=self.TEST_PASSWORD,
+            new_password="newpass",
+            password_conf="newpass"
+            ), follow_redirects=True)
+        self.assertTrue(ret != None)
+
+    def test_change_password_wrongold(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/change', data=dict(
+            username=self.TEST_USERNAME,
+            password="wrong",
+            new_password="newpass",
+            password_conf="newpass"
+            ), follow_redirects=True)
+        self.assertTrue('Incorrect username or password' in ret.data)
+
     def test_create(self):
         self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
         self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.get('/create')
         self.assertTrue(ret != None)
+
+    def test_create_nouser(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/create', data=dict(
+            username=""
+            ), follow_redirects=True)
+        self.assertTrue('No username given' in ret.data)
+
+    def test_create_nopass(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/create', data=dict(
+            username="joe",
+            password=""
+            ), follow_redirects=True)
+        self.assertTrue('No password given' in ret.data)
+
+    def test_create_nomatch(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/create', data=dict(
+            username="jake",
+            password="maybe",
+            password_conf="maybenot"
+            ), follow_redirects=True)
+        self.assertTrue('Passwords must match' in ret.data)
+
+    def test_create_userexists(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/create', data=dict(
+            username=self.TEST_USERNAME,
+            password=self.TEST_PASSWORD,
+            password_conf=self.TEST_PASSWORD
+            ), follow_redirects=True)
+        self.assertTrue('User name already exists' in ret.data)
 
     def test_nologin(self):
         ret = self.app.get('/home')
@@ -104,11 +206,31 @@ class ServerTest(unittest.TestCase):
     def test_history_start_date(self):
         self.assertTrue(1 == 1)
 
+    def test_order_type2_nomin_input(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/home', data=dict(
+               quantity=100,
+               order_type=2,
+               min_price=""
+               ), follow_redirects=True)
+        self.assertTrue('Invalid limit order given: No min price given' in ret.data)
+
+    def test_order_type2_negmin_input(self):
+        self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
+        self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
+        ret = self.app.post('/home', data=dict(
+               quantity=100,
+               order_type=2,
+               min_price=-1
+               ), follow_redirects=True)
+        self.assertTrue('Invalid limit order given: min price cannot be less than 0' in ret.data)
+
     def test_negative_order_size_input(self):
         self.create_user(self.TEST_USERNAME, self.TEST_PASSWORD)
         self.login(self.TEST_USERNAME, self.TEST_PASSWORD)
         ret = self.app.post('/home', data=dict(
-               quantity="-1"
+               quantity="-1",
                ), follow_redirects=True)
         self.assertTrue('Invalid parameters' in ret.data)
 
@@ -127,6 +249,10 @@ class ServerTest(unittest.TestCase):
                quantity="hey"
                ), follow_redirects=True)
         self.assertTrue('Invalid parameters' in ret.data)
+
+    def test_get_market_price(self):
+        ret = self.app.get('/market_price_request')
+        self.assertTrue(ret != None)
 
     def create_user(self, username, password):
         return self.app.post('/create', data=dict(
