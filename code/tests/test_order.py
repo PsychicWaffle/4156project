@@ -63,13 +63,18 @@ class OrderTest(unittest.TestCase):
             caught_ex = True
         self.assertTrue(caught_ex == True)
 
-    def test_big_order_size(self):
+    def test_big_negative_order_size(self):
         try:
             temp_order = order.Order(-100, 1000)
             caught_ex = False
         except ValueError:
             caught_ex = True
         self.assertTrue(caught_ex == True)
+
+    def test_big_order_size(self):
+        temp_order = order.Order(100000, 1000)
+        temp_order.get_next_order()
+        self.assertTrue(temp_order != None)
 
     def test_negative_start_time(self):
         try:
@@ -86,6 +91,11 @@ class OrderTest(unittest.TestCase):
         except ValueError:
             caught_ex = True
         self.assertTrue(caught_ex == True)
+
+    def test_limit_order(self):
+        temp_order = order.Order(100, 0, order_type=2)
+        next_order = temp_order.get_next_order()
+        self.assertTrue(next_order != None)
 
 if __name__ == '__main__':
        DATABASE_URI = "sqlite://"
