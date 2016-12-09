@@ -15,6 +15,21 @@ class OrderTest(unittest.TestCase):
         next_order = temp_order.get_next_order()
         self.assertTrue(next_order != None)
 
+    def test_get_next_order_type2(self):
+        temp_order = order.Order(10, 1000, order_type=2, min_price=1000)
+        next_order = temp_order.get_next_order()
+        self.assertTrue(next_order != None)
+
+    def test_get_next_order_type2_recalc(self, recalc=True):
+        temp_order = order.Order(10, 1000, order_type=2, min_price=0)
+        next_order = temp_order.get_next_order(True)
+        self.assertTrue(next_order != None)
+
+    def test_get_next_order_type1(self, recalc=True):
+        temp_order = order.Order(10, 1000, order_type=1)
+        next_order = temp_order.get_next_order(True)
+        self.assertTrue(next_order != None)
+
     def test_order_size(self):
         temp_order = order.Order(10, 1000)
         (order_size, _) = temp_order.get_next_order()
