@@ -73,7 +73,9 @@ class TransactionExecuter:
                     self.my_order.get_next_order()
 
             if (current_order_size is None or current_order_time is None):
-                return self.my_order.get_inventory_left
+                print "Price too low - putting "\
+                        "self back on queue!"
+                return self.my_order.get_inventory_left()
             if now < current_order_time:
                 if (current_order_time - now >
                         TransactionExecuter.BACK_ON_QUEUE_TIME_FRAME):
@@ -85,7 +87,7 @@ class TransactionExecuter:
                     print "Next order time: %s" % time_str
                     print "Next order size: %d" % current_order_size
                     remaining_qty_to_fill = \
-                        self.my_order.get_inventory_left
+                        self.my_order.get_inventory_left()
                     return remaining_qty_to_fill
                 else:
                     continue
