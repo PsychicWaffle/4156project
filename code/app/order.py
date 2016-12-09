@@ -4,7 +4,7 @@ import time
 import datetime
 
 SECONDS_IN_MINUTE = 60
-SECONDS_IN_HOUR = 3600
+SECONDS_IN_HOUR = 1800
 HOURS_IN_DAY = 24
 
 min_order_size = 1
@@ -112,26 +112,16 @@ class Order:
         increased_due_to_price = False
         curr_price = self.__get_current_market_price()
         if (curr_price >= 140):
-            self.next_order_size = int(float(self.next_order_size) * 8)
+            self.next_order_size = int(float(self.next_order_size) * 2)
             increased_due_to_price = True
         else:
             if (curr_price >= 130):
-                self.next_order_size = int(float(self.next_order_size) * 5)
+                self.next_order_size = int(float(self.next_order_size) * 1.5)
                 increased_due_to_price = True
             else:
                 if (curr_price >= 120):
-                    self.next_order_size = int(float(self.next_order_size) * 3)
+                    self.next_order_size = int(float(self.next_order_size) * 1.2)
                     increased_due_to_price = True
-                else:
-                    if (curr_price >= 110):
-                        self.next_order_size = \
-                            int(float(self.next_order_size) * 2)
-                        increased_due_to_price = True
-                    else:
-                        if curr_price > 100:
-                            self.next_order_size = \
-                                int(float(self.next_order_size) * 1.3)
-                            increased_due_to_price = True
 
         if increased_due_to_price is True:
             while (self.next_order_size > 500):
@@ -237,9 +227,9 @@ class Order:
 
 def get_order_type_str(o):
     if o == 0:
-        return "Time-weighted Order"
+        return "Time-weighted"
     if o == 1:
-        return "Market Order"
+        return "Market"
     if o == 2:
-        return "Limit Order"
+        return "Limit"
     raise ValueError('Unknown order type')
