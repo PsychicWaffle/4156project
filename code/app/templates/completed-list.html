@@ -28,7 +28,13 @@
 		<ul>
 			{% for transaction in complete_transactions %}
 			{% if transaction|length > 0 %}
+      {% if 'Successfully' in transaction['description'] %}
+      <li style='color:#0c0;'>{{transaction['description']}}</li>
+      {% elif 'Failed' in transaction['description'] %}
+      <li style='color:#c00;'>{{transaction['description']}}</li>
+      {% else %}
 			<li>{{ transaction['description'] }}</li>
+			{% endif %}
 			{% endif %}
 			{% endfor %}
 		</ul>
