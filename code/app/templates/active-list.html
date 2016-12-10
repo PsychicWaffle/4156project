@@ -9,6 +9,13 @@
           items[i].appendChild(node);
           console.log("test");
         }
+        var ul = document.getElementById("queued");
+        var items = ul.getElementsByTagName("li");
+        for (var i = 0; i < items.length; ++i) {
+          var node = document.createTextNode(".");
+          items[i].appendChild(node);
+          console.log("test");
+        }
       };
 
       document.interval = setInterval(add_dots, 500);
@@ -17,7 +24,7 @@
   </head>
 	<body>
 		<h2>QUEUED TRANSACTIONS:</h2>
-		<ul>
+		<ul id="queued">
 			{% for transaction in queued_transactions %}
       {% if transaction|length > 0 %}
       <li>{{transaction['description']}}</li>
