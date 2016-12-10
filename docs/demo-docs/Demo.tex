@@ -1,0 +1,92 @@
+\documentclass{article} 
+\usepackage{url, graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{textcomp}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{titling}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings} % for code highlighting/formatting
+\usepackage[final]{pdfpages}
+
+\usepackage{color} %defining colors for syntax highlighting
+\definecolor{syntaxBlue}{RGB}{42,0.0,255}
+\definecolor{syntaxGreen}{RGB}{63,127,95}
+\definecolor{syntaxPurple}{RGB}{127,0,85}
+\definecolor{syntaxCyan}{RGB}{0,155,155}
+\definecolor{syntaxGreyBg}{RGB}{220,220,220}
+
+
+\lstset{
+    basicstyle=\small\ttfamily, % Global Code Style
+    tabsize=2, % number of spaces indented when discovering a tab 
+    columns=fixed, % make all characters equal width
+    keepspaces=true, % does not ignore spaces to fit width, convert tabs to spaces
+    showstringspaces=false, % lets spaces in strings appear as real spaces
+    breaklines=true, % wrap lines if they don't fit
+    frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+    frameround=tttt, % make the frame round at all four corners
+    framesep=4pt, % quarter circle size of the round corners
+    numbers=left, % show line numbers at the left
+    numberstyle=\tiny\ttfamily, % style of the line numbers
+    commentstyle=\color{syntaxGreen},
+    keywordstyle=\color{syntaxPurple},
+    stringstyle=\color{syntaxBlue},
+    emph={int,char,float,struct,string},
+    emphstyle=\color{syntaxCyan},
+    backgroundcolor=\color{syntaxGreyBg},
+}
+
+\title{Demo}
+\author{
+    A.J. Feather\\
+    \texttt{af2849@columbia.edu}
+    \and
+    Andrew Grant\\
+    \texttt{amg2215@columbia.edu}
+    \and
+    Jacob Graff\\
+    \texttt{jag2302@columbia.edu}
+    \and
+    Jake Weissman\\
+    \texttt{jdw2159@columbia.edu}
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Demo Plan}
+
+\subsection{Algorithm}
+Demoing the Algorithm
+\begin{enumerate}
+\item Submit a new time-weighted order of size 100,000 by inputing order size and clicking time-weighted button
+\item Submit a new time-weighted order of size 1000 by inputing order size and clicking time-weighted button
+\item Watch it show up in the ``Running Transactions'' box and see sub orders get executed over time
+\item Submit a new market order, and watch it get executed straight away. See it show up in the ``Todays Completed Transaction" section
+\item Submit a new limit order with a min price, above the current market price, and watch it wait to execute any orders until price rises
+\item Observe orders getting executed and how many shares are getting sold over time
+\item Observe how orders of different order sizes get executed. For example, see how the order with size 100,000 is selling more units more frequently than the order with order size 100
+\end{enumerate}
+Explaining the Algorithm
+\begin{itemize}
+\item Three types of orders: time-weighted, limit, market
+\item Market order = sell total amount right now
+\item Time-weighted = break order up into small chunks and sell throughout the day
+\begin{itemize}
+\item The algorithm will first determine how long the intervals between sub orders needs to be in order to sell 1 unit at a time. If this interval is larger than 5 minutes, then the algorithm will simply sell 1 unit every x minutes. e.g. if there is a sell order of 10 units over the course of the day, it will sell 1 unit every 1 hour (approximately)
+\item If the calculated time interval is too small (e.g. if the order is big and would need to sell 1 unit every 30 seconds), it will figure out how much it needs to sell for it to sell every 5 minutes. For example, for a huge order it may decide it needs to sell 500 units every 5 minutes. The algorithm will then 
+\end{itemize}
+\item limit order is like time-weighted order, except there is a min price. Whenever a worker fails to execute an order because the price is too low, it will recalculate order size for the next order  
+\item Explain how orders of previous day are cancelled
+\item Explain that orders dynamically recalculate when to sell next and the next order size, so that orders can handle the system being paused, stopped etc. That is, the algorithm ultimately relies on two inputs for executing a transaction: 1) time left in day 2) number of shares left to sell.  
+\end{itemize}
+
+
+\end{document} 
