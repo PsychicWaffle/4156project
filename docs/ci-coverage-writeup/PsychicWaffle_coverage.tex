@@ -1,0 +1,76 @@
+\documentclass{article} 
+\usepackage{url, graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{textcomp}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{titling}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings} % for code highlighting/formatting
+\usepackage[final]{pdfpages}
+
+\usepackage{color} %defining colors for syntax highlighting
+\definecolor{syntaxBlue}{RGB}{42,0.0,255}
+\definecolor{syntaxGreen}{RGB}{63,127,95}
+\definecolor{syntaxPurple}{RGB}{127,0,85}
+\definecolor{syntaxCyan}{RGB}{0,155,155}
+\definecolor{syntaxGreyBg}{RGB}{220,220,220}
+
+
+\lstset{
+    basicstyle=\small\ttfamily, % Global Code Style
+    tabsize=2, % number of spaces indented when discovering a tab 
+    columns=fixed, % make all characters equal width
+    keepspaces=true, % does not ignore spaces to fit width, convert tabs to spaces
+    showstringspaces=false, % lets spaces in strings appear as real spaces
+    breaklines=true, % wrap lines if they don't fit
+    frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+    frameround=tttt, % make the frame round at all four corners
+    framesep=4pt, % quarter circle size of the round corners
+    numbers=left, % show line numbers at the left
+    numberstyle=\tiny\ttfamily, % style of the line numbers
+    commentstyle=\color{syntaxGreen},
+    keywordstyle=\color{syntaxPurple},
+    stringstyle=\color{syntaxBlue},
+    emph={int,char,float,struct,string},
+    emphstyle=\color{syntaxCyan},
+    backgroundcolor=\color{syntaxGreyBg},
+}
+
+\title{Psychic Waffle Project Proposal}
+\author{
+    A.J. Feather\\
+    \texttt{af2849@columbia.edu}
+    \and
+    Andrew Grant\\
+    \texttt{amg2215@columbia.edu}
+    \and
+    Jacob Graff\\
+    \texttt{jag2302@columbia.edu}
+    \and
+    Jake Weissman\\
+    \texttt{jdw2159@columbia.edu}
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Continuous Integration}
+We used Travis CI as our integration tool and linked it to our GitHub repo. We set it up so that on each commit and push, Travis runs our entire test suite and reports on the coverage statistics as well.
+
+\section{Code Coverage}
+
+
+\section{Resources}
+\begin{itemize}
+\item Task board = \url{https://trello.com/b/ZAo59Z8n/2nd-iteration-j-p-morgan-project}
+\item Repo = \url{https://github.com/PsychicWaffle/4156project}
+\end{itemize}
+
+\end{document} 
