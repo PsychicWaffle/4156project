@@ -21,7 +21,6 @@ class Order:
                  initial_inventory,
                  start_time,
                  min_price=None,
-                 max_time=None,
                  order_type=None):
         self.order_window = 500
         self.min_order_size = 5
@@ -30,14 +29,10 @@ class Order:
         self.curr_inventory = self.initial_inventory
         self.executed_trades = []
         self.min_price = min_price
-        self.max_time = max_time
         self.next_order_time = start_time
         self.next_order_size = 0
         self.order_type = order_type
-        if (max_time is not None):
-            self.expiration_time = start_time + max_time
-        else:
-            self.expiration_time = market_methods.get_end_of_day_time()
+        self.expiration_time = market_methods.get_end_of_day_time()
         self.__set_next_order(first_order=True)
         if (self.__check_valid_order() is False):
             raise ValueError('Invalid order created')
