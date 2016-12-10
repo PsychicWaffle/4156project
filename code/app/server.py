@@ -22,7 +22,7 @@ app = Flask(__name__)
 app.secret_key = \
     '\n\x1f\xe9(\xf0DdG~\xd4\x863\xa0\x10\x1e\xbaF\x10\x16\x7f(\x06\xb7/'
 
-MAX_AGE = 12 * 60 * 60
+MAX_AGE = 9 * 60 * 60
 
 
 # Check for incomplete transctions each time the server is restarted
