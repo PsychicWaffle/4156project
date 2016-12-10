@@ -11,11 +11,6 @@ class UserPass(Base):
     username = Column(String, primary_key=True)
     password = Column(String, nullable=False)
 
-    def __repr__(self):
-        return "<UserPass(username='%s', password='%s')>" % (self.username,
-                                                             self.password)
-
-
 class Transactions(Base):
     __tablename__ = 'transactions'
     id = Column(Integer, primary_key=True)
@@ -28,11 +23,6 @@ class Transactions(Base):
     order_type = Column(Integer, nullable=False)
     min_price = Column(Integer, nullable=False)
 
-    def __repr__(self):
-        return "<Transactions(username='%s', id='%d')>" % (self.username,
-                                                           self.id)
-
-
 class ExecutedTrade(Base):
     __tablename__ = 'executedtrade'
     id = Column(Integer, primary_key=True)
@@ -40,7 +30,3 @@ class ExecutedTrade(Base):
     timestamp = Column(Integer, nullable=False)
     quantity = Column(Integer, nullable=False)
     avg_price = Column(Float, nullable=False)
-
-    def __repr__(self):
-        return "<ExecutedTrades(trans_id='%d', timestamp='%d')>" % \
-            (self.id, self.timestamp)
