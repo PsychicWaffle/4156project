@@ -42,6 +42,28 @@ class TransactionTest(unittest.TestCase):
 
         sys.stdout = old_stdout
 
+    def test_system_test_execute_transaction(self):
+        test_username = "Andy"
+        test_passhash = "3838"
+        test_trade_quantity = 1
+        database_methods.insertNewUser(test_username, test_passhash)
+        returned_user = database_methods.getUser(test_username)
+        self.assertTrue(returned_user != None)
+        ret_id = database_methods.insertNewTransaction(test_trade_quantity, test_username)
+        test_t_x = TransactionExecuter(test_username, ret_id)
+        old_stdout = sys.stdout
+        sys.stdout = open(os.devnull, 'w')
+        test_t_x_finished = False
+        order = Order(test_trade_quantity, 1000)
+        test_t_x.execute_transaction(order)
+        while (test_t_x_finished == False):
+            curr_tran = database_methods.getTransactionById(ret_id)
+            if (curr_tran.finished == True):
+                test_t_x_finished = True
+
+        sys.stdout = old_stdout
+
+
     def test_negative_order_size(self):
         test_username = "Andy"
         test_passhash = "3838"
