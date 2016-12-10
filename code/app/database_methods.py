@@ -189,20 +189,20 @@ def getGroupedTransactionList(username,
                 total_avg = round(curr_avg_total / trans.qty_executed, 2)
                 description = \
                     "%s: units requested: %d, " \
-                    "executed: %d, avg price: %s, order status: %s, order type: %s" % \
+                    "executed: %d, avg price: %s, order type: %s, order status: %s" % \
                     (timestamp,
                      trans.qty_requested,
                      trans.qty_executed,
                      total_avg, 
-                     fill_desc,
-                     order_type)
+                     order_type,
+                     fill_desc)
             else:
                 description = \
-                        "%s: units requested: %d, executed: %d, order status: %s, order type: %s" % \
+                        "%s: units requested: %d, executed: %d, order type: %s, order status: %s" % \
                     (timestamp,
                      trans.qty_requested,
-                     trans.qty_executed, fill_desc, 
-                     order_type)
+                     trans.qty_executed,  
+                     order_type, fill_desc)
 
             group['description'] = description
             grouped_trans.append(group)
