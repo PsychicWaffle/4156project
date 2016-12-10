@@ -87,6 +87,17 @@ class DatabaseTest(unittest.TestCase):
                 dm.removeTransactionsByUsername(test_username)
                 dm.removeUser(test_username)
 
+        def test_get_grouped_trans_list_execpos(self):
+                test_username = "Jake"
+                test_passhash = "3838"
+                dm.insertNewUser(test_username, test_passhash)
+                transaction = Transactions(username=test_username, finished=True, qty_requested=100, qty_executed=10, timestamp=time.time(), queued=False, order_type=0, min_price = -1)
+                ret = dm.insertDatabaseItemWithId(transaction)
+                trans_list = dm.getGroupedTransactionList(test_username, completed=True)
+                self.assertTrue(len(trans_list) > 0)
+                dm.removeTransactionsByUsername(test_username)
+                dm.removeUser(test_username)
+
         def test_get_grouped_trans_notinrange(self):
                 test_username = "Jake"
                 test_passhash = "3838"
@@ -98,13 +109,24 @@ class DatabaseTest(unittest.TestCase):
                 dm.removeTransactionsByUsername(test_username)
                 dm.removeUser(test_username)
 
-        def test_get_grouped_trans_lessthanexec(self):
+        def test_get_grouped_trans_minqtyexec(self):
                 test_username = "Jake"
                 test_passhash = "3838"
                 dm.insertNewUser(test_username, test_passhash)
                 transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=0, timestamp=time.time(), queued=True, order_type=0, min_price = -1)
                 ret = dm.insertDatabaseItemWithId(transaction)
                 trans_list = dm.getGroupedTransactionList(test_username, min_qty_executed=10)
+                self.assertTrue(len(trans_list) == 0)
+                dm.removeTransactionsByUsername(test_username)
+                dm.removeUser(test_username)
+
+        def test_get_grouped_trans_maxqtyexec(self):
+                test_username = "Jake"
+                test_passhash = "3838"
+                dm.insertNewUser(test_username, test_passhash)
+                transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=10, timestamp=time.time(), queued=True, order_type=0, min_price = -1)
+                ret = dm.insertDatabaseItemWithId(transaction)
+                trans_list = dm.getGroupedTransactionList(test_username, max_qty_executed=0)
                 self.assertTrue(len(trans_list) == 0)
                 dm.removeTransactionsByUsername(test_username)
                 dm.removeUser(test_username)
@@ -141,12 +163,10 @@ class DatabaseTest(unittest.TestCase):
                 test_username = "Jake"
                 test_passhash = "3838"
                 dm.insertNewUser(test_username, test_passhash)
-                transaction = Transactions(username=test_username, finished=False, qty_requested=100, qty_executed=0, timestamp=time.time(), queued=True, order_type=0, min_price = -1)
-                ret = dm.insertDatabaseItemWithId(transaction)
                 transaction = Transactions(username=test_username, finished=False, qty_requested=200, qty_executed=0, timestamp=time.time(), queued=False, order_type=2, min_price = -1)
                 ret = dm.insertDatabaseItemWithId(transaction)
                 tid = dm.insertNewExecutedTrade(ret, 1, 10, 40)
-                dm.removeExecutedTradesById(tid)
+                dm.removeExecutedTradesById(ret)
                 dm.removeTransactionsByUsername(test_username)
                 dm.removeUser(test_username)
 
