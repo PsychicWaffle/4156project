@@ -69,6 +69,8 @@ Since we have been gradually writing tests for our app throughout the developmen
 
 While we made a ton of progress, we still fell short of our goal of reaching 100\% coverage. With a lot more time we might have been able to get it there but we were starting to see diminishing returns at a certain point. Some issues that prevented us from reaching our goal was some areas of the code with hard-coded values. For example, we hard-coded the URL to the market exchange which did not allow us to test for cases when the exchange was down. This would have been possible with a more configurable environment, but we chose not to make those changes at the risk of messing up the current working state of the code right before time to demo. This issue played itself out in a few more cases where it was hard to force certain error conditions. Additionally, the code that handles the multiprocessing queue system was hard to test and hurt our coverage numbers.
 
+\section{System Tests}
+
 \section{Resources}
 \begin{itemize}
 \item Code Coverage Report = \url{https://github.com/PsychicWaffle/4156project/blob/master/docs/coverage_report.txt}
