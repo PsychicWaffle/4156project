@@ -19,6 +19,14 @@
             });
       };
 
+      order_change = function() {
+        if ($("#order_type").val() == 2) {
+          $("#min_price").show();
+        } else {
+          $("#min_price").hide();
+        }
+      }
+
     document.interval = setInterval(get_latest, 4000);
 
     </script>
@@ -45,12 +53,12 @@
       <h3>Execute a Transaction</h3>
       <p style='color:red'>{{error_message}}</p>
       <div class="form_holder">
-        <form class="orderform" action="home" method="POST"> 
+        <form class="orderform" action="home" method="POST">
           <p class="left_p">
             <span style="float:left;">Number of Shares: </span>
             <input type="number" name="quantity" align="right" />
           </p>
-          <p class="left_p"> 
+          <p class="left_p" id="min_price" style="display:none;">
           <span style="float:left;">Min price: </span>
             <input type="number" name="min_price" align="right" />
             </p>
@@ -63,7 +71,7 @@
 
             <p class="left_p">
             <span style="float:left;">Order Type: </span>
-            <select name="order_type" align="right">
+            <select id="order_type" name="order_type" align="right" onchange="order_change()">
               <option value="0">Time-Weighted</option>
               <option value="1">Market</option>
               <option value="2">Limit</option>
