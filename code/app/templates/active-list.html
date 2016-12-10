@@ -1,4 +1,20 @@
 <html>
+  <head>
+    <script type="text/javascript">
+      add_dots = function() {
+        var ul = document.getElementById("running");
+        var items = ul.getElementsByTagName("li");
+        for (var i = 0; i < items.length; ++i) {
+          var node = document.createTextNode(".");
+          items[i].appendChild(node);
+          console.log("test");
+        }
+      };
+
+      document.interval = setInterval(add_dots, 500);
+
+    </script>
+  </head>
 	<body>
 		<h2>QUEUED TRANSACTIONS:</h2>
 		<ul>
@@ -9,7 +25,7 @@
 			{% endfor %}
 		</ul>
 		<h2>RUNNING TRANSACTIONS:</h2>
-		<ul>
+		<ul id="running">
 			{% for transaction in transactions %}
 			{% if transaction|length > 0 %}
 			<li>{{transaction['description']}}</li>
