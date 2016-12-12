@@ -179,7 +179,6 @@ class TransactionExecuter:
             price = market_methods.get_market_price()
             if (price == -1):
                 return -1
-            print "Quoted at %s" % price
 
         return price
 
